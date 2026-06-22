@@ -1,0 +1,19 @@
+{
+  "name": "fateme-abbasi-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bilingual (English/Persian) static portfolio for Fateme \"Mona\" Abbasi.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "clean": "node -e \"import('node:fs').then(fs=>fs.rmSync('dist',{recursive:true,force:true}))\"",
+    "serve": "node scripts/serve.mjs"
+  },
+  "config": {
+    "siteUrl": "https://fatemeabbasi.com"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0",
+    "playwright": "^1.61.0"
+  }
+}

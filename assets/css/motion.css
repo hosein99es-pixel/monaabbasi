@@ -1,0 +1,348 @@
+/* ============================================================================
+   motion.css - physical motion layer for the Mona Abbasi Material Stage.
+   main.css owns static design. This file owns entrance choreography, scroll
+   depth, tactile states, and modal weight. It is additive and reduced-motion
+   safe: content is never hidden without JS and motion permission.
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, components, dialogs, utilities, motion;
+
+@layer motion {
+  :root {
+    --ease-spring: cubic-bezier(.16, 1, .3, 1);
+    --ease-heavy: cubic-bezier(.2, .8, .2, 1);
+    --ease-out-quint: cubic-bezier(.22, 1, .36, 1);
+    --reveal-distance: 2.5rem;
+    --reveal-duration: 820ms;
+    --reveal-stagger: 74ms;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js .top-app-bar {
+      animation: appbar-enter 780ms var(--ease-spring) both;
+      transform-origin: 50% 0;
+      transition:
+        transform 420ms var(--ease-spring),
+        box-shadow 420ms var(--ease-spring),
+        background-color 420ms var(--ease-heavy),
+        border-color 420ms var(--ease-heavy);
+      will-change: transform;
+    }
+
+    .js.is-scrolled .top-app-bar {
+      transform: translate3d(0, .35rem, 0) scale(.992);
+      border-color: color-mix(in oklch, var(--md-stage-color-gold) 34%, var(--md-sys-color-outline-variant));
+      background: color-mix(in oklch, var(--md-sys-color-surface) 78%, transparent);
+      box-shadow: var(--md-sys-elevation-3);
+    }
+
+    @keyframes appbar-enter {
+      from {
+        opacity: 0;
+        transform: translate3d(0, -1rem, 0) scale(.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .js .nav-links a {
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 240ms var(--ease-spring),
+        background-color 240ms var(--ease-heavy),
+        color 240ms var(--ease-heavy);
+    }
+
+    .js .nav-links a::after {
+      content: "";
+      position: absolute;
+      inset-inline: 1rem;
+      inset-block-end: .45rem;
+      height: 2px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-stage-color-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 320ms var(--ease-spring);
+    }
+
+    html.js[dir="rtl"] .nav-links a::after,
+    html[data-lang="fa"] .nav-links a::after {
+      transform-origin: right;
+    }
+
+    .js .nav-links a:hover,
+    .js .nav-links a:focus-visible,
+    .js .nav-links a[aria-current="page"] {
+      transform: translate3d(0, -1px, 0);
+    }
+
+    .js .nav-links a:hover::after,
+    .js .nav-links a:focus-visible::after,
+    .js .nav-links a[aria-current="page"]::after {
+      transform: scaleX(1);
+    }
+
+    .js .reveal {
+      opacity: 0;
+      transform: translate3d(0, var(--reveal-distance), 0) scale(.982);
+      transition:
+        opacity var(--reveal-duration) var(--ease-spring),
+        transform var(--reveal-duration) var(--ease-spring);
+      transition-delay: calc(var(--si, 0) * var(--reveal-stagger));
+      will-change: transform, opacity;
+    }
+
+    .js .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+
+    .js .hero__content.reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      will-change: auto;
+    }
+
+    .js .hero__content.reveal > * {
+      opacity: .12;
+      transform: translate3d(0, 1rem, 0) scale(.99);
+      transition:
+        opacity 660ms var(--ease-spring),
+        transform 660ms var(--ease-spring);
+      transition-delay: calc(40ms + (var(--si, 0) * 76ms));
+      will-change: transform, opacity;
+    }
+
+    .js .hero__content.reveal.is-visible > * {
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+
+    .js .hero__media.reveal {
+      opacity: 1;
+      transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: box-shadow 420ms var(--ease-spring);
+      will-change: transform;
+    }
+
+    .js .hero__media img {
+      scale: 1.1;
+      translate: 0 var(--py, 0);
+      will-change: translate;
+    }
+
+    .js [data-parallax] {
+      translate: 0 var(--py, 0);
+    }
+
+    .js [data-parallax].is-motion-active {
+      will-change: translate;
+    }
+
+    .js .work-card__media img[data-parallax],
+    .js .gallery-card img[data-parallax] {
+      scale: 1.045;
+      transform-origin: center;
+    }
+
+    .js .section-label::after {
+      transform: scaleX(calc(.34 + (var(--view-progress, 1) * .66)));
+      transform-origin: left;
+    }
+
+    html.js[dir="rtl"] .section-label::after,
+    html[data-lang="fa"] .section-label::after {
+      transform-origin: right;
+    }
+
+    .js .section-ornament svg {
+      opacity: calc(.42 + (var(--view-progress, 1) * .58));
+      transform: scale(calc(.94 + (var(--view-progress, 1) * .06)));
+      transition: opacity 420ms var(--ease-heavy);
+      will-change: transform, opacity;
+    }
+
+    .js .bio-mark.is-motion-active,
+    .js .reel-panel.is-motion-active {
+      will-change: translate;
+    }
+
+    .js .button,
+    .js .icon-button,
+    .js .chip,
+    .js .work-card,
+    .js .gallery-card,
+    .js .contact-list a,
+    .js .production-gallery button {
+      transform-origin: 50% 55%;
+      transition:
+        transform 320ms var(--ease-spring),
+        box-shadow 320ms var(--ease-spring),
+        background-color 240ms var(--ease-heavy),
+        color 240ms var(--ease-heavy);
+    }
+
+    .js .button:active,
+    .js .icon-button:active,
+    .js .work-card:active,
+    .js .gallery-card:active,
+    .js .contact-list a:active,
+    .js .production-gallery button:active {
+      transform: translate3d(0, 1px, 0) scale(.985);
+    }
+
+    @media (hover: hover) {
+      .js .work-card,
+      .js .gallery-card,
+      .js .contact-list a,
+      .js .production-gallery button {
+        backface-visibility: hidden;
+      }
+
+      .js .work-card:hover,
+      .js .work-card:focus-within {
+        transform: translate3d(0, -7px, 0) scale(1.006);
+        box-shadow: var(--md-sys-elevation-4);
+      }
+
+      .js .work-card__content,
+      .js .work-card__action {
+        transition: transform 420ms var(--ease-spring);
+      }
+
+      .js .work-card:hover .work-card__content,
+      .js .work-card:focus-within .work-card__content {
+        transform: translate3d(0, -4px, 0);
+      }
+
+      .js .work-card:hover .work-card__action,
+      .js .work-card:focus-within .work-card__action {
+        transform: translate3d(0, -2px, 0) scale(1.018);
+      }
+
+      .js .gallery-card:hover,
+      .js .gallery-card:focus-visible,
+      .js .contact-list a:hover,
+      .js .contact-list a:focus-visible,
+      .js .production-gallery button:hover,
+      .js .production-gallery button:focus-visible {
+        transform: translate3d(0, -6px, 0) scale(1.004);
+        box-shadow: var(--md-sys-elevation-3);
+      }
+
+      .js .work-card__media,
+      .js .gallery-card {
+        position: relative;
+      }
+
+      .js .work-card__media::after,
+      .js .gallery-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(105deg, transparent 28%, color-mix(in oklch, #fff 24%, transparent) 50%, transparent 72%);
+        opacity: .72;
+        translate: -135% 0;
+        transition: translate 820ms var(--ease-out-quint);
+      }
+
+      .js .work-card:hover .work-card__media::after,
+      .js .gallery-card:hover::after {
+        translate: 135% 0;
+      }
+    }
+
+    .js .production-dialog[open]::backdrop,
+    .js .lightbox-dialog[open]::backdrop,
+    .js .gallery-dialog[open]::backdrop {
+      animation: backdrop-enter 320ms var(--ease-heavy) both;
+    }
+
+    .js .production-dialog[open] .production-sheet,
+    .js .lightbox-dialog[open] figure,
+    .js .gallery-dialog[open] .gallery-preview-card {
+      animation: dialog-enter 560ms var(--ease-spring) both;
+      transform-origin: 50% 45%;
+    }
+
+    .js .production-dialog[open] .production-body > *,
+    .js .gallery-dialog[open] .gallery-preview-card > div > * {
+      animation: dialog-child-enter 620ms var(--ease-spring) both;
+      animation-delay: calc(120ms + (var(--si, 0) * 52ms));
+    }
+
+    @keyframes backdrop-enter {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes dialog-enter {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 1.35rem, 0) scale(.965);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes dialog-child-enter {
+      from {
+        opacity: 0;
+        transform: translate3d(0, .9rem, 0);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 980px) {
+      #primary-nav {
+        transition:
+          opacity 220ms var(--ease-heavy),
+          transform 260ms var(--ease-spring);
+      }
+
+      #primary-nav.is-open,
+      .top-app-bar:has(.nav-toggle[aria-expanded="true"]) #primary-nav {
+        transition-delay: 0s;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal,
+    .js .reveal.is-visible,
+    .js .hero__content.reveal > *,
+    .js .hero__media.reveal,
+    .js [data-parallax],
+    .js [data-scroll-progress],
+    .js .production-dialog[open] .production-sheet,
+    .js .lightbox-dialog[open] figure,
+    .js .gallery-dialog[open] .gallery-preview-card {
+      opacity: 1 !important;
+      transform: none !important;
+      translate: none !important;
+      scale: none !important;
+      rotate: none !important;
+      transition: none !important;
+      animation: none !important;
+      will-change: auto !important;
+    }
+  }
+}

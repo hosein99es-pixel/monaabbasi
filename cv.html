@@ -1,0 +1,165 @@
+<!doctype html><html lang="en" data-lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; form-action 'self'"><title>Fateme Abbasi — CV</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@700&amp;family=Vazirmatn:wght@400;500;600;700&amp;display=swap">
+<style>
+ html{background:#140c10;} body{margin:0;padding:18px 0 40px;font-family:Inter,sans-serif;}
+ [data-lang="en"] .fa{display:none!important} [data-lang="fa"] .en{display:none!important}
+ .prodoc{display:block!important}
+ .bar{position:sticky;top:0;z-index:9;display:flex;gap:10px;justify-content:center;align-items:center;padding:10px;background:#241a1c;color:#f4e7d6;font-family:Inter,sans-serif}
+ .bar button{font:inherit;font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid #8f2433;background:#8f2433;color:#fff;cursor:pointer}
+ .bar button.alt{background:transparent;color:#e9b949;border-color:#e9b949}
+ @media print{.bar{display:none} html{background:#fff} body{padding:0}}
+
+    /* ===== PROFESSIONAL CV & PORTFOLIO — DARK / NUDE EDITION =====
+       Print-to-PDF (A4). Dark theatrical palette, warm nude ink, gold + rose
+       accents. Flow pages (page-break-after) with page numbers; nothing clips. */
+    :root{
+      --pd-bg:#1b1115; --pd-bg2:#241620; --pd-bg3:#2d1a22;
+      --pd-ink:#f0e3d6; --pd-soft:#d4c3b4; --pd-muted:#a08f84;
+      --pd-wine:#e07b8e; --pd-gold:#e2b24f; --pd-line:rgba(226,178,79,.30);
+      --pd-rad:16px;
+    }
+    .prodoc{ display:none; color:var(--pd-ink); }
+    .prodoc.is-active{ display:block; }
+    .prodoc img{ opacity:1 !important; filter:none !important; }
+    .document-viewer{ background:#140c10 !important; }
+
+    /* face-centered card crops (no zoom, just shift toward the face) */
+    .work-card__media img,
+    .work-card--featured .work-card__media img{ object-position:center 24% !important; }
+
+    .prodoc .pp{
+      box-sizing:border-box; position:relative;
+      width:min(100%,210mm); min-height:294mm; margin:0 auto 1.5rem;
+      padding:18mm 16mm 20mm; background:var(--pd-bg);
+      border:1px solid var(--pd-line); border-radius:10px;
+      box-shadow:0 18px 50px rgba(0,0,0,.45);
+      font-family:"Inter",system-ui,sans-serif; font-size:10.8pt; line-height:1.62;
+      color:var(--pd-ink); overflow:hidden;
+    }
+    .prodoc--pf .pp{ width:min(100%,297mm); min-height:200mm; padding:15mm 17mm 17mm; }
+    .prodoc .pp .fa{ font-family:"Vazirmatn","Inter",Tahoma,sans-serif; direction:rtl; }
+    .prodoc .pp h1,.prodoc .pp h2,.prodoc .pp h3{ font-family:"Cormorant Garamond",Georgia,serif; margin:0; line-height:1.02; color:#fff; letter-spacing:-.01em; }
+    .prodoc .pp h1.fa,.prodoc .pp h2.fa,.prodoc .pp h3.fa{ font-family:"Vazirmatn",sans-serif; line-height:1.3; }
+    .prodoc .pd-kick{ font-family:"JetBrains Mono",ui-monospace,monospace; font-size:8.5pt; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:var(--pd-gold); margin:0 0 3mm; }
+    .prodoc .pd-rule{ height:2px; border:0; margin:3mm 0 5mm; background:linear-gradient(90deg,var(--pd-wine),var(--pd-gold) 55%,transparent); }
+    .prodoc a{ color:var(--pd-gold); text-decoration:none; }
+    .prodoc .pd-no{ position:absolute; right:14mm; bottom:9mm; font-family:"JetBrains Mono",monospace; font-size:8.5pt; letter-spacing:.12em; color:var(--pd-muted); }
+    .prodoc .pd-no i{ color:var(--pd-gold); font-style:normal; }
+    .prodoc .pd-foot{ position:absolute; left:16mm; right:30mm; bottom:9mm; font-size:8.2pt; color:var(--pd-muted); border-top:1px solid var(--pd-line); padding-top:2mm; }
+
+    /* ---------- CV ---------- */
+    .prodoc--cv .pd-head{ display:grid; grid-template-columns:1fr auto; gap:10mm; align-items:center; padding-bottom:6mm; border-bottom:2px solid var(--pd-wine); }
+    .prodoc--cv .pd-head h1{ font-size:33pt; }
+    .prodoc--cv .pd-fa-name{ font-family:"Vazirmatn",sans-serif; font-size:15pt; color:var(--pd-gold); margin-top:1.5mm; }
+    .prodoc--cv .pd-role{ font-size:11pt; color:var(--pd-soft); margin-top:2.5mm; }
+    .prodoc--cv .pd-contact{ display:flex; flex-wrap:wrap; gap:2mm 6mm; margin-top:3.5mm; font-size:9.4pt; color:var(--pd-muted); }
+    .prodoc--cv .pd-contact b{ color:var(--pd-gold); font-weight:600; }
+    .prodoc--cv .pd-portrait{ width:35mm; height:43mm; object-fit:cover; object-position:center 22%; border-radius:12px; border:1px solid var(--pd-line); }
+    .prodoc--cv .pd-body{ display:grid; grid-template-columns:64mm 1fr; gap:10mm; margin-top:7mm; }
+    .prodoc--cv .pd-sec{ margin-bottom:6.5mm; break-inside:avoid; }
+    .prodoc--cv .pd-sec>h3{ font-size:13.5pt; color:var(--pd-gold); margin-bottom:2mm; letter-spacing:.01em; }
+    .prodoc--cv .pd-aside .pd-sec>h3{ font-size:12pt; }
+    .prodoc--cv ul{ list-style:none; margin:0; padding:0; }
+    .prodoc--cv .pd-aside li{ margin-bottom:2.4mm; }
+    .prodoc--cv .pd-aside li b{ display:block; font-weight:600; color:var(--pd-ink); }
+    .prodoc--cv .pd-aside li span{ color:var(--pd-muted); font-size:9.3pt; }
+    .prodoc--cv .pd-cred{ display:grid; grid-template-columns:16mm 1fr; gap:3mm; padding:1.9mm 0; border-bottom:1px solid var(--pd-line); break-inside:avoid; }
+    .prodoc--cv .pd-cred:last-child{ border-bottom:0; }
+    .prodoc--cv .pd-cred .pd-yr{ font-family:"JetBrains Mono",monospace; font-size:9pt; color:var(--pd-gold); font-weight:700; }
+    .prodoc--cv .pd-cred .pd-t{ font-weight:600; color:#fff; }
+    .prodoc--cv .pd-cred .pd-m{ color:var(--pd-muted); font-size:9.2pt; }
+
+    /* ---------- PORTFOLIO (artistic) ---------- */
+    .prodoc--pf .pp{ display:grid; }
+    .prodoc--pf .pp-cover{ padding:0; position:relative; overflow:hidden; text-align:left; }
+    .prodoc--pf .pp-cover>img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 20%; border-radius:0; margin:0; box-shadow:none; }
+    .prodoc--pf .cover-scrim{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,10,14,.10),rgba(20,10,14,.22) 48%,rgba(20,10,14,.95)); }
+    .prodoc--pf .cover-text{ position:absolute; left:0; right:0; bottom:0; z-index:1; padding:16mm 18mm; }
+    .prodoc--pf .pp-cover h1{ font-size:58pt; }
+    .prodoc--pf .pp-cover .pd-fa-name{ font-family:"Vazirmatn",sans-serif; font-size:23pt; color:var(--pd-gold); margin-top:2mm; }
+    .prodoc--pf .pp-cover p{ color:#e9dccd; max-width:180mm; margin:4mm 0 0; font-size:12pt; }
+    .prodoc--pf .pp-cover .pd-no{ color:rgba(255,255,255,.55); }
+    /* editorial lead + bigger hero to fill space */
+    .prodoc--pf .pd-desc .en p:first-child{ font-family:"Cormorant Garamond",serif; font-size:14.5pt; line-height:1.34; color:var(--pd-gold); margin-bottom:3.5mm; }
+    .prodoc--pf .pd-desc .fa p:first-child{ color:var(--pd-wine); }
+    .prodoc--pf .pp-work h2{ font-size:30pt; }
+    .prodoc--pf .pd-gal.n1 .pd-hero{ aspect-ratio:3/4; max-height:none; }
+    .prodoc--pf .pd-gal.n3 .pd-hero{ aspect-ratio:16/10; }
+
+    .prodoc--pf .pp-work{ grid-template-columns:1.02fr 1.18fr; gap:11mm; align-items:center; }
+    .prodoc--pf .pp-work.alt{ grid-template-columns:1.18fr 1.02fr; }
+    .prodoc--pf .pp-work.alt .pd-gal{ order:2; }
+    .prodoc--pf .pp-bgyear{ position:absolute; top:6mm; right:10mm; font-family:"Cormorant Garamond",serif; font-weight:700; font-size:120pt; line-height:.7; color:rgba(226,178,79,.07); letter-spacing:-.04em; pointer-events:none; }
+    .prodoc--pf .pp-work.alt .pp-bgyear{ right:auto; left:10mm; }
+    .prodoc--pf .pd-text{ position:relative; z-index:1; }
+    .prodoc--pf .pp-work h2{ font-size:27pt; color:#fff; }
+    .prodoc--pf .pp-work h2 .pd-fa-t{ display:block; font-family:"Vazirmatn",sans-serif; font-size:14.5pt; color:var(--pd-gold); margin-top:1.5mm; }
+    .prodoc--pf .pd-meta{ display:flex; flex-wrap:wrap; gap:2mm; margin:3.5mm 0 4mm; }
+    .prodoc--pf .pd-meta span{ font-size:8.4pt; color:var(--pd-soft); border:1px solid var(--pd-line); border-radius:999px; padding:1mm 3mm; }
+    .prodoc--pf .pd-meta b{ color:var(--pd-gold); font-weight:700; }
+    .prodoc--pf .pd-desc p{ margin:0 0 2.6mm; font-size:9.9pt; line-height:1.6; color:var(--pd-ink); }
+    .prodoc--pf .pd-desc .fa{ display:block; margin-top:3mm; padding-top:3mm; border-top:1px solid var(--pd-line); color:var(--pd-soft); font-size:9.6pt; }
+    .prodoc--pf .pd-desc .fa p{ color:var(--pd-soft); }
+
+    .prodoc--pf .pd-gal{ display:grid; gap:4mm; }
+    .prodoc--pf .pd-gal img{ width:100%; object-fit:cover; object-position:center 28%; border-radius:var(--pd-rad); background:var(--pd-bg3); display:block; box-shadow:0 10px 26px rgba(0,0,0,.4); }
+    .prodoc--pf .pd-gal.n1 .pd-hero{ aspect-ratio:4/5; max-height:158mm; }
+    .prodoc--pf .pd-gal.n2{ grid-template-columns:1fr; }
+    .prodoc--pf .pd-gal.n2 .pd-hero{ aspect-ratio:16/10; }
+    .prodoc--pf .pd-gal.n2 .pd-th{ aspect-ratio:16/7; }
+    .prodoc--pf .pd-gal.n3{ grid-template-columns:1fr 1fr; }
+    .prodoc--pf .pd-gal.n3 .pd-hero{ grid-column:1/-1; aspect-ratio:16/9; }
+    .prodoc--pf .pd-gal.n3 .pd-th{ aspect-ratio:1/1; }
+
+    .prodoc--pf .pp-list{ align-content:start; }
+    .prodoc--pf .pp-list h2{ font-size:32pt; color:#fff; }
+    .prodoc--pf .pp-list .pd-cols{ columns:2; column-gap:14mm; margin-top:5mm; }
+    .prodoc--pf .pp-list .pd-item{ break-inside:avoid; margin-bottom:4.5mm; }
+    .prodoc--pf .pp-list .pd-item b{ display:block; color:#fff; font-size:11pt; font-family:"Cormorant Garamond",serif; }
+    .prodoc--pf .pp-list .pd-item span{ color:var(--pd-muted); font-size:9.3pt; }
+    .prodoc--pf .pp-closing{ align-content:center; text-align:center; background:radial-gradient(120% 90% at 50% 100%,#3a1622,#1b1115 70%); }
+    .prodoc--pf .pp-closing h2{ font-size:34pt; color:#fff; }
+    .prodoc--pf .pp-closing p{ color:var(--pd-soft); margin-top:5mm; font-size:12pt; }
+
+
+    /* ===== glassy per-project pages ===== */
+    .prodoc--pf .pp-work{ position:relative; isolation:isolate; }
+    .prodoc--pf .pp-work .pp-bg{ position:absolute; inset:0; z-index:-2; overflow:hidden; border-radius:inherit; }
+    .prodoc--pf .pp-work .pp-bg::before{ content:""; position:absolute; inset:-14%; background:var(--bgimg) center 25%/cover no-repeat; filter:blur(48px) saturate(1.5) brightness(.5); }
+    .prodoc--pf .pp-work .pp-bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(135deg, color-mix(in srgb, var(--acc,#e2b24f) 34%, transparent), rgba(16,9,12,.86) 72%); }
+    .prodoc--pf .pp-work > .pd-text{ background:linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.04)); -webkit-backdrop-filter:blur(20px) saturate(1.3); backdrop-filter:blur(20px) saturate(1.3); border:1px solid rgba(255,255,255,.16); border-radius:20px; padding:9mm; box-shadow:0 22px 55px rgba(0,0,0,.45); }
+    .prodoc--pf .pp-work .pd-kick{ color:var(--acc,#e2b24f); }
+    .prodoc--pf .pp-work .pd-desc .en p:first-child,
+    .prodoc--pf .pp-work .pd-desc .fa p:first-child{ color:var(--acc,#e2b24f); }
+    .prodoc--pf .pp-work h2 .pd-fa-t{ color:var(--acc,#e2b24f); }
+    .prodoc--pf .pp-work .pd-meta b{ color:var(--acc,#e2b24f); }
+    .prodoc--pf .pp-work .pd-meta span{ border-color:color-mix(in srgb, var(--acc,#e2b24f) 55%, transparent); color:#f0e3d6; }
+    .prodoc--pf .pp-work .pp-bgyear{ color:color-mix(in srgb, var(--acc,#e2b24f) 22%, transparent); }
+    .prodoc--pf .pd-gal img{ box-shadow:0 16px 38px rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.10); }
+
+    .prodoc--pf .pp-cover h1{ font-size:46pt; }
+    .prodoc--pf .cover-scrim{ background:linear-gradient(180deg,rgba(20,10,14,.05),rgba(20,10,14,.32) 40%,rgba(16,9,12,.94)); }
+    .prodoc--pf .pp-cover .cover-role{ color:var(--pd-gold); font-size:12pt; margin:2mm 0 0; max-width:none; }
+    .prodoc--pf .pp-cover .cover-profile{ color:#ece0d2; max-width:218mm; margin:4mm 0 0; font-size:10.5pt; line-height:1.55; }
+    .prodoc--pf .pp-cover .cover-edu{ color:#b9a89a; max-width:218mm; margin:3mm 0 0; font-size:8.6pt; line-height:1.5; }
+    .prodoc--pf .credits-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:11mm; margin-top:5mm; }
+    .prodoc--pf .credits-3 h3{ font-size:14pt; color:var(--pd-gold); margin:0 0 3mm; font-family:"Cormorant Garamond",serif; }
+    .prodoc--pf .credits-3 .pd-item{ break-inside:avoid; margin-bottom:3.6mm; }
+    .prodoc--pf .credits-3 .pd-item span{ color:var(--pd-soft); font-size:8.8pt; }
+
+    @media print{
+      .prodoc .pp{ width:auto !important; min-height:0 !important; margin:0 !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:14mm 15mm 16mm !important; page-break-after:always; background:var(--pd-bg) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .prodoc .pp *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .prodoc--pf .pp-work > .pd-text{ background:rgba(28,18,22,.62) !important; }
+      .prodoc--pf .pp-cover{ background:#2a1320 !important; } .prodoc--pf .pp-closing{ background:#2a1320 !important; }
+      .prodoc .pp:last-child{ page-break-after:auto; }
+    }
+
+</style></head><body>
+<div class="bar">
+ <strong style="font-family:'Cormorant Garamond',serif;font-size:18px">Fateme Abbasi — CV</strong>
+ <button type="button" data-toggle-lang>EN / فارسی</button>
+ <button class="alt" type="button" data-print>Print / Save as PDF</button>
+</div>
+<article class="print-document prodoc prodoc--cv" data-document-kind="resume" aria-label="Fateme Abbasi CV"><section class="pp pp--cv"><div class="pd-head"><div><h1>Fateme Abbasi</h1><div class="pd-fa-name">فاطمه عباسی</div><div class="pd-role"><span class="en">Actress · Theatre Director · Voice &amp; Expression Instructor</span><span class="fa" lang="fa" dir="rtl">بازیگر · کارگردان تئاتر · مدرس بیان و صدا</span></div><div class="pd-contact"><span><b>Email</b> monaaaabbasi@gmail.com</span><span><b>Based in</b> <span class="en">Tehran, Iran</span><span class="fa" lang="fa" dir="rtl">تهران، ایران</span></span></div></div><img class="pd-portrait" src="images/edit/fateme-abbasi-headshot.jpg" alt="Fateme Abbasi"></div><hr class="pd-rule"><div class="pd-sec"><p><span class="en">Actress and performer with a decade-long stage archive across City Theater, Paliz, Rooberoo Mansion, Hafez Hall and the Iranian Artists Forum, alongside short-film and series work. I move fluently between physical theatre, method-driven character work and ensemble performance, and I teach voice, expression and creative drama.</span><span class="fa" lang="fa" dir="rtl">بازیگر و اجراگر با آرشیوی ده‌ساله از صحنه — از تئاتر شهر و پالیز تا عمارت روبرو، سالن حافظ و خانه‌ی هنرمندان — در کنار آثار فیلم کوتاه و سریال. میان تئاتر فیزیکال، کار متد روی شخصیت و اجرای گروهی حرکت می‌کنم و بیان، صدا و نمایش خلاق تدریس می‌کنم.</span></p></div><div class="pd-body"><div class="pd-aside"><div class="pd-sec"><h3><span class="en">Skills</span><span class="fa" lang="fa" dir="rtl">مهارت‌ها</span></h3><ul><li><span class="en">Stage & screen acting</span><span class="fa" lang="fa" dir="rtl">بازیگری صحنه و تصویر</span></li><li><span class="en">Physical & wordless theatre</span><span class="fa" lang="fa" dir="rtl">تئاتر فیزیکال و بی‌کلام</span></li><li><span class="en">Method & Stanislavski technique</span><span class="fa" lang="fa" dir="rtl">متد و تکنیک استانیسلاوسکی</span></li><li><span class="en">Voice, expression & singing</span><span class="fa" lang="fa" dir="rtl">بیان، صدا و آواز</span></li><li><span class="en">Puppeteering</span><span class="fa" lang="fa" dir="rtl">عروسک‌گردانی</span></li><li><span class="en">Writing, make-up, photography</span><span class="fa" lang="fa" dir="rtl">نویسندگی، گریم، عکاسی</span></li></ul></div><div class="pd-sec"><h3><span class="en">Education</span><span class="fa" lang="fa" dir="rtl">تحصیلات</span></h3><ul><li><span class="en"><b>MA, Dramatic Literature</b><span>Sooreh University</span></span><span class="fa" lang="fa" dir="rtl"><b>کارشناسی ارشد ادبیات نمایشی</b><span>دانشگاه سوره</span></span></li><li><span class="en"><b>BA, Theatre Directing</b><span>Sooreh University</span></span><span class="fa" lang="fa" dir="rtl"><b>کارشناسی کارگردانی تئاتر</b><span>دانشگاه سوره</span></span></li><li><span class="en"><b>Diploma, Theatre</b><span>Sooreh Art School</span></span><span class="fa" lang="fa" dir="rtl"><b>دیپلم نمایش</b><span>هنرستان سوره</span></span></li></ul></div><div class="pd-sec"><h3><span class="en">Languages</span><span class="fa" lang="fa" dir="rtl">زبان‌ها</span></h3><ul><li><span class="en">Persian — native</span><span class="fa" lang="fa" dir="rtl">فارسی — مادری</span></li><li><span class="en">English — professional</span><span class="fa" lang="fa" dir="rtl">انگلیسی — حرفه‌ای</span></li></ul></div></div><div class="pd-main"><div class="pd-sec"><h3><span class="en">Selected Theatre</span><span class="fa" lang="fa" dir="rtl">تئاتر منتخب</span></h3><div class="pd-cred"><span class="pd-yr">2024</span><span><span class="pd-t">Man az To Bidar</span><span class="pd-m"> — dir. Hamidreza Zakiani · Underground theatre</span></span></div><div class="pd-cred"><span class="pd-yr">2024</span><span><span class="pd-t">Parliamentary Lie</span><span class="pd-m"> — dir. Amir Mohammad Hosseini · Shahrzad Hall, City Theater</span></span></div><div class="pd-cred"><span class="pd-yr">2022</span><span><span class="pd-t">Radio Theatre Chehrazi</span><span class="pd-m"> — dir. Mehdi Rasti · Simorgh Hall</span></span></div><div class="pd-cred"><span class="pd-yr">2022</span><span><span class="pd-t">Haval = Hael Mian-e Do Chiz</span><span class="pd-m"> — dir. Sayeh Keyvanlou · Bahar Gallery, Artists Forum</span></span></div><div class="pd-cred"><span class="pd-yr">2021</span><span><span class="pd-t">The Family of Mr. Hashemi</span><span class="pd-m"> — dir. Ali Amel Hashemi & Hadi Amel · Sangelaj Hall</span></span></div><div class="pd-cred"><span class="pd-yr">2020</span><span><span class="pd-t">Bazi dar Vaght-e Ezafeh</span><span class="pd-m"> — dir. Ali Nasirpour · Rooberoo Mansion</span></span></div><div class="pd-cred"><span class="pd-yr">2019</span><span><span class="pd-t">Kachal va Kaftarbaz</span><span class="pd-m"> — dir. Ali Nasirpour · Kanoon (IIDCYA)</span></span></div><div class="pd-cred"><span class="pd-yr">2019</span><span><span class="pd-t">Parvaneh va Yough</span><span class="pd-m"> — dir. Javad Mohammadpour · Hafez Hall</span></span></div><div class="pd-cred"><span class="pd-yr">2018</span><span><span class="pd-t">Alhakom Altakasor</span><span class="pd-m"> — dir. Zakiani & Mohammadi · Rooberoo Mansion</span></span></div><div class="pd-cred"><span class="pd-yr">2018</span><span><span class="pd-t">Ama… Na… Agar… (100 Years of Solitude)</span><span class="pd-m"> — dir. Shahrzad Gilakpour · Baran Hall</span></span></div><div class="pd-cred"><span class="pd-yr">2018</span><span><span class="pd-t">Raz-e Bagha</span><span class="pd-m"> — dir. Saleh Alavizadeh · Paliz Theater</span></span></div><div class="pd-cred"><span class="pd-yr">2017</span><span><span class="pd-t">Macondo</span><span class="pd-m"> — dir. Azadeh Ansari · Paliz Hall</span></span></div><div class="pd-cred"><span class="pd-yr">2017</span><span><span class="pd-t">The Others</span><span class="pd-m"> — dir. Sara Shahabadi · Drama Theater</span></span></div><div class="pd-cred"><span class="pd-yr">2017</span><span><span class="pd-t">Akhkando</span><span class="pd-m"> — dir. Hadi Amel · Qashqai Hall, City Theater</span></span></div><div class="pd-cred"><span class="pd-yr">2016</span><span><span class="pd-t">The Happiness of Little Cockroaches</span><span class="pd-m"> — dir. Azadeh Ansari · Saye Hall, City Theater</span></span></div><div class="pd-cred"><span class="pd-yr">2014</span><span><span class="pd-t">Death of a Salesman</span><span class="pd-m"> — dir. Nader Borhani Marand · Main Hall, City Theater</span></span></div></div></div></div><div class="pd-foot">Fateme Abbasi — Curriculum Vitae · monaaaabbasi@gmail.com</div><span class="pd-no">01<i>/02</i></span></section><section class="pp pp--cv"><div class="pd-head"><div><h1 style="font-size:21pt">Fateme Abbasi <span class="pd-fa-name" style="display:inline;font-size:13pt">فاطمه عباسی</span></h1><div class="pd-role"><span class="en">Film, Series &amp; Teaching</span><span class="fa" lang="fa" dir="rtl">فیلم، سریال و تدریس</span></div></div></div><hr class="pd-rule"><div class="pd-body"><div class="pd-aside"><div class="pd-sec"><h3><span class="en">Awards</span><span class="fa" lang="fa" dir="rtl">جوایز</span></h3><ul><li><span class="en">First Place, Female Acting — Ravayat-e Yek Tir-e Tanha, 4th Shamse Festival (2015)</span><span class="fa" lang="fa" dir="rtl">رتبه‌ی اول بازیگری زن — روایت یک تیر تنها، چهارمین جشنواره‌ی شمسه (۱۳۹۴)</span></li><li><span class="en">First Place, Female Acting — Hamlet, Tajrobe Theatre Festival</span><span class="fa" lang="fa" dir="rtl">رتبه‌ی اول بازیگری زن — هملت، جشنواره‌ی تئاتر تجربه</span></li><li><span class="en">Best Leading Actress — Student Festival (classical repertoire)</span><span class="fa" lang="fa" dir="rtl">بهترین بازیگر نقش اصلی زن — جشنواره‌ی دانشجویی</span></li><li><span class="en">Group Acting Award — Kachal va Kaftarbaz, Intl. Tunisia Festival</span><span class="fa" lang="fa" dir="rtl">جایزه‌ی گروهی بازیگری — کچل و کفترباز، جشنواره‌ی بین‌المللی تونس</span></li><li><span class="en">Appreciation Certificate — Intl. Children & Youth Theatre Festival</span><span class="fa" lang="fa" dir="rtl">لوح تقدیر — جشنواره‌ی بین‌المللی تئاتر کودک و نوجوان</span></li></ul></div><div class="pd-sec"><h3><span class="en">References</span><span class="fa" lang="fa" dir="rtl">معرف‌ها</span></h3><ul><li><span class="en">Available on request.</span><span class="fa" lang="fa" dir="rtl">در صورت درخواست.</span></li></ul></div></div><div class="pd-main"><div class="pd-sec"><h3><span class="en">Film &amp; Series</span><span class="fa" lang="fa" dir="rtl">فیلم و سریال</span></h3><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Khab — short film, dir. Taktam Abbasi</span><span class="fa" lang="fa" dir="rtl">خواب — فیلم کوتاه، تکتم عباسی</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Nahal va Fazanavard — short film, dir. Esmail Kamali Rousta</span><span class="fa" lang="fa" dir="rtl">نهال و فضانورد — فیلم کوتاه، اسماعیل کمالی روستا</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Dainosorha — short film, dir. Sara Shahabadi</span><span class="fa" lang="fa" dir="rtl">دایناسورها — فیلم کوتاه، سارا شاه‌آبادی</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Mokammel — short film, dir. Mojtaba Karimi (2022)</span><span class="fa" lang="fa" dir="rtl">مکمل — فیلم کوتاه، مجتبی کریمی (۱۴۰۱)</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Chay Nabat — TV series (2024–25)</span><span class="fa" lang="fa" dir="rtl">چای نبات — سریال (۱۴۰۳)</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Naresideh be Vesal — TV series (2025–26)</span><span class="fa" lang="fa" dir="rtl">نرسیده به وصال — سریال (۱۴۰۴)</span></span></div></div><div class="pd-sec"><h3><span class="en">Teaching</span><span class="fa" lang="fa" dir="rtl">تدریس</span></h3><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Damghan University — “From Voice to Stage” workshop (2024–25)</span><span class="fa" lang="fa" dir="rtl">دانشگاه دامغان — کارگاه «از صدا تا صحنه» (۱۴۰۳)</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Taranom Baran Institute — voice, acting & creative drama (2023–27)</span><span class="fa" lang="fa" dir="rtl">موسسه‌ی ترنم باران — بیان، بازیگری و نمایش خلاق (۱۴۰۲–۱۴۰۵)</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Sepehr Marefat School — dramatic arts teacher (2022–27)</span><span class="fa" lang="fa" dir="rtl">مدرسه‌ی سپهر معرفت — معلم هنرهای دراماتیک (۱۴۰۱–۱۴۰۵)</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Sam Studio — voice & expression instructor (2021–22)</span><span class="fa" lang="fa" dir="rtl">استودیو سام — مدرس صدا و بیان (۱۴۰۰)</span></span></div><div class="pd-cred"><span class="pd-yr">●</span><span class="pd-m"><span class="en">Private voice & expression coaching (since 2019)</span><span class="fa" lang="fa" dir="rtl">تدریس خصوصی بیان و صدا (از ۱۳۹۸)</span></span></div></div></div></div><div class="pd-foot">Fateme Abbasi — Curriculum Vitae · monaaaabbasi@gmail.com</div><span class="pd-no">02<i>/02</i></span></section></article>
+<script src="assets/js/print-page.js" defer></script>
+</body></html>

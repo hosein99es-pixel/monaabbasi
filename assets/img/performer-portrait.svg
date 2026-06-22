@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1400" viewBox="0 0 1200 1400" role="img" aria-labelledby="title desc">
+  <title id="title">Stylized duotone performer portrait</title>
+  <desc id="desc">A warm non-photographic portrait study of a performer in terracotta and amber stage light.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#fff8f6"/>
+      <stop offset=".54" stop-color="#ffd9dd"/>
+      <stop offset="1" stop-color="#ffdea1"/>
+    </linearGradient>
+    <radialGradient id="halo" cx=".48" cy=".25" r=".64">
+      <stop stop-color="#fff8f6" stop-opacity=".94"/>
+      <stop offset=".46" stop-color="#e8a84a" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#8f2433" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="warmPortrait" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1.08 .08 .02 0 0 .12 .88 .08 0 0 .04 .08 .76 0 0 0 0 0 1 0"/>
+    </filter>
+    <clipPath id="stageMask">
+      <rect width="1200" height="1400" rx="96"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#stageMask)">
+    <rect width="1200" height="1400" fill="url(#bg)"/>
+    <rect width="1200" height="1400" fill="url(#halo)"/>
+    <path d="M0 0h206c-22 176-34 374-30 594 6 316 54 594 126 806H0z" fill="#8f2433" opacity=".84"/>
+    <path d="M1200 0H956c17 190 24 386 18 589-8 303-55 576-132 811h358z" fill="#241018" opacity=".82"/>
+    <path d="M356 0h128L424 1400H226z" fill="#c4902f" opacity=".26"/>
+    <path d="M742 0h94l236 1400H872z" fill="#8f2433" opacity=".16"/>
+    <ellipse cx="602" cy="1126" rx="334" ry="74" fill="#24191b" opacity=".28"/>
+    <g filter="url(#warmPortrait)">
+      <path d="M392 1220c18-178 70-296 156-354h108c88 58 140 176 158 354z" fill="#24191b"/>
+      <path d="M448 1234c16-128 54-224 116-288l46 78 50-78c63 64 101 160 116 288z" fill="#8f2433" opacity=".88"/>
+      <path d="M478 558c-8-126 72-224 190-224 120 0 198 98 188 224l-20 236c-8 96-80 170-168 170s-160-74-168-170z" fill="#f0c6ad"/>
+      <path d="M464 584c-40-178 50-308 204-308 148 0 240 116 216 288-64-16-118-50-166-102-64 80-144 118-254 122z" fill="#241018"/>
+      <path d="M484 580c54-8 108-34 160-78 70 52 138 80 210 84l-18-100c-24-110-112-188-218-188-118 0-206 88-222 208z" fill="#8f2433" opacity=".86"/>
+      <path d="M488 588c-38-20-76 14-66 70 8 48 42 78 76 64z" fill="#e8a84a" opacity=".68"/>
+      <path d="M848 588c38-20 76 14 66 70-8 48-42 78-76 64z" fill="#e8a84a" opacity=".68"/>
+      <path d="M572 790c28 28 66 42 106 42s78-14 106-42" fill="none" stroke="#8f2433" stroke-width="16" stroke-linecap="round"/>
+      <path d="M534 650c28-18 64-18 94 0M712 650c28-18 64-18 94 0" fill="none" stroke="#241018" stroke-width="14" stroke-linecap="round"/>
+      <circle cx="584" cy="690" r="11" fill="#241018"/>
+      <circle cx="756" cy="690" r="11" fill="#241018"/>
+      <path d="M672 686c-8 38-10 70-6 96" fill="none" stroke="#a7543a" stroke-width="10" stroke-linecap="round"/>
+      <path d="M528 878c44 58 92 88 144 88s100-30 144-88v128c-42 32-90 48-144 48s-102-16-144-48z" fill="#f0c6ad"/>
+    </g>
+    <path d="M318 1182c100 78 206 118 318 118 116 0 224-40 324-118" fill="none" stroke="#fff8f6" stroke-width="28" stroke-linecap="round" opacity=".34"/>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1400" viewBox="0 0 1200 1400" role="img" aria-labelledby="title desc">
+  <title id="title">Abstract stage light visual study</title>
+  <desc id="desc">A warm non-photographic theater study with curtains, stage light, and rounded Material color fields.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#fff8f6"/>
+      <stop offset=".52" stop-color="#ffd9dd"/>
+      <stop offset="1" stop-color="#ffdea1"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".38" cy=".22" r=".58">
+      <stop stop-color="#fff8f6" stop-opacity=".95"/>
+      <stop offset=".52" stop-color="#d96c7b" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#8f2433" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="1400" rx="96" fill="url(#bg)"/>
+  <rect width="1200" height="1400" rx="96" fill="url(#glow)"/>
+  <path d="M0 0h218c-22 188-36 384-32 586 5 279 45 539 108 814H0z" fill="#8f2433" opacity=".86"/>
+  <path d="M1200 0H944c18 188 27 390 21 607-8 286-54 548-125 793h360z" fill="#241018" opacity=".86"/>
+  <path d="M368 0h136l-52 1400H252z" fill="#c4902f" opacity=".3"/>
+  <path d="M706 0h96l236 1400H840z" fill="#8f2433" opacity=".18"/>
+  <ellipse cx="600" cy="1064" rx="356" ry="70" fill="#24191b" opacity=".28"/>
+  <circle cx="600" cy="680" r="186" fill="#fff8f6" opacity=".18"/>
+  <path d="M412 670c72-112 286-112 360 0-52 46-118 70-180 70-62 0-128-24-180-70z" fill="#24191b" opacity=".26"/>
+</svg>
