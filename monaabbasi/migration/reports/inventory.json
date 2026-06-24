@@ -1,0 +1,38 @@
+{
+  "sourceKind": "static-portfolio",
+  "scope": "Published portfolio website content; cv.html and portfolio.html remain static downloads.",
+  "locales": [
+    "en",
+    "fa"
+  ],
+  "counts": {
+    "portfolioPages": 1,
+    "productions": 18,
+    "awards": 6,
+    "teachingExperiences": 6,
+    "galleryItems": 4,
+    "customSections": 0,
+    "educationItems": 3,
+    "skillItems": 4,
+    "imageFilesOnDisk": 83,
+    "productionImageReferences": 79,
+    "uniqueProductionImages": 77
+  },
+  "missingProductionImages": [],
+  "sourceFiles": [
+    "content/home.json",
+    "content/sections.json",
+    "content/awards.json",
+    "content/teaching.json",
+    "content/gallery.json",
+    "content/extra-sections.json",
+    "assets/js/productions.js",
+    "index.html",
+    "dist/en/index.html",
+    "dist/fa/index.html"
+  ],
+  "skipped": [
+    "images/optimized derivatives (the migration uses original source paths)",
+    "Generated presentation markup inside cv.html and portfolio.html (kept as static downloads)"
+  ]
+}

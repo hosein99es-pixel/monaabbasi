@@ -1,0 +1,50 @@
+name: CMS verification
+
+on:
+  pull_request:
+    paths:
+      - 'monaabbasi/**'
+      - '.github/workflows/cms-ci.yml'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: monaabbasi
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: esf8v11h
+      NEXT_PUBLIC_SANITY_DATASET: migration-test
+      NEXT_PUBLIC_SITE_URL: https://monaabbasi.netlify.app
+      SANITY_DATASET: migration-test
+      SANITY_STUDIO_DATASET: migration-test
+      SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            monaabbasi/web/package-lock.json
+            monaabbasi/studio/package-lock.json
+      - name: Install web
+        run: npm ci
+        working-directory: monaabbasi/web
+      - name: Install Studio
+        run: npm ci
+        working-directory: monaabbasi/studio
+      - name: Web checks
+        run: npm run lint && npm test && npm run build
+        working-directory: monaabbasi/web
+      - name: Studio checks
+        run: npx tsc --noEmit && npx eslint . && npm test && npm run schema:validate && npm run build
+        working-directory: monaabbasi/studio
+      - name: TypeGen freshness
+        run: npm run typegen && git diff --exit-code -- schema.json ../web/sanity.types.ts
+        working-directory: monaabbasi/studio
+      - name: Validate migration-test
+        run: npm run validate:remote
+        working-directory: monaabbasi/migration
+      - name: Browser smoke placeholder
+        run: echo 'Phase 7 will replace this placeholder with the EN/FA browser suite.'

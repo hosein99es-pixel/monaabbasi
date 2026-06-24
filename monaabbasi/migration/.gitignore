@@ -1,0 +1,7 @@
+.tmp-manifest/
+extracted/*
+!extracted/.gitkeep
+transformed/*
+!transformed/.gitkeep
+reports/remote-validation.json
+reports/import.json

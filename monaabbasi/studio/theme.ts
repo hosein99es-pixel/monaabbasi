@@ -1,0 +1,25 @@
+import {buildLegacyTheme} from 'sanity'
+
+export const monaStudioTheme = buildLegacyTheme({
+  '--font-family-base': 'Inter, Roboto, Estedad, system-ui, sans-serif',
+  '--font-family-monospace': 'JetBrains Mono, ui-monospace, monospace',
+  '--black': '#140c10',
+  '--white': '#fff8f6',
+  '--brand-primary': '#b1466a',
+  '--component-bg': '#fffdfc',
+  '--component-text-color': '#241a1c',
+  '--default-button-color': '#6f5f63',
+  '--default-button-primary-color': '#b1466a',
+  '--default-button-success-color': '#447a61',
+  '--default-button-warning-color': '#b8862f',
+  '--default-button-danger-color': '#b54848',
+  '--focus-color': '#d85a70',
+  '--gray-base': '#8f7f77',
+  '--gray': '#8f7f77',
+  '--main-navigation-color': '#1b1115',
+  '--main-navigation-color--inverted': '#fff8f6',
+  '--state-info-color': '#6c78a4',
+  '--state-success-color': '#447a61',
+  '--state-warning-color': '#b8862f',
+  '--state-danger-color': '#b54848',
+})
