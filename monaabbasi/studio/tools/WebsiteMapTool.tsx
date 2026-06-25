@@ -3,6 +3,7 @@ import {
   BlockContentIcon,
   BookIcon,
   CheckmarkCircleIcon,
+  CloseIcon,
   ComposeIcon,
   EnvelopeIcon,
   EyeOpenIcon,
@@ -16,7 +17,19 @@ import {
   StarIcon,
   WarningOutlineIcon,
 } from '@sanity/icons'
-import {Badge, Box, Button, Card, Flex, Grid, Heading, Spinner, Stack, Text} from '@sanity/ui'
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Dialog,
+  Flex,
+  Grid,
+  Heading,
+  Spinner,
+  Stack,
+  Text,
+} from '@sanity/ui'
 import {useCallback, useEffect, useMemo, useState, type ComponentType} from 'react'
 import {useClient, type Tool} from 'sanity'
 import {IntentLink} from 'sanity/router'
@@ -69,9 +82,13 @@ type SectionKey =
 type SiteSection = {
   description: string
   editorTab: string
+  fieldLabels: string[]
   icon: ComponentType
   key: SectionKey
   fieldPath: string
+  guidance: string
+  siteAnchor?: string
+  siteLocation: string
   title: string
   titleFa: string
 }
@@ -113,6 +130,10 @@ const sections: SiteSection[] = [
     editorTab: '01 · Profile',
     icon: HomeIcon,
     description: 'Name, introduction, roles and portrait',
+    fieldLabels: ['Name', 'Introduction', 'Portrait hotspot', 'Roles'],
+    guidance: 'Best for quick homepage identity changes and portrait framing.',
+    siteAnchor: 'profile',
+    siteLocation: 'Homepage hero',
   },
   {
     key: 'resume',
@@ -122,6 +143,10 @@ const sections: SiteSection[] = [
     editorTab: '02 · Resume',
     icon: BookIcon,
     description: 'Biography, education and skills',
+    fieldLabels: ['Resume heading', 'Biography', 'Education', 'Skills'],
+    guidance: 'Use this section for the long-form bio and professional training story.',
+    siteAnchor: 'resume',
+    siteLocation: 'Resume section',
   },
   {
     key: 'theatre',
@@ -131,6 +156,10 @@ const sections: SiteSection[] = [
     editorTab: '03 · Theatre',
     icon: PlayIcon,
     description: 'Stage and performance credits',
+    fieldLabels: ['Theatre intro', 'Production order', 'Featured credits'],
+    guidance: 'Arrange stage credits here; edit individual productions from the Productions area.',
+    siteAnchor: 'theatre',
+    siteLocation: 'Theatre section',
   },
   {
     key: 'film',
@@ -140,6 +169,10 @@ const sections: SiteSection[] = [
     editorTab: '04 · Film & TV',
     icon: ProjectsIcon,
     description: 'Screen work and film credits',
+    fieldLabels: ['Film intro', 'Production order', 'Screen credits'],
+    guidance: 'Arrange screen credits here; edit individual productions from the Productions area.',
+    siteAnchor: 'film',
+    siteLocation: 'Film & TV section',
   },
   {
     key: 'awards',
@@ -149,6 +182,10 @@ const sections: SiteSection[] = [
     editorTab: '05 · Awards',
     icon: StarIcon,
     description: 'Honors and recognitions',
+    fieldLabels: ['Award titles', 'Descriptions', 'Section intro'],
+    guidance: 'Keep awards concise so they scan well on the public site.',
+    siteAnchor: 'awards',
+    siteLocation: 'Awards section',
   },
   {
     key: 'teaching',
@@ -158,6 +195,10 @@ const sections: SiteSection[] = [
     editorTab: '06 · Teaching',
     icon: ComposeIcon,
     description: 'Classes, workshops and coaching',
+    fieldLabels: ['Teaching entries', 'Descriptions', 'Section intro'],
+    guidance: 'Use this for workshops, classes, coaching and education work.',
+    siteAnchor: 'teaching',
+    siteLocation: 'Teaching section',
   },
   {
     key: 'upcoming',
@@ -167,6 +208,10 @@ const sections: SiteSection[] = [
     editorTab: '07 · Upcoming',
     icon: RocketIcon,
     description: 'Current and forthcoming work',
+    fieldLabels: ['Title', 'Description', 'Image hotspot'],
+    guidance: 'Use this as the current highlight or next major project.',
+    siteAnchor: 'upcoming',
+    siteLocation: 'Upcoming section',
   },
   {
     key: 'gallery',
@@ -176,6 +221,10 @@ const sections: SiteSection[] = [
     editorTab: '08 · Gallery',
     icon: ImageIcon,
     description: 'Editorial photo gallery',
+    fieldLabels: ['Gallery images', 'Captions', 'Alt text', 'Photo hotspots'],
+    guidance: 'Use image hotspots to control the visible center on the website.',
+    siteAnchor: 'gallery',
+    siteLocation: 'Gallery section',
   },
   {
     key: 'downloads',
@@ -185,6 +234,10 @@ const sections: SiteSection[] = [
     editorTab: '09 · Downloads',
     icon: LinkIcon,
     description: 'CV and portfolio links',
+    fieldLabels: ['Resume file', 'Portfolio file', 'Download labels'],
+    guidance: 'Upload replacement files here when CV or portfolio PDFs change.',
+    siteAnchor: 'downloads',
+    siteLocation: 'Downloads section',
   },
   {
     key: 'contact',
@@ -194,6 +247,10 @@ const sections: SiteSection[] = [
     editorTab: '10 · Contact',
     icon: EnvelopeIcon,
     description: 'Contact details and call to action',
+    fieldLabels: ['Email', 'Phone', 'WhatsApp', 'Contact copy'],
+    guidance: 'Keep the preferred contact method obvious and current.',
+    siteAnchor: 'contact',
+    siteLocation: 'Contact footer',
   },
   {
     key: 'seo',
@@ -203,6 +260,9 @@ const sections: SiteSection[] = [
     editorTab: 'SEO',
     icon: BlockContentIcon,
     description: 'Google results and social metadata',
+    fieldLabels: ['SEO title', 'Meta description', 'Social preview'],
+    guidance: 'This affects search and shared links more than the visible page.',
+    siteLocation: 'Browser/search preview',
   },
 ]
 
@@ -221,10 +281,12 @@ const expressive = {
 
 const DashboardShell = styled(Box)`
   min-height: 100%;
+  color: #1d1b20;
   background:
     radial-gradient(circle at 8% 0%, rgba(234, 221, 255, 0.95), transparent 26rem),
     radial-gradient(circle at 100% 12%, rgba(184, 243, 240, 0.72), transparent 24rem),
     linear-gradient(180deg, #fffbff 0%, #fef7ff 48%, #f7f2fa 100%);
+  -webkit-font-smoothing: antialiased;
 `
 
 const HeroCard = styled(Card)`
@@ -249,6 +311,7 @@ const HeroCard = styled(Card)`
     background: linear-gradient(135deg, #6750a4, #006a6a);
     opacity: 0.14;
     transform: rotate(-12deg);
+    pointer-events: none;
   }
 `
 
@@ -299,12 +362,25 @@ const GhostAction = styled.a`
   }
 `
 
-const SectionLink = styled(IntentLink)`
+const SectionButton = styled.button`
   display: block;
   height: 100%;
+  width: 100%;
+  padding: 0;
+  border: 0;
   color: inherit;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
   text-decoration: none;
   outline: none;
+
+  &:focus-visible {
+    border-radius: 30px;
+    outline: 3px solid rgba(103, 80, 164, 0.32);
+    outline-offset: 4px;
+  }
 `
 
 const SectionCard = styled(Card)`
@@ -331,15 +407,15 @@ const SectionCard = styled(Card)`
     transition: opacity 160ms ease;
   }
 
-  ${SectionLink}:hover &,
-  ${SectionLink}:focus-visible & {
+  ${SectionButton}:hover &,
+  ${SectionButton}:focus-visible & {
     transform: translateY(-4px) scale(1.008);
     border-color: rgba(103, 80, 164, 0.36);
     box-shadow: 0 22px 48px rgba(58, 48, 83, 0.14);
   }
 
-  ${SectionLink}:hover &::before,
-  ${SectionLink}:focus-visible &::before {
+  ${SectionButton}:hover &::before,
+  ${SectionButton}:focus-visible &::before {
     opacity: 1;
   }
 `
@@ -415,6 +491,102 @@ const GuidanceCard = styled(Card)`
   border: 1px solid rgba(125, 82, 96, 0.18);
   border-radius: 28px;
   background: linear-gradient(135deg, #ffd8e4 0%, #fff8f8 52%, #fffbff 100%);
+`
+
+const ModalHero = styled(Box)`
+  position: relative;
+  overflow: hidden;
+  color: #1d1b20;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(184, 243, 240, 0.86), transparent 14rem),
+    radial-gradient(circle at 8% 16%, rgba(234, 221, 255, 0.95), transparent 15rem),
+    linear-gradient(135deg, #fffbff 0%, #f7f2fa 100%);
+`
+
+const ModalBody = styled(Box)`
+  background: #fffbff;
+`
+
+const FieldChip = styled.span`
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 0.72rem;
+  border: 1px solid rgba(103, 80, 164, 0.14);
+  border-radius: 999px;
+  color: #49454f;
+  background: #f7f2fa;
+  font-size: 0.78rem;
+  font-weight: 720;
+`
+
+const ModalIntentLink = styled(IntentLink)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  color: #fffbff;
+  background: ${expressive.primary};
+  font-size: 0.875rem;
+  font-weight: 780;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    background: #7f67be;
+  }
+`
+
+const ModalExternalLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  color: #49454f;
+  background: #f7f2fa;
+  font-size: 0.875rem;
+  font-weight: 760;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(73, 69, 79, 0.1);
+
+  &:hover,
+  &:focus-visible {
+    background: #eaddff;
+  }
+`
+
+const ModalSecondaryButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 999px;
+  color: #49454f;
+  background: #fffbff;
+  box-shadow: inset 0 0 0 1px rgba(73, 69, 79, 0.14);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 760;
+
+  &:hover,
+  &:focus-visible {
+    background: #f7f2fa;
+  }
+`
+
+const ModalStat = styled(Card)`
+  border: 1px solid rgba(73, 69, 79, 0.1);
+  border-radius: 22px;
+  background: #fef7ff;
 `
 
 function hasContent(value: unknown): boolean {
@@ -503,13 +675,166 @@ function LoadingState() {
   )
 }
 
+function getSectionWebsiteUrl(section: SiteSection) {
+  return new URL(section.siteAnchor ? `/en#${section.siteAnchor}` : '/en', defaultWebsiteOrigin)
+    .toString()
+}
+
+function SectionEditDialog({
+  onClose,
+  section,
+  state,
+}: {
+  onClose: () => void
+  section: SiteSection
+  state?: SectionState | null
+}) {
+  const Icon = section.icon
+  const websiteUrl = getSectionWebsiteUrl(section)
+
+  return (
+    <Dialog
+      __unstable_hideCloseButton
+      animate
+      cardRadius={4}
+      cardShadow={3}
+      header={
+        <ModalHero padding={[4, 5]}>
+          <Flex align="flex-start" justify="space-between" gap={4}>
+            <Stack space={4}>
+              <Flex align="center" gap={3}>
+                <SectionIcon style={{fontSize: 22}}>
+                  <Icon />
+                </SectionIcon>
+                <Kicker size={0}>{section.editorTab}</Kicker>
+              </Flex>
+              <Stack space={3}>
+                <Heading size={4} style={{letterSpacing: '-.045em', lineHeight: 1.04}}>
+                  {section.title}
+                </Heading>
+                <Text size={2} style={{maxWidth: 620, color: '#625b71', lineHeight: 1.58}}>
+                  {section.guidance}
+                </Text>
+              </Stack>
+            </Stack>
+            <Button
+              aria-label="Close section sheet"
+              icon={CloseIcon}
+              mode="bleed"
+              onClick={onClose}
+              radius="full"
+            />
+          </Flex>
+        </ModalHero>
+      }
+      id={`website-section-sheet-${section.key}`}
+      onClickOutside={onClose}
+      onClose={onClose}
+      padding={0}
+      width={[1, 1, 2]}
+    >
+      <ModalBody padding={[4, 5]}>
+        <Stack space={5}>
+          <Grid columns={[1, 1, 2]} gap={4}>
+            <ModalStat padding={4}>
+              <Stack space={4}>
+                <Flex align="center" justify="space-between" gap={3}>
+                  <Text size={1} weight="semibold">
+                    Section health
+                  </Text>
+                  {state ? (
+                    <ExpressiveBadge $ready={state.ready}>
+                      {state.ready ? 'Ready' : 'Needs attention'}
+                    </ExpressiveBadge>
+                  ) : null}
+                </Flex>
+                <Stack space={2}>
+                  <Heading size={3} style={{letterSpacing: '-.035em'}}>
+                    {state?.detail ?? 'Checking content…'}
+                  </Heading>
+                  <Text muted size={1}>
+                    Status is read from the current migration-test dataset.
+                  </Text>
+                </Stack>
+              </Stack>
+            </ModalStat>
+
+            <ModalStat padding={4}>
+              <Stack space={4}>
+                <Text size={1} weight="semibold">
+                  Where this appears
+                </Text>
+                <Stack space={2}>
+                  <Heading size={3} style={{letterSpacing: '-.035em'}}>
+                    {section.siteLocation}
+                  </Heading>
+                  <Text muted size={1}>
+                    Public website target: {section.siteAnchor ? `#${section.siteAnchor}` : 'site metadata'}
+                  </Text>
+                </Stack>
+              </Stack>
+            </ModalStat>
+          </Grid>
+
+          <Stack space={3}>
+            <Text size={1} weight="semibold">
+              Fields editors usually change here
+            </Text>
+            <Flex gap={2} wrap="wrap">
+              {section.fieldLabels.map((label) => (
+                <FieldChip key={label}>{label}</FieldChip>
+              ))}
+            </Flex>
+          </Stack>
+
+          <GuidanceCard padding={4}>
+            <Flex align="flex-start" gap={3}>
+              <SectionIcon style={{background: expressive.primaryContainer, fontSize: 22}}>
+                <CheckmarkCircleIcon />
+              </SectionIcon>
+              <Stack space={2}>
+                <Text weight="semibold">Smooth editing flow</Text>
+                <Text muted size={1}>
+                  Review this sheet first. When you need to change content, open the full Sanity
+                  editor and use the matching {section.editorTab} tab.
+                </Text>
+              </Stack>
+            </Flex>
+          </GuidanceCard>
+
+          <Flex align="center" justify="space-between" gap={3} wrap="wrap">
+            <ModalSecondaryButton onClick={onClose} type="button">
+              Stay on dashboard
+            </ModalSecondaryButton>
+            <Flex align="center" gap={2} wrap="wrap">
+              <ModalExternalLink href={websiteUrl} rel="noreferrer" target="_blank">
+                <EyeOpenIcon />
+                <span>View on website</span>
+              </ModalExternalLink>
+              <ModalIntentLink
+                intent="edit"
+                params={{id: 'portfolioPage', path: section.fieldPath, type: 'portfolioPage'}}
+              >
+                <ArrowRightIcon />
+                <span>Open full editor</span>
+              </ModalIntentLink>
+            </Flex>
+          </Flex>
+        </Stack>
+      </ModalBody>
+    </Dialog>
+  )
+}
+
 export function WebsiteMapTool() {
   const client = useClient({apiVersion: '2026-06-22'})
   const [data, setData] = useState<DashboardData | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [activeSectionKey, setActiveSectionKey] = useState<SectionKey | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
 
   const refresh = useCallback(() => setRefreshKey((value) => value + 1), [])
+  const closeSectionSheet = useCallback(() => setActiveSectionKey(null), [])
 
   useEffect(() => {
     let active = true
@@ -537,6 +862,9 @@ export function WebsiteMapTool() {
   )
   const readyCount = sectionStates.filter((state) => state.ready).length
   const completionPercent = Math.round((readyCount / sections.length) * 100)
+  const activeSection = sections.find((section) => section.key === activeSectionKey)
+  const activeSectionState =
+    activeSection && data ? getSectionState(activeSection.key, data) : null
 
   return (
     <DashboardShell padding={[3, 4, 5]}>
@@ -681,10 +1009,12 @@ export function WebsiteMapTool() {
               const Icon = section.icon
 
               return (
-                <SectionLink
+                <SectionButton
+                  aria-label={`Review ${section.title} editing options`}
+                  data-testid={`website-map-card-${section.key}`}
                   key={section.key}
-                  intent="edit"
-                  params={{id: 'portfolioPage', type: 'portfolioPage', path: section.fieldPath}}
+                  onClick={() => setActiveSectionKey(section.key)}
+                  type="button"
                 >
                   <SectionCard padding={4} shadow={1}>
                     <Stack space={4}>
@@ -701,7 +1031,12 @@ export function WebsiteMapTool() {
                                   {section.title}
                                 </Heading>
                               </Flex>
-                              <Text muted size={1} dir="rtl" style={{textAlign: 'left', paddingLeft: 54}}>
+                              <Text
+                                muted
+                                size={1}
+                                dir="rtl"
+                                style={{paddingLeft: 54, textAlign: 'left'}}
+                              >
                                 {section.titleFa}
                               </Text>
                             </Stack>
@@ -729,7 +1064,7 @@ export function WebsiteMapTool() {
                           </Flex>
                           <Flex align="center" gap={2} style={{color: expressive.primary}}>
                             <Text size={1} weight="semibold">
-                              Open editor
+                              Review section
                             </Text>
                             <ArrowRightIcon />
                           </Flex>
@@ -737,7 +1072,7 @@ export function WebsiteMapTool() {
                       </Stack>
                     </Stack>
                   </SectionCard>
-                </SectionLink>
+                </SectionButton>
               )
             })}
           </Grid>
@@ -764,6 +1099,14 @@ export function WebsiteMapTool() {
           </GuidanceCard>
         </Stack>
       </Box>
+
+      {activeSection ? (
+        <SectionEditDialog
+          onClose={closeSectionSheet}
+          section={activeSection}
+          state={activeSectionState}
+        />
+      ) : null}
     </DashboardShell>
   )
 }
