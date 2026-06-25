@@ -11,6 +11,7 @@ import {
   UserIcon,
 } from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {PortfolioImageInput} from '../../components/PortfolioImageInput'
 import {validateRequiredLocales} from '../validation/localization'
 
 export const portfolioImage = defineType({
@@ -19,6 +20,7 @@ export const portfolioImage = defineType({
   type: 'image',
   icon: ImageIcon,
   options: {hotspot: true},
+  components: {input: PortfolioImageInput},
   description:
     'Choose Crop & hotspot after uploading. Move the hotspot onto the face or subject so website crops stay centered correctly.',
   fields: [

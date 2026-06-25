@@ -39,13 +39,15 @@ export function MarkdownPortableTextInput(props: PortableTextInputProps) {
     <Stack space={3}>
       <Card padding={3} radius={2} tone="transparent" border>
         <Flex align="center" gap={3} justify="space-between" wrap="wrap">
-          <Box>
-            <Text size={1} weight="semibold">
-              Choose how you want to write
-            </Text>
-            <Text muted size={1}>
-              Visual editing supports Markdown shortcuts. Markdown mode edits the text source.
-            </Text>
+          <Box flex={1} style={{minWidth: 240}}>
+            <Stack space={2}>
+              <Text size={1} weight="semibold">
+                Type normally — formatting tools are in the toolbar
+              </Text>
+              <Text muted size={1}>
+                Markdown source is optional and only applies after you choose Apply Markdown.
+              </Text>
+            </Stack>
           </Box>
           <Flex gap={1}>
             <Tab

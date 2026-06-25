@@ -339,12 +339,12 @@ const cmsCopy = {
     contactDetail: 'Email & social contact',
     contentStatusError: 'The content status could not be loaded.',
     currentFeature: 'Current feature',
-    dataset: 'Dataset',
-    datasetStatus: 'Status is read from the current migration-test dataset.',
+    languageCoverage: 'Languages',
+    sectionStatusHelp: 'Based on public fields that visitors can see.',
     editHomepage: 'Edit homepage',
     editingProduction: 'Editing a production?',
     editingProductionBody:
-      'Open Structure → Productions to edit an individual theatre, film, or television credit. Use the homepage editor only to arrange their order on the website.',
+      'Open the Productions editor to change an individual theatre, film, or television credit. Use the homepage editor only to arrange their order on the website.',
     editorLanguage: 'CMS language',
     editorLanguageHelp: 'English first · فارسی available',
     entries: (count: number) => `${count} entr${count === 1 ? 'y' : 'ies'}`,
@@ -363,7 +363,7 @@ const cmsCopy = {
     openWebsite: 'Open website',
     productionDetail: (count: number) => `${count} production${count === 1 ? '' : 's'}`,
     productions: 'Productions',
-    publicWebsiteTarget: 'Public website target',
+    publicWebsiteTarget: 'Opens the matching section on the live website.',
     ready: 'Ready',
     readiness: 'Website readiness',
     resumeDetail: (education: number, skills: number) => `${education} education · ${skills} skills`,
@@ -372,12 +372,11 @@ const cmsCopy = {
     rolesDetail: (roles: number) => `${roles} roles · EN + FA`,
     searchSharing: 'Search & sharing',
     sectionHealth: 'Section health',
-    siteMetadata: 'site metadata',
     smoothEditingBody: (editorTab: string) =>
-      `Review this sheet first. When you need to change content, open the full Sanity editor and use the matching ${editorTab} tab.`,
+      `Review this sheet first. When you need to change content, open the focused editor and use the matching ${editorTab} tab.`,
     smoothEditingFlow: 'Smooth editing flow',
     stayOnDashboard: 'Stay on dashboard',
-    statusCurrentDataset: 'Status is read from the current dataset',
+    statusVisibleContent: 'All section statuses come from visible website content',
     theatrePerformance: 'Theatre / performance',
     tryAgain: 'Try again',
     viewOnWebsite: 'View on website',
@@ -394,12 +393,12 @@ const cmsCopy = {
     contactDetail: 'ایمیل و راه‌های تماس',
     contentStatusError: 'وضعیت محتوا بارگذاری نشد.',
     currentFeature: 'اثر فعلی',
-    dataset: 'دیتاست',
-    datasetStatus: 'وضعیت از دیتاست migration-test خوانده می‌شود.',
+    languageCoverage: 'زبان‌ها',
+    sectionStatusHelp: 'بر اساس فیلدهایی که بازدیدکننده در سایت می‌بیند.',
     editHomepage: 'ویرایش صفحه اصلی',
     editingProduction: 'ویرایش یک اثر؟',
     editingProductionBody:
-      'برای ویرایش جزئیات یک اثر تئاتری، سینمایی یا تلویزیونی به Structure → Productions بروید. در ویرایشگر صفحه اصلی فقط ترتیب نمایش آثار را تنظیم کنید.',
+      'برای ویرایش جزئیات یک اثر تئاتری، سینمایی یا تلویزیونی، ویرایشگر آثار را باز کنید. در ویرایشگر صفحه اصلی فقط ترتیب نمایش آثار را تنظیم کنید.',
     editorLanguage: 'زبان CMS',
     editorLanguageHelp: 'پیش‌فرض انگلیسی · فارسی فعال است',
     entries: (count: number) => `${formatNumber(count, 'fa')} مورد`,
@@ -418,7 +417,7 @@ const cmsCopy = {
     openWebsite: 'باز کردن سایت',
     productionDetail: (count: number) => `${formatNumber(count, 'fa')} اثر`,
     productions: 'آثار',
-    publicWebsiteTarget: 'هدف در سایت عمومی',
+    publicWebsiteTarget: 'بخش مرتبط را در سایت زنده باز می‌کند.',
     ready: 'آماده',
     readiness: 'آمادگی سایت',
     resumeDetail: (education: number, skills: number) =>
@@ -428,12 +427,11 @@ const cmsCopy = {
     rolesDetail: (roles: number) => `${formatNumber(roles, 'fa')} نقش · EN + FA`,
     searchSharing: 'جستجو و اشتراک‌گذاری',
     sectionHealth: 'سلامت بخش',
-    siteMetadata: 'متادیتای سایت',
     smoothEditingBody: (editorTab: string) =>
-      `اول این پنل را بررسی کنید. وقتی نیاز به تغییر محتوا داشتید، ویرایشگر کامل Sanity را باز کنید و از تب ${editorTab} استفاده کنید.`,
+      `اول این پنل را بررسی کنید. وقتی نیاز به تغییر محتوا داشتید، ویرایشگر متمرکز را باز کنید و از تب ${editorTab} استفاده کنید.`,
     smoothEditingFlow: 'جریان ویرایش روان',
     stayOnDashboard: 'ماندن در داشبورد',
-    statusCurrentDataset: 'وضعیت از دیتاست فعلی خوانده می‌شود',
+    statusVisibleContent: 'وضعیت هر بخش از محتوای قابل‌نمایش سایت خوانده می‌شود',
     theatrePerformance: 'تئاتر و اجرا',
     tryAgain: 'تلاش دوباره',
     viewOnWebsite: 'دیدن در سایت',
@@ -992,7 +990,7 @@ function SectionEditDialog({
                     {state?.detail ?? copy.checkingContent}
                   </Heading>
                   <Text muted size={1}>
-                    {copy.datasetStatus}
+                    {copy.sectionStatusHelp}
                   </Text>
                 </Stack>
               </Stack>
@@ -1008,8 +1006,7 @@ function SectionEditDialog({
                     {siteLocation}
                   </Heading>
                   <Text muted size={1}>
-                    {copy.publicWebsiteTarget}:{' '}
-                    {section.siteAnchor ? `#${section.siteAnchor}` : copy.siteMetadata}
+                    {copy.publicWebsiteTarget}
                   </Text>
                 </Stack>
               </Stack>
@@ -1241,9 +1238,9 @@ export function WebsiteMapTool() {
             <StatCard padding={4}>
               <Stack space={2}>
                 <Text muted size={1}>
-                  {copy.dataset}
+                  {copy.languageCoverage}
                 </Text>
-                <Heading size={3}>migration-test</Heading>
+                <Heading size={3}>EN + FA</Heading>
               </Stack>
             </StatCard>
           </Grid>
@@ -1276,7 +1273,7 @@ export function WebsiteMapTool() {
                 <CheckmarkCircleIcon />
               </Box>
               <Text muted size={1}>
-                {copy.statusCurrentDataset}
+                {copy.statusVisibleContent}
               </Text>
             </Flex>
           </Flex>
@@ -1397,7 +1394,7 @@ export function WebsiteMapTool() {
 
 export const websiteMapTool: Tool = {
   name: 'website-map',
-  title: 'Website map',
+  title: 'Edit website',
   icon: HomeIcon,
   component: WebsiteMapTool,
 }

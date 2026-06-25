@@ -1,0 +1,183 @@
+# Decap CMS configuration.
+#
+# ── PRODUCTION (DecapBridge) ───────────────────────────────────────────────
+# Replace the `backend:` block below with the one DecapBridge generates for your
+# site (DecapBridge dashboard → your site → ready-to-copy config.yml). Its block
+# is git-gateway plus `identity_url:` and `gateway_url:` values.
+#
+# ── LOCAL PREVIEW (no DecapBridge needed) ──────────────────────────────────
+#   1) in one terminal:   npx decap-server
+#   2) in another:        npm run build && npm run serve
+#   3) open:              http://localhost:8080/admin/
+#
+# TIP: in any "text" field you can wrap a word in *asterisks* to italicise it,
+# e.g. *Hamlet* renders as the work title in italics.
+
+backend:
+  name: git-gateway
+  repo: your-username/your-repo   # production only — e.g. fatemeabbasi/site
+  branch: main
+
+local_backend: true
+
+# WordPress-style draft → in review → ready workflow, with per-change deploy
+# previews instead of publishing straight to live. (Requires the GitHub token to
+# have Pull requests: Read and write.)
+publish_mode: editorial_workflow
+
+# Admin UI language (Decap ships a Persian locale). Decap has one UI language at
+# a time (no per-user switch); change to "en" here for an English admin.
+locale: fa
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "pages"
+    label: "Site content"
+    files:
+      - name: "home"
+        label: "Home / hero"
+        file: "content/home.json"
+        fields:
+          - { label: "Name (English)",  name: "name_en",  widget: "string" }
+          - { label: "Name (Persian)",  name: "name_fa",  widget: "string", required: false }
+          - label: "Intro (English)"
+            name: "intro_en"
+            widget: "markdown"
+            buttons: ["bold", "italic", "link"]
+            editor_components: []
+            minimal: true
+          - label: "Intro (Persian)"
+            name: "intro_fa"
+            widget: "markdown"
+            buttons: ["bold", "italic", "link"]
+            editor_components: []
+            minimal: true
+            required: false
+          - { label: "Headshot", name: "headshot", widget: "image", required: false }
+          - label: "Headshot focus — horizontal % (0 = left, 100 = right)"
+            name: "headshot_focus_x"
+            widget: "number"
+            value_type: "int"
+            min: 0
+            max: 100
+            default: 50
+            hint: "Which part of the photo stays in view when it is cropped. 50 = centre."
+          - label: "Headshot focus — vertical % (0 = top, 100 = bottom)"
+            name: "headshot_focus_y"
+            widget: "number"
+            value_type: "int"
+            min: 0
+            max: 100
+            default: 50
+
+      - name: "sections"
+        label: "Section headings & text"
+        file: "content/sections.json"
+        fields:
+          - { label: "Theatre — label (EN)",   name: "theatre_label_en",   widget: "string" }
+          - { label: "Theatre — label (FA)",   name: "theatre_label_fa",   widget: "string", required: false }
+          - { label: "Theatre — heading (EN)", name: "theatre_heading_en", widget: "string" }
+          - { label: "Theatre — heading (FA)", name: "theatre_heading_fa", widget: "string", required: false }
+          - { label: "Film & TV — label (EN)",   name: "film_label_en",   widget: "string" }
+          - { label: "Film & TV — label (FA)",   name: "film_label_fa",   widget: "string", required: false }
+          - { label: "Film & TV — heading (EN)", name: "film_heading_en", widget: "string" }
+          - { label: "Film & TV — heading (FA)", name: "film_heading_fa", widget: "string", required: false }
+          - { label: "Awards — label (EN)",   name: "awards_label_en",   widget: "string" }
+          - { label: "Awards — label (FA)",   name: "awards_label_fa",   widget: "string", required: false }
+          - { label: "Awards — heading (EN)", name: "awards_heading_en", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true }
+          - { label: "Awards — heading (FA)", name: "awards_heading_fa", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true, required: false }
+          - { label: "Teaching — label (EN)",   name: "teaching_label_en",   widget: "string" }
+          - { label: "Teaching — label (FA)",   name: "teaching_label_fa",   widget: "string", required: false }
+          - { label: "Teaching — heading (EN)", name: "teaching_heading_en", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true }
+          - { label: "Teaching — heading (FA)", name: "teaching_heading_fa", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true, required: false }
+          - { label: "Upcoming — label (EN)",   name: "upcoming_label_en",   widget: "string" }
+          - { label: "Upcoming — label (FA)",   name: "upcoming_label_fa",   widget: "string", required: false }
+          - { label: "Upcoming — heading (EN)", name: "upcoming_heading_en", widget: "string" }
+          - { label: "Upcoming — heading (FA)", name: "upcoming_heading_fa", widget: "string", required: false }
+          - { label: "Upcoming — body (EN)",    name: "upcoming_body_en",    widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true }
+          - { label: "Upcoming — body (FA)",    name: "upcoming_body_fa",    widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true, required: false }
+          - { label: "Gallery — label (EN)",   name: "gallery_label_en",   widget: "string" }
+          - { label: "Gallery — label (FA)",   name: "gallery_label_fa",   widget: "string", required: false }
+          - { label: "Gallery — heading (EN)", name: "gallery_heading_en", widget: "string" }
+          - { label: "Gallery — heading (FA)", name: "gallery_heading_fa", widget: "string", required: false }
+          - { label: "Downloads — label (EN)",   name: "downloads_label_en",   widget: "string" }
+          - { label: "Downloads — label (FA)",   name: "downloads_label_fa",   widget: "string", required: false }
+          - { label: "Downloads — heading (EN)", name: "downloads_heading_en", widget: "text" }
+          - { label: "Downloads — heading (FA)", name: "downloads_heading_fa", widget: "text", required: false }
+
+      - name: "awards"
+        label: "Awards (add / remove / reorder)"
+        file: "content/awards.json"
+        fields:
+          - label: "Award items"
+            name: "items"
+            widget: "list"
+            label_singular: "Award"
+            summary: "{{fields.title_en}}"
+            fields:
+              - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - { label: "Title (FA)", name: "title_fa", widget: "string", required: false }
+              - { label: "Text (EN)", name: "text_en", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true }
+              - { label: "Text (FA)", name: "text_fa", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true, required: false }
+
+      - name: "teaching"
+        label: "Teaching (add / remove / reorder)"
+        file: "content/teaching.json"
+        fields:
+          - label: "Teaching items"
+            name: "items"
+            widget: "list"
+            label_singular: "Teaching entry"
+            summary: "{{fields.title_en}}"
+            fields:
+              - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - { label: "Title (FA)", name: "title_fa", widget: "string", required: false }
+              - { label: "Text (EN)", name: "text_en", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true }
+              - { label: "Text (FA)", name: "text_fa", widget: "markdown", buttons: ["bold", "italic", "link"], editor_components: [], minimal: true, required: false }
+
+      - name: "gallery"
+        label: "Gallery photos (add / remove / reorder)"
+        file: "content/gallery.json"
+        fields:
+          - label: "Photos"
+            name: "items"
+            widget: "list"
+            label_singular: "Photo"
+            summary: "{{fields.label_en}}"
+            fields:
+              - { label: "Image", name: "src", widget: "image", required: true, media_library: { config: { max_file_size: 5000000 } } }
+              - { label: "Alt text (EN) — describe the photo for screen readers (required)", name: "alt_en", widget: "string", required: true }
+              - { label: "Alt text (FA) — optional; falls back to English", name: "alt_fa", widget: "string", required: false }
+              - { label: "Caption label (EN)", name: "label_en", widget: "string" }
+              - { label: "Caption label (FA)", name: "label_fa", widget: "string", required: false }
+              - { label: "Pop-up title (EN)", name: "title_en", widget: "string" }
+              - { label: "Pop-up title (FA)", name: "title_fa", widget: "string", required: false }
+              - { label: "Pop-up caption (EN)", name: "copy_en", widget: "text" }
+              - { label: "Pop-up caption (FA)", name: "copy_fa", widget: "text", required: false }
+              - { label: "Width (auto)", name: "width", widget: "hidden" }
+              - { label: "Height (auto)", name: "height", widget: "hidden" }
+
+      - name: "extra_sections"
+        label: "Custom sections (add / remove / reorder)"
+        file: "content/extra-sections.json"
+        fields:
+          - label: "Sections"
+            name: "items"
+            widget: "list"
+            label_singular: "Section"
+            summary: "{{fields.title_en}}"
+            fields:
+              - { label: "ID / anchor — lowercase, no spaces (e.g. press)", name: "id", widget: "string", pattern: ["^[a-z0-9-]+$", "use lowercase letters, numbers and hyphens only"] }
+              - { label: "Menu & title (EN)", name: "title_en", widget: "string" }
+              - { label: "Menu & title (FA)", name: "title_fa", widget: "string", required: false }
+              - { label: "Heading (EN)", name: "heading_en", widget: "string", required: false }
+              - { label: "Heading (FA)", name: "heading_fa", widget: "string", required: false }
+              - { label: "Body (EN)", name: "body_en", widget: "markdown", required: false }
+              - { label: "Body (FA)", name: "body_fa", widget: "markdown", required: false }
+              - label: "Photos"
+                name: "images"
+                widget: "list"
+                required: false
+                field: { label: "Image", name: "image", widget: "image" }

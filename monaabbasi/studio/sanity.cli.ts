@@ -1,6 +1,6 @@
 import {defineCliConfig} from 'sanity/cli'
 
-const dataset = process.env.SANITY_STUDIO_DATASET || 'migration-test'
+const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 export default defineCliConfig({
   api: {
@@ -15,9 +15,14 @@ export default defineCliConfig({
   },
   deployment: {
     /**
-     * Enable auto-updates for studios.
-     * Learn more at https://www.sanity.io/docs/studio/latest-version-of-sanity#k47faf43faf56
+     * Auto-updates OFF: the Studio is bundled fully self-contained and served
+     * from our own Netlify origin, instead of fetching core modules from
+     * sanity-cdn.com at runtime. That runtime fetch was the cause of the
+     * intermittent blank page on mobile networks. With it off, /admin loads
+     * deterministically from one origin (and the "Forbidden"/appId warning at
+     * build time goes away too). To pick up a newer Sanity version, just
+     * rebuild and redeploy.
      */
-    autoUpdates: true,
+    autoUpdates: false,
   },
 })

@@ -2,3 +2,11 @@ node_modules/
 dist/
 *.log
 .DS_Store
+
+# Local Netlify folder
+.netlify
+
+# Scratch / QA screenshots at repo root
+/qa-*.png
+/qa-*.jpg
+/material-stage-concept.png

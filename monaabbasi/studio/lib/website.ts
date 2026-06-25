@@ -1,6 +1,7 @@
 import type {SanityDocument} from 'sanity'
 
-export const defaultWebsiteOrigin = 'http://localhost:3000'
+export const defaultWebsiteOrigin =
+  process.env.SANITY_STUDIO_WEBSITE_ORIGIN || 'https://monaabbasi.netlify.app'
 
 type PreviewDocument = Partial<SanityDocument> & {
   medium?: string

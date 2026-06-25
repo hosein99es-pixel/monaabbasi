@@ -909,5 +909,93 @@ const productions = {
         "images/image27.jpg"
       ]
     ]
+  },
+  "marg-beadan": {
+    "title": "Marg-e Be'adan",
+    "titleFa": "مرگ بئادان",
+    "year": "",
+    "yearFa": "",
+    "venue": "BA directing thesis production",
+    "venueFa": "اجرای پایان‌نامهٔ کارشناسی کارگردانی",
+    "role": "Writer & Director",
+    "roleFa": "نویسنده و کارگردان",
+    "director": "Fateme Abbasi",
+    "directorFa": "فاطمه عباسی",
+    "festival": "",
+    "festivalFa": "",
+    "hero": "images/image96.png",
+    "summary": "My BA directing thesis — a free adaptation that fuses Dante's Divine Comedy with Jack and the Beanstalk.",
+    "summaryFa": "اجرای پایان‌نامهٔ کارشناسی کارگردانی؛ برداشتی آزاد از تلفیق «کمدی الهی» دانته و «جک و لوبیای سحرآمیز».",
+    "paragraphs": [
+      "I wrote my thesis play as a free adaptation that combines Dante's Divine Comedy with the tale of Jack and the Beanstalk. Two months of intensive rehearsal for our 25-minute piece led us into a melancholic, surreal atmosphere.",
+      "The work had three personae trapped in limbo; in keeping with the concept, all three actors played all three roles, which created the hallucinatory feeling of purgatory."
+    ],
+    "paragraphsFa": [
+      "با برداشتی آزاد از دو متن «کمدی الهی» دانته و داستان «جک و لوبیای سحرآمیز» و تلفیق این دو، نمایشنامهٔ پایان‌نامه‌ام را نوشتم. دو ماه تمرین فشرده برای اجرای ۲۵دقیقه‌ای، در نهایت ما را به فضایی مالیخولیایی و سورئال رساند.",
+      "اثر سه پرسوناژ داشت که در برزخ گیر افتاده بودند و هر سه بازیگر، متناسب با مفهوم اثر، هر سه نقش را بازی می‌کردند و همین، فضای توهمی برزخ را می‌ساخت."
+    ],
+    "images": [
+      [ "Marg-e Be'adan portfolio image 1", "مرگ بئادان، تصویر ۱", "images/image96.png" ],
+      [ "Marg-e Be'adan portfolio image 2", "مرگ بئادان، تصویر ۲", "images/image97.jpg" ]
+    ]
+  },
+  "dainosorha": {
+    "title": "Dainosorha",
+    "titleFa": "دایناسورها",
+    "year": "",
+    "yearFa": "",
+    "venue": "",
+    "venueFa": "",
+    "role": "Short film",
+    "roleFa": "فیلم کوتاه",
+    "director": "Sara Shahabadi",
+    "directorFa": "سارا شاه‌آبادی",
+    "festival": "",
+    "festivalFa": "",
+    "hero": "images/image92.jpg",
+    "summary": "A sci-fi short about a world collapsing under a zombie virus — my first fantasy/apocalyptic role.",
+    "summaryFa": "فیلم کوتاهی علمی‑تخیلی دربارهٔ جهانی در آستانهٔ فروپاشی بر اثر یک ویروس زامبی؛ نخستین تجربهٔ من در ژانر فانتزی‑آخرالزمانی.",
+    "paragraphs": [
+      "Dainosorha is a sci-fi short depicting a world on the brink of collapse after a zombie virus spreads. It follows a group of young people who, after a friend's birthday party, are trapped in a house and — as their food runs out — must face the outside world and its crisis.",
+      "This was my first experience in the fantasy/apocalyptic genre, with particular challenges around believability and physical action. To approach the role I used given-circumstances analysis, designed the character's physical dimension, and drew on active imagination to reach a tangible sense of emergency and survival."
+    ],
+    "paragraphsFa": [
+      "فیلم کوتاه «دایناسورها» اثری در ژانر تخیلی است که جهانی را در آستانهٔ فروپاشی بر اثر انتشار یک ویروس زامبی روایت می‌کند. داستان بر گروهی از جوانان متمرکز است که پس از جشن تولد یکی از دوستانشان در خانه‌ای گرفتار می‌شوند و با پایان‌یافتن منابع غذایی، ناچار به مواجهه با جهان بیرون و شرایط بحرانی آن می‌شوند.",
+      "حضور در این پروژه نخستین تجربهٔ من در ژانر فانتزی–آخرالزمانی بود؛ با چالش‌هایی در باورپذیری موقعیت و کنش‌های بدنی. برای نزدیک‌شدن به نقش از تحلیل موقعیت، طراحی بُعد فیزیکال کاراکتر و تخیل فعال بهره گرفتم تا واکنش‌های احساسی و رفتاری شخصیت را در بستری غیرواقع‌گرایانه باورپذیر اجرا کنم."
+    ],
+    "images": [
+      [ "Dainosorha portfolio image 1", "دایناسورها، تصویر ۱", "images/image92.jpg" ],
+      [ "Dainosorha portfolio image 2", "دایناسورها، تصویر ۲", "images/image73.jpg" ],
+      [ "Dainosorha portfolio image 3", "دایناسورها، تصویر ۳", "images/image87.jpg" ]
+    ]
+  },
+  "mokammel": {
+    "title": "Mokammel",
+    "titleFa": "مکمل",
+    "year": "2022",
+    "yearFa": "۱۴۰۱",
+    "venue": "",
+    "venueFa": "",
+    "role": "Short film",
+    "roleFa": "فیلم کوتاه",
+    "director": "Mojtaba Karimi",
+    "directorFa": "مجتبی کریمی",
+    "festival": "",
+    "festivalFa": "",
+    "hero": "images/image95.jpg",
+    "summary": "A psychological short about a blind girl, home alone, gripped by fear after a string of neighbourhood burglaries.",
+    "summaryFa": "فیلم کوتاهی روان‌شناختی دربارهٔ دختری نابینا که در خانه تنها مانده و پس از چند سرقت در محله با ترسی فزاینده روبه‌رو می‌شود.",
+    "paragraphs": [
+      "Mokammel is a psychological short about a blind girl who, in her working mother's absence, is left home alone and faces growing fear after several burglaries in the neighbourhood. Focusing on sensory perception and the character's inner world, it portrays an internal experience of insecurity, loneliness and confronting fear.",
+      "Beyond rehearsals with the director, I used lived-experience and sensory-empathy methods: by limiting my sense of sight in everyday situations I worked to sharpen my other senses and grasp the behaviour, bodily reactions and movement rhythm of a blind person. Relying on sensory memory and careful physical design, this helped me give a believable, controlled performance."
+    ],
+    "paragraphsFa": [
+      "فیلم کوتاه «مکمل» روایتی روان‌شناختی از دختری نابیناست که در غیاب مادر شاغلش در خانه تنها مانده و پس از وقوع چند سرقت در محله، با ترس و اضطرابی فزاینده روبه‌رو می‌شود. اثر با تمرکز بر ادراک حسی و فضای ذهنی شخصیت، تجربه‌ای درونی از ناامنی، تنهایی و مواجهه با ترس را به تصویر می‌کشد.",
+      "افزون بر تمرین با کارگردان، برای درک عمیق‌تر کاراکتر از روش‌های مبتنی بر تجربهٔ زیسته و همذات‌پنداری حسی بهره گرفتم؛ با محدودکردن حس بینایی در موقعیت‌های روزمره کوشیدم سایر حواس را تقویت کنم و به الگوهای رفتاری، واکنش‌های بدنی و ریتم حرکتی یک فرد نابینا برسم. تکیه بر حافظهٔ حسی و طراحی دقیق فیزیکال، اجرایی باورپذیر و کنترل‌شده را ممکن کرد."
+    ],
+    "images": [
+      [ "Mokammel portfolio image 1", "مکمل، تصویر ۱", "images/image95.jpg" ],
+      [ "Mokammel portfolio image 2", "مکمل، تصویر ۲", "images/image94.jpg" ]
+    ]
   }
 };

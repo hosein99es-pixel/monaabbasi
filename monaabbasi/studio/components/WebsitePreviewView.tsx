@@ -20,7 +20,8 @@ export const WebsitePreviewView: UserViewComponent<PreviewOptions> = ({
               Published website placement
             </Text>
             <Text muted size={1}>
-              {url} · Use the Live preview tool for click-to-edit draft editing.
+              {url} · Opens the matching public section. Draft preview can be enabled after the
+              preview token is configured.
             </Text>
           </Stack>
           <Button as="a" href={url} mode="ghost" target="_blank" text="Open in new tab ↗" />

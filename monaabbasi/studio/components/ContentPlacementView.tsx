@@ -21,17 +21,25 @@ function richText(value: unknown, language = 'en') {
 }
 
 const sectionCards = [
-  ['Profile', '#main', 'name'],
-  ['Resume', '#resume', 'education'],
-  ['Theatre', '#theatre', 'productions'],
-  ['Film & TV', '#film', 'productions'],
-  ['Awards', '#awards', 'awards'],
-  ['Teaching', '#teaching', 'teachingExperiences'],
-  ['Upcoming', '#upcoming', 'upcomingWork'],
-  ['Gallery', '#gallery', 'gallery'],
-  ['Downloads', '#downloads', 'downloads'],
-  ['Contact', '#contact', 'contact'],
+  ['Profile', 'Homepage hero', 'name'],
+  ['Resume', 'Resume section', 'education'],
+  ['Theatre', 'Theatre section', 'productions'],
+  ['Film & TV', 'Film & TV section', 'productions'],
+  ['Awards', 'Awards section', 'awards'],
+  ['Teaching', 'Teaching section', 'teachingExperiences'],
+  ['Upcoming', 'Upcoming highlight', 'upcomingWork'],
+  ['Gallery', 'Photo gallery', 'gallery'],
+  ['Downloads', 'Downloads section', 'downloads'],
+  ['Contact', 'Contact section', 'contact'],
 ] as const
+
+const productionMediumLabels: Record<string, string> = {
+  theatre: 'Theatre section',
+  performance: 'Theatre section',
+  shortFilm: 'Film & TV section',
+  film: 'Film & TV section',
+  television: 'Film & TV section',
+}
 
 const PlacementShell = styled(Box)`
   min-height: 100%;
@@ -121,11 +129,11 @@ export const ContentPlacementView: UserViewComponent = ({document, schemaType}) 
             </Stack>
           </PlacementHero>
           <Grid columns={[1, 2, 2, 3]} gap={3}>
-            {sectionCards.map(([title, anchor, field], index) => {
+            {sectionCards.map(([title, location, field], index) => {
               const content = value[field]
               const count = Array.isArray(content) ? content.length : content ? 1 : 0
               return (
-                <PlacementTile key={`${title}-${anchor}`} padding={4} shadow={1}>
+                <PlacementTile key={`${title}-${location}`} padding={4} shadow={1}>
                   <Stack space={3}>
                     <Flex align="center" justify="space-between">
                       <Pill $ready={!!count}>
@@ -139,7 +147,7 @@ export const ContentPlacementView: UserViewComponent = ({document, schemaType}) 
                       {title}
                     </Heading>
                     <Text muted size={1}>
-                      Appears at {anchor}
+                      Appears in: {location}
                     </Text>
                   </Stack>
                 </PlacementTile>
@@ -175,10 +183,7 @@ export const ContentPlacementView: UserViewComponent = ({document, schemaType}) 
               {summary || 'Add a summary to preview the production story.'}
             </Text>
             <Text size={1} style={{color: '#625b71'}}>
-              Website placement:{' '}
-              {['film', 'shortFilm', 'television'].includes(String(value.medium))
-                ? '#film'
-                : '#theatre'}
+              Appears in: {productionMediumLabels[String(value.medium)] ?? 'Portfolio sections'}
             </Text>
           </Stack>
         </PlacementHero>

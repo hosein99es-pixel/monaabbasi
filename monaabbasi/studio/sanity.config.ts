@@ -1,9 +1,10 @@
 import {defineConfig} from 'sanity'
 import {presentationTool} from 'sanity/presentation'
 import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
 import {BrandLogo, BrandMark} from './components/BrandLogo'
 import {PortableTextPlugins} from './components/PortableTextPlugins'
+import {StudioLayout} from './components/StudioLayout'
+import {StudioNavbar} from './components/StudioNavbar'
 import {EditorialStatusBadge} from './document/badges'
 import {OpenWebsiteAction, TranslationChecklistAction} from './document/actions'
 import {presentationResolve} from './presentation/resolve'
@@ -12,8 +13,11 @@ import {defaultDocumentNode, structure} from './structure'
 import {monaStudioTheme} from './theme'
 import {websiteMapTool} from './tools/WebsiteMapTool'
 
-const dataset = process.env.SANITY_STUDIO_DATASET || 'migration-test'
-const previewOrigin = process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'http://localhost:3000'
+const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
+const previewOrigin =
+  process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'https://monaabbasi.netlify.app'
+const enablePresentationTool = process.env.SANITY_STUDIO_ENABLE_PRESENTATION === 'true'
+const hiddenEditorTools = new Set(['vision', 'releases'])
 
 export default defineConfig({
   name: 'default',
@@ -23,27 +27,36 @@ export default defineConfig({
   projectId: 'esf8v11h',
   dataset,
 
+  // Served as a static build under https://<site>/admin on the same Netlify site.
+  basePath: '/admin',
+
   plugins: [
     structureTool({structure, defaultDocumentNode}),
-    presentationTool({
-      title: 'Live preview',
-      previewUrl: {
-        initial: `${previewOrigin}/en`,
-        previewMode: {
-          enable: '/api/draft-mode/enable',
-        },
-      },
-      resolve: presentationResolve,
-    }),
-    visionTool({defaultApiVersion: '2026-06-22'}),
+    ...(enablePresentationTool
+      ? [
+          presentationTool({
+            title: 'Preview',
+            previewUrl: {
+              initial: `${previewOrigin}/en`,
+              previewMode: {
+                enable: '/api/draft-mode/enable',
+              },
+            },
+            resolve: presentationResolve,
+          }),
+        ]
+      : []),
   ],
 
-  tools: (previousTools) => [websiteMapTool, ...previousTools],
+  tools: (previousTools) => [
+    websiteMapTool,
+    ...previousTools.filter((tool) => !hiddenEditorTools.has(tool.name)),
+  ],
 
   theme: monaStudioTheme,
 
   studio: {
-    components: {logo: BrandLogo},
+    components: {logo: BrandLogo, layout: StudioLayout, navbar: StudioNavbar},
   },
 
   form: {
@@ -61,13 +74,15 @@ export default defineConfig({
             )
           : previousActions
 
+      // Keep the default actions FIRST so "Publish" stays the primary button in
+      // the document footer; the custom actions follow it (into the "…" menu).
       return ['portfolioPage', 'production', 'post'].includes(context.schemaType)
         ? [
+            ...actions,
             OpenWebsiteAction,
             ...(['portfolioPage', 'production'].includes(context.schemaType)
               ? [TranslationChecklistAction]
               : []),
-            ...actions,
           ]
         : actions
     },

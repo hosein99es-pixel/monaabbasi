@@ -1,0 +1,36 @@
+[build]
+  # Build the static site (pulls content from Sanity), then build the Sanity
+  # Studio and place it at dist/admin. The studio is a separate package, so its
+  # deps are installed explicitly (Netlify only auto-installs the root package).
+  # Use `install` (not `ci`) so the build doesn't require a committed
+  # package-lock.json in monaabbasi/studio.
+  command = "npm --prefix monaabbasi/studio install && npm run build:all"
+  publish = "dist"
+
+[build.environment]
+  # Sanity Studio's build toolchain needs a modern Node.
+  NODE_VERSION = "20"
+
+# `sanity build` emits root-absolute asset URLs (/static/...), but the Studio is
+# hosted under /admin, so its assets actually live at /admin/static/. Rewrite the
+# root /static/* requests to the Studio's real location. The public site never
+# uses /static (it uses /assets and /images), so this only affects the Studio.
+[[redirects]]
+  from = "/static/*"
+  to = "/admin/static/:splat"
+  status = 200
+
+# Same reason as /static: the Studio bundle imports vendored modules at the
+# root-absolute /vendor/* path, but they live under /admin/vendor/.
+[[redirects]]
+  from = "/vendor/*"
+  to = "/admin/vendor/:splat"
+  status = 200
+
+# The Sanity Studio at /admin is a single-page app: serve its index.html for
+# client-side routes. Netlify serves existing files first (force defaults to
+# false), so real assets like /admin/static/* are unaffected.
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200

@@ -39,7 +39,7 @@ export const simpleBlockContent = defineType({
   title: 'Rich text',
   type: 'array',
   icon: TranslateIcon,
-  description: 'Use the visual editor or switch to Markdown. Markdown shortcuts work as you type.',
+  description: 'Type normally and use the toolbar for formatting. Markdown source is optional.',
   of: [
     defineArrayMember({
       type: 'block',
@@ -92,6 +92,12 @@ export const localizedStringValue = defineType({
   ],
   preview: {
     select: {title: 'value', subtitle: 'language'},
+    prepare({title, subtitle}) {
+      return {
+        title: title || 'Text not filled in yet',
+        subtitle: subtitle?.toUpperCase(),
+      }
+    },
   },
 })
 
@@ -110,9 +116,13 @@ export const localizedBlockContentValue = defineType({
     }),
   ],
   preview: {
-    select: {subtitle: 'language'},
-    prepare({subtitle}) {
-      return {title: 'Rich text', subtitle: subtitle?.toUpperCase()}
+    select: {subtitle: 'language', value: 'value'},
+    prepare({subtitle, value}) {
+      const hasText = Array.isArray(value) && value.length > 0
+      return {
+        title: hasText ? 'Rich text' : 'Rich text not filled in yet',
+        subtitle: subtitle?.toUpperCase(),
+      }
     },
   },
 })

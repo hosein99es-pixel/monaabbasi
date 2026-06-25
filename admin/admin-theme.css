@@ -1,0 +1,65 @@
+/* Light, site-flavoured skin for the Decap admin UI.
+   Decap's editor isn't fully themeable (it uses hashed component classes), so
+   this is a conservative cosmetic pass — background tint, the site's fonts, and
+   warm rose/gold accents on links, primary buttons, and the active workflow.
+   It only touches colours/fonts (never layout), so it can't break the editor;
+   some deep controls may keep Decap's defaults. */
+
+:root {
+  --site-bg: #fff8f6;          /* warm light surface, matches the site's light theme-color */
+  --site-surface: #fffdfc;
+  --site-ink: #241a1c;
+  --site-accent: #b1466a;      /* rose */
+  --site-accent-2: #b8862f;    /* gold */
+  --site-font: "Roboto", "Estedad", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Base canvas + typography across the whole admin (login screen + app). */
+html,
+body,
+#nc-root,
+#nc-root [class*="AppRoot"],
+#nc-root [class*="AppMainContainer"] {
+  background-color: var(--site-bg) !important;
+  color: var(--site-ink);
+}
+
+body,
+#nc-root,
+#nc-root input,
+#nc-root textarea,
+#nc-root select,
+#nc-root button {
+  font-family: var(--site-font) !important;
+}
+
+/* Cards / panels a touch warmer than stark white. */
+#nc-root [class*="Card"],
+#nc-root [class*="control-"],
+#nc-root [class*="Widget"] {
+  background-color: var(--site-surface);
+}
+
+/* Primary actions + links in the site's rose accent. */
+#nc-root a,
+#nc-root [class*="-link"] {
+  color: var(--site-accent);
+}
+
+#nc-root button[class*="primary"],
+#nc-root [class*="Primary"] button,
+#nc-root [class*="LoginButton"] {
+  background-color: var(--site-accent) !important;
+  border-color: var(--site-accent) !important;
+}
+
+/* Editorial-workflow "ready" / active states pick up the gold accent. */
+#nc-root [class*="WorkflowList-column"] [class*="status"] {
+  border-top-color: var(--site-accent-2);
+}
+
+/* Top app bar tinted to match the site header. */
+#nc-root [class*="AppHeader"] {
+  background: linear-gradient(135deg, var(--site-bg), #fdeef0) !important;
+  color: var(--site-ink);
+}
