@@ -1,5 +1,6 @@
 import {Badge, Box, Card, Flex, Grid, Heading, Stack, Text} from '@sanity/ui'
 import type {UserViewComponent} from 'sanity/structure'
+import styled from 'styled-components'
 
 type LocalizedString = Array<{language?: string; value?: string}>
 type PortableBlock = {children?: Array<{text?: string}>}
@@ -22,7 +23,7 @@ function richText(value: unknown, language = 'en') {
 const sectionCards = [
   ['Profile', '#main', 'name'],
   ['Resume', '#resume', 'education'],
-  ['Theatre', '#work', 'productions'],
+  ['Theatre', '#theatre', 'productions'],
   ['Film & TV', '#film', 'productions'],
   ['Awards', '#awards', 'awards'],
   ['Teaching', '#teaching', 'teachingExperiences'],
@@ -32,6 +33,72 @@ const sectionCards = [
   ['Contact', '#contact', 'contact'],
 ] as const
 
+const PlacementShell = styled(Box)`
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(234, 221, 255, 0.95), transparent 24rem),
+    radial-gradient(circle at 100% 14%, rgba(184, 243, 240, 0.75), transparent 22rem),
+    linear-gradient(180deg, #fffbff 0%, #fef7ff 55%, #f7f2fa 100%);
+`
+
+const PlacementHero = styled(Card)`
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(103, 80, 164, 0.16);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(255, 216, 228, 0.94), transparent 18rem),
+    linear-gradient(135deg, #fffbff 0%, #f7f2fa 64%, #eaddff 100%);
+  color: #1d1b20;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    right: -3rem;
+    bottom: -3rem;
+    border-radius: 42% 58% 48% 52%;
+    background: linear-gradient(135deg, #6750a4, #006a6a);
+    opacity: 0.14;
+  }
+`
+
+const PlacementTile = styled(Card)`
+  height: 100%;
+  border: 1px solid rgba(73, 69, 79, 0.14);
+  border-radius: 26px;
+  background: rgba(255, 251, 255, 0.92);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+
+  &:hover {
+    border-color: rgba(103, 80, 164, 0.32);
+    box-shadow: 0 18px 44px rgba(58, 48, 83, 0.12);
+    transform: translateY(-2px);
+  }
+`
+
+const Pill = styled(Badge)<{$ready?: boolean}>`
+  border-radius: 999px;
+  color: ${({$ready}) => ($ready ? '#00201f' : '#311300')};
+  background: ${({$ready}) => ($ready ? '#b8f3f0' : '#ffdcc2')};
+  font-weight: 750;
+`
+
+const Kicker = styled(Text)`
+  width: fit-content;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  color: #21005d;
+  background: #eaddff;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+`
+
 export const ContentPlacementView: UserViewComponent = ({document, schemaType}) => {
   const value = document.displayed as Record<string, unknown>
 
@@ -40,43 +107,47 @@ export const ContentPlacementView: UserViewComponent = ({document, schemaType}) 
     const intro = richText(value.intro)
 
     return (
-      <Box padding={5} style={{background: '#1b1115', minHeight: '100%'}}>
+      <PlacementShell padding={5}>
         <Stack space={5}>
-          <Card padding={5} radius={4} style={{background: '#2d1a22', color: '#f0e3d6'}}>
+          <PlacementHero padding={5}>
             <Stack space={3}>
-              <Badge tone="caution">Homepage</Badge>
-              <Heading size={4}>{name}</Heading>
-              <Text muted size={2}>
+              <Kicker size={0}>Homepage placement</Kicker>
+              <Heading size={5} style={{letterSpacing: '-.055em', lineHeight: 0.98}}>
+                {name}
+              </Heading>
+              <Text size={2} style={{maxWidth: 780, color: '#625b71', lineHeight: 1.62}}>
                 {intro || 'Add the profile introduction to see a live editorial summary here.'}
               </Text>
             </Stack>
-          </Card>
+          </PlacementHero>
           <Grid columns={[1, 2, 2, 3]} gap={3}>
             {sectionCards.map(([title, anchor, field], index) => {
               const content = value[field]
               const count = Array.isArray(content) ? content.length : content ? 1 : 0
               return (
-                <Card key={`${title}-${anchor}`} padding={4} radius={3} shadow={1}>
+                <PlacementTile key={`${title}-${anchor}`} padding={4} shadow={1}>
                   <Stack space={3}>
                     <Flex align="center" justify="space-between">
-                      <Badge tone={count ? 'positive' : 'default'}>
+                      <Pill $ready={!!count}>
                         {count ? 'Content ready' : 'Empty'}
-                      </Badge>
-                      <Text muted size={1}>
+                      </Pill>
+                      <Text size={1} style={{color: '#6750a4', fontWeight: 800}}>
                         {String(index + 1).padStart(2, '0')}
                       </Text>
                     </Flex>
-                    <Heading size={2}>{title}</Heading>
+                    <Heading size={3} style={{letterSpacing: '-.035em'}}>
+                      {title}
+                    </Heading>
                     <Text muted size={1}>
                       Appears at {anchor}
                     </Text>
                   </Stack>
-                </Card>
+                </PlacementTile>
               )
             })}
           </Grid>
         </Stack>
-      </Box>
+      </PlacementShell>
     )
   }
 
@@ -88,38 +159,44 @@ export const ContentPlacementView: UserViewComponent = ({document, schemaType}) 
     const summary = richText(value.summary)
 
     return (
-      <Box padding={5} style={{background: '#1b1115', minHeight: '100%'}}>
-        <Card padding={6} radius={4} style={{background: '#2d1a22', color: '#f0e3d6'}}>
+      <PlacementShell padding={5}>
+        <PlacementHero padding={6}>
           <Stack space={4}>
             <Flex gap={2} wrap="wrap">
-              <Badge tone="caution">{String(value.medium ?? 'Production')}</Badge>
+              <Pill $ready>{String(value.medium ?? 'Production')}</Pill>
               {year ? <Badge>{year}</Badge> : null}
               {role ? <Badge>{role}</Badge> : null}
             </Flex>
-            <Heading size={5}>{title}</Heading>
-            {director ? <Text muted>Directed by {director}</Text> : null}
-            <Text size={2}>{summary || 'Add a summary to preview the production story.'}</Text>
-            <Text muted size={1}>
+            <Heading size={5} style={{letterSpacing: '-.055em', lineHeight: 0.98}}>
+              {title}
+            </Heading>
+            {director ? <Text style={{color: '#625b71'}}>Directed by {director}</Text> : null}
+            <Text size={2} style={{maxWidth: 760, color: '#49454f', lineHeight: 1.65}}>
+              {summary || 'Add a summary to preview the production story.'}
+            </Text>
+            <Text size={1} style={{color: '#625b71'}}>
               Website placement:{' '}
               {['film', 'shortFilm', 'television'].includes(String(value.medium))
                 ? '#film'
-                : '#work'}
+                : '#theatre'}
             </Text>
           </Stack>
-        </Card>
-      </Box>
+        </PlacementHero>
+      </PlacementShell>
     )
   }
 
   return (
-    <Box padding={5}>
-      <Card padding={5} radius={3} shadow={1}>
+    <PlacementShell padding={5}>
+      <PlacementTile padding={5} shadow={1}>
         <Stack space={3}>
-          <Badge tone="primary">Website content</Badge>
-          <Heading size={3}>{String(value.title ?? schemaType.title)}</Heading>
+          <Kicker size={0}>Website content</Kicker>
+          <Heading size={3} style={{letterSpacing: '-.035em'}}>
+            {String(value.title ?? schemaType.title)}
+          </Heading>
           <Text muted>{String(value.excerpt ?? 'This document is connected to the website.')}</Text>
         </Stack>
-      </Card>
-    </Box>
+      </PlacementTile>
+    </PlacementShell>
   )
 }

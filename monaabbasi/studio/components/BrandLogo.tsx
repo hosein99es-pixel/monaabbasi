@@ -7,17 +7,19 @@ export function BrandMark() {
       aria-hidden="true"
       style={{
         alignItems: 'center',
-        background: 'linear-gradient(135deg, #1b1115, #3a1c28)',
-        border: '1px solid #b1466a',
-        borderRadius: '35%',
-        color: '#eac480',
+        background:
+          'radial-gradient(circle at 30% 28%, #ffd8e4 0 24%, transparent 25%), linear-gradient(135deg, #6750a4 0%, #7d5260 48%, #006a6a 100%)',
+        border: '1px solid rgba(103, 80, 164, .28)',
+        borderRadius: '42% 58% 48% 52%',
+        boxShadow: '0 8px 24px rgba(103, 80, 164, .22)',
+        color: '#fffbff',
         display: 'inline-flex',
-        fontFamily: 'Georgia, serif',
+        fontFamily: 'Google Sans, Inter, system-ui, sans-serif',
         fontSize: '.38em',
-        fontWeight: 700,
+        fontWeight: 800,
         height: '1em',
         justifyContent: 'center',
-        letterSpacing: '.03em',
+        letterSpacing: '-.03em',
         width: '1em',
       }}
     >
@@ -34,10 +36,10 @@ export function BrandLogo(_props: LogoProps) {
       </Box>
       <Box>
         <Text size={1} weight="semibold">
-          Fateme Abbasi
+          Fateme CMS
         </Text>
         <Text muted size={0}>
-          Portfolio Studio
+          Expressive Studio
         </Text>
       </Box>
     </Flex>

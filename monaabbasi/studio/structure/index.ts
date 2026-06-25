@@ -10,6 +10,7 @@ export const structure: StructureResolver = (S) =>
     .title('Fateme Abbasi website')
     .items([
       S.listItem()
+        .id('portfolioPage')
         .title('Portfolio homepage')
         .icon(HomeIcon)
         .child(
@@ -32,6 +33,7 @@ export const structure: StructureResolver = (S) =>
                   S.documentList()
                     .title('Theatre & performance')
                     .schemaType('production')
+                    .apiVersion('2026-06-22')
                     .filter('_type == "production" && medium in $media')
                     .params({media: ['theatre', 'performance']})
                     .defaultOrdering([{field: '_updatedAt', direction: 'desc'}]),
@@ -43,6 +45,7 @@ export const structure: StructureResolver = (S) =>
                   S.documentList()
                     .title('Film & television')
                     .schemaType('production')
+                    .apiVersion('2026-06-22')
                     .filter('_type == "production" && medium in $media')
                     .params({media: ['shortFilm', 'film', 'television']})
                     .defaultOrdering([{field: '_updatedAt', direction: 'desc'}]),

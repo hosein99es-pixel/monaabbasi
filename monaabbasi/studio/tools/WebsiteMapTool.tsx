@@ -206,42 +206,96 @@ const sections: SiteSection[] = [
   },
 ]
 
+const expressive = {
+  background: '#fffbff',
+  outline: 'rgba(73, 69, 79, .14)',
+  primary: '#6750a4',
+  primaryContainer: '#eaddff',
+  onPrimaryContainer: '#21005d',
+  secondaryContainer: '#ffd8e4',
+  tertiary: '#006a6a',
+  tertiaryContainer: '#b8f3f0',
+  warningContainer: '#ffdcc2',
+  warningText: '#311300',
+}
+
 const DashboardShell = styled(Box)`
   min-height: 100%;
   background:
-    radial-gradient(circle at 12% 0%, rgba(177, 70, 106, 0.1), transparent 28rem),
-    #fffaf7;
+    radial-gradient(circle at 8% 0%, rgba(234, 221, 255, 0.95), transparent 26rem),
+    radial-gradient(circle at 100% 12%, rgba(184, 243, 240, 0.72), transparent 24rem),
+    linear-gradient(180deg, #fffbff 0%, #fef7ff 48%, #f7f2fa 100%);
 `
 
 const HeroCard = styled(Card)`
+  position: relative;
   overflow: hidden;
-  color: #f8eee8;
+  border: 1px solid rgba(103, 80, 164, 0.16);
+  border-radius: 34px;
+  color: #1d1b20;
   background:
-    radial-gradient(circle at 88% 18%, rgba(177, 70, 106, 0.55), transparent 18rem),
-    linear-gradient(135deg, #201317 0%, #351b25 100%);
+    radial-gradient(circle at 88% 18%, rgba(255, 216, 228, 0.95), transparent 19rem),
+    radial-gradient(circle at 12% 20%, rgba(234, 221, 255, 0.92), transparent 18rem),
+    linear-gradient(135deg, #fffbff 0%, #f7f2fa 62%, #eaddff 100%);
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 11rem;
+    height: 11rem;
+    right: -3.5rem;
+    bottom: -3rem;
+    border-radius: 42% 58% 48% 52%;
+    background: linear-gradient(135deg, #6750a4, #006a6a);
+    opacity: 0.14;
+    transform: rotate(-12deg);
+  }
 `
 
 const HeroIntentLink = styled(IntentLink)`
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  min-height: 2.25rem;
-  padding: 0 0.8rem;
-  border-radius: 0.25rem;
-  color: white;
-  background: #b1466a;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0 1.15rem;
+  border-radius: 999px;
+  color: #fffbff;
+  background: ${expressive.primary};
+  box-shadow: 0 12px 28px rgba(103, 80, 164, 0.22);
+  font-size: 0.875rem;
+  font-weight: 750;
   line-height: 1;
   text-decoration: none;
   transition:
     background 160ms ease,
+    box-shadow 160ms ease,
     transform 160ms ease;
 
   &:hover,
   &:focus-visible {
-    background: #c25478;
-    transform: translateY(-1px);
+    background: #7f67be;
+    box-shadow: 0 16px 34px rgba(103, 80, 164, 0.28);
+    transform: translateY(-2px) scale(1.015);
+  }
+`
+
+const GhostAction = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0 1.05rem;
+  border-radius: 999px;
+  color: #49454f;
+  background: rgba(255, 251, 255, 0.76);
+  font-size: 0.875rem;
+  font-weight: 750;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(73, 69, 79, 0.1);
+
+  &:hover,
+  &:focus-visible {
+    background: #fffbff;
   }
 `
 
@@ -254,49 +308,113 @@ const SectionLink = styled(IntentLink)`
 `
 
 const SectionCard = styled(Card)`
+  position: relative;
   height: 100%;
-  border: 1px solid rgba(67, 32, 43, 0.09);
-  background: rgba(255, 255, 255, 0.94);
+  overflow: hidden;
+  border: 1px solid ${expressive.outline};
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 251, 255, 0.98), rgba(255, 251, 255, 0.9)),
+    #fffbff;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
     box-shadow 160ms ease;
 
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 6px;
+    background: linear-gradient(90deg, #6750a4, #7d5260, #006a6a);
+    opacity: 0;
+    transition: opacity 160ms ease;
+  }
+
   ${SectionLink}:hover &,
   ${SectionLink}:focus-visible & {
-    transform: translateY(-3px);
-    border-color: rgba(177, 70, 106, 0.45);
-    box-shadow: 0 18px 42px rgba(54, 24, 34, 0.12);
+    transform: translateY(-4px) scale(1.008);
+    border-color: rgba(103, 80, 164, 0.36);
+    box-shadow: 0 22px 48px rgba(58, 48, 83, 0.14);
+  }
+
+  ${SectionLink}:hover &::before,
+  ${SectionLink}:focus-visible &::before {
+    opacity: 1;
   }
 `
 
 const NumberMark = styled(Box)`
-  width: 2.4rem;
-  height: 2.4rem;
-  flex: 0 0 2.4rem;
+  width: 3.1rem;
+  height: 3.1rem;
+  flex: 0 0 3.1rem;
   display: grid;
   place-items: center;
+  border-radius: 19px;
+  background: ${expressive.primaryContainer};
+  color: ${expressive.onPrimaryContainer};
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+`
+
+const SectionIcon = styled(Box)`
+  display: grid;
+  width: 2.65rem;
+  height: 2.65rem;
+  place-items: center;
+  border-radius: 18px;
+  color: #21005d;
+  background: #eaddff;
+`
+
+const StatCard = styled(Card)`
+  border: 1px solid rgba(103, 80, 164, 0.12);
+  border-radius: 24px;
+  background: rgba(255, 251, 255, 0.72);
+  color: #1d1b20;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.56);
+  backdrop-filter: blur(18px);
+`
+
+const ExpressiveBadge = styled(Badge)<{$ready?: boolean}>`
+  --card-badge-bg: ${({$ready}) => ($ready ? '#b8f3f0' : '#ffdcc2')};
+  color: ${({$ready}) => ($ready ? '#00201f' : expressive.warningText)};
   border-radius: 999px;
-  background: #f8e9ee;
-  color: #983454;
-  font-size: 0.72rem;
+  background: var(--card-badge-bg);
   font-weight: 750;
-  letter-spacing: 0.04em;
 `
 
 const ProgressTrack = styled(Box)`
-  height: 6px;
+  height: 12px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(103, 80, 164, 0.12);
 `
 
 const ProgressFill = styled(Box)<{$percent: number}>`
   width: ${({$percent}) => `${$percent}%`};
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #d6819d, #f0c994);
+  background: linear-gradient(90deg, #6750a4, #7d5260, #006a6a);
   transition: width 280ms ease;
+`
+
+const Kicker = styled(Text)`
+  width: fit-content;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  color: #21005d;
+  background: #eaddff;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+`
+
+const GuidanceCard = styled(Card)`
+  border: 1px solid rgba(125, 82, 96, 0.18);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #ffd8e4 0%, #fff8f8 52%, #fffbff 100%);
 `
 
 function hasContent(value: unknown): boolean {
@@ -376,12 +494,12 @@ function getSectionState(key: SectionKey, data: DashboardData): SectionState {
 
 function LoadingState() {
   return (
-    <Card padding={5} radius={3} border>
+    <StatCard padding={5}>
       <Flex align="center" gap={3}>
         <Spinner muted />
         <Text muted>Reading the current website content…</Text>
       </Flex>
-    </Card>
+    </StatCard>
   )
 }
 
@@ -424,17 +542,17 @@ export function WebsiteMapTool() {
     <DashboardShell padding={[3, 4, 5]}>
       <Box style={{maxWidth: 1240, margin: '0 auto'}}>
         <Stack space={6}>
-          <HeroCard padding={[4, 5, 6]} radius={4} shadow={2}>
+          <HeroCard padding={[4, 5, 6]} shadow={1}>
             <Grid columns={[1, 1, 2]} gap={6}>
-              <Stack space={4}>
-                <Badge tone="caution" style={{width: 'fit-content'}}>
-                  Portfolio control room
-                </Badge>
+              <Stack space={5}>
+                <Kicker size={0}>Expressive control room</Kicker>
                 <Stack space={3}>
-                  <Heading size={4}>The website, in the same order your audience sees it.</Heading>
-                  <Text size={2} style={{maxWidth: 630, color: 'rgba(248, 238, 232, 0.72)'}}>
+                  <Heading size={5} style={{maxWidth: 760, letterSpacing: '-.055em', lineHeight: 0.96}}>
+                    Edit the portfolio the way the audience experiences it.
+                  </Heading>
+                  <Text size={2} style={{maxWidth: 660, color: '#625b71', lineHeight: 1.6}}>
                     Choose a section below, then use the matching numbered tab in the editor. No
-                    technical fields, no guessing where content appears.
+                    technical fields, no guessing where content appears—just expressive, guided editing.
                   </Text>
                 </Stack>
                 <Flex align="center" gap={3} wrap="wrap">
@@ -445,33 +563,29 @@ export function WebsiteMapTool() {
                     <HomeIcon />
                     <span>Edit homepage</span>
                   </HeroIntentLink>
-                  <Button
-                    as="a"
+                  <GhostAction
                     href={defaultWebsiteOrigin}
                     target="_blank"
                     rel="noreferrer"
-                    icon={EyeOpenIcon}
-                    text="Open website"
-                    mode="ghost"
-                    style={{color: '#f8eee8'}}
-                  />
+                  >
+                    <EyeOpenIcon />
+                    <span>Open website</span>
+                  </GhostAction>
                 </Flex>
               </Stack>
 
-              <Card
-                padding={4}
-                radius={3}
-                style={{background: 'rgba(255,255,255,.075)', color: '#f8eee8'}}
-              >
+              <StatCard padding={4}>
                 <Stack space={4}>
                   <Flex align="baseline" justify="space-between">
                     <Stack space={2}>
-                      <Text size={1} style={{color: 'rgba(248,238,232,.66)'}}>
+                      <Text size={1} style={{color: '#625b71'}}>
                         Website readiness
                       </Text>
-                      <Heading size={3}>{data ? `${completionPercent}%` : '—'}</Heading>
+                      <Heading size={5} style={{letterSpacing: '-.06em'}}>
+                        {data ? `${completionPercent}%` : '—'}
+                      </Heading>
                     </Stack>
-                    <Text size={1} style={{color: 'rgba(248,238,232,.66)'}}>
+                    <Text size={1} style={{color: '#625b71'}}>
                       {data ? `${readyCount} of ${sections.length} sections` : 'Checking content'}
                     </Text>
                   </Flex>
@@ -479,26 +593,57 @@ export function WebsiteMapTool() {
                     <ProgressFill $percent={data ? completionPercent : 0} />
                   </ProgressTrack>
                   <Grid columns={2} gap={3}>
-                    <Stack space={2}>
-                      <Text size={1} style={{color: 'rgba(248,238,232,.58)'}}>
-                        Productions
-                      </Text>
-                      <Heading size={2}>{data?.productionCount ?? '—'}</Heading>
-                    </Stack>
-                    <Stack space={2}>
-                      <Text size={1} style={{color: 'rgba(248,238,232,.58)'}}>
-                        Gallery photos
-                      </Text>
-                      <Heading size={2}>{data?.portfolio?.gallery?.length ?? '—'}</Heading>
-                    </Stack>
+                    <Card padding={3} style={{borderRadius: 20, background: expressive.primaryContainer}}>
+                      <Stack space={2}>
+                        <Text size={1} style={{color: '#625b71'}}>
+                          Productions
+                        </Text>
+                        <Heading size={3}>{data?.productionCount ?? '—'}</Heading>
+                      </Stack>
+                    </Card>
+                    <Card padding={3} style={{borderRadius: 20, background: expressive.tertiaryContainer}}>
+                      <Stack space={2}>
+                        <Text size={1} style={{color: '#625b71'}}>
+                          Gallery photos
+                        </Text>
+                        <Heading size={3}>{data?.portfolio?.gallery?.length ?? '—'}</Heading>
+                      </Stack>
+                    </Card>
                   </Grid>
                 </Stack>
-              </Card>
+              </StatCard>
             </Grid>
           </HeroCard>
 
+          <Grid columns={[1, 1, 3]} gap={3}>
+            <StatCard padding={4}>
+              <Stack space={2}>
+                <Text muted size={1}>
+                  Theatre / performance
+                </Text>
+                <Heading size={3}>{data?.theatreCount ?? '—'}</Heading>
+              </Stack>
+            </StatCard>
+            <StatCard padding={4}>
+              <Stack space={2}>
+                <Text muted size={1}>
+                  Film / television
+                </Text>
+                <Heading size={3}>{data?.filmCount ?? '—'}</Heading>
+              </Stack>
+            </StatCard>
+            <StatCard padding={4}>
+              <Stack space={2}>
+                <Text muted size={1}>
+                  Dataset
+                </Text>
+                <Heading size={3}>migration-test</Heading>
+              </Stack>
+            </StatCard>
+          </Grid>
+
           {error ? (
-            <Card padding={4} radius={3} border tone="critical">
+            <GuidanceCard padding={4}>
               <Flex align="center" justify="space-between" gap={4} wrap="wrap">
                 <Stack space={2}>
                   <Text weight="semibold">The content status could not be loaded.</Text>
@@ -508,20 +653,20 @@ export function WebsiteMapTool() {
                 </Stack>
                 <Button icon={RefreshIcon} text="Try again" mode="ghost" onClick={refresh} />
               </Flex>
-            </Card>
+            </GuidanceCard>
           ) : !data ? (
             <LoadingState />
           ) : null}
 
           <Flex align="flex-end" justify="space-between" gap={4} wrap="wrap">
             <Stack space={2}>
-              <Text muted size={1} weight="semibold">
-                WEBSITE SECTIONS
-              </Text>
-              <Heading size={3}>Choose what you want to change</Heading>
+              <Kicker size={0}>Website sections</Kicker>
+              <Heading size={4} style={{letterSpacing: '-.04em'}}>
+                Choose what you want to change
+              </Heading>
             </Stack>
             <Flex align="center" gap={2}>
-              <Box style={{color: '#b1466a'}}>
+              <Box style={{color: expressive.tertiary}}>
                 <CheckmarkCircleIcon />
               </Box>
               <Text muted size={1}>
@@ -541,7 +686,7 @@ export function WebsiteMapTool() {
                   intent="edit"
                   params={{id: 'portfolioPage', type: 'portfolioPage', path: section.fieldPath}}
                 >
-                  <SectionCard padding={4} radius={3} shadow={1}>
+                  <SectionCard padding={4} shadow={1}>
                     <Stack space={4}>
                       <Flex align="flex-start" gap={3}>
                         <NumberMark>{String(index + 1).padStart(2, '0')}</NumberMark>
@@ -549,19 +694,21 @@ export function WebsiteMapTool() {
                           <Flex align="flex-start" justify="space-between" gap={3}>
                             <Stack space={2}>
                               <Flex align="center" gap={2}>
-                                <Box style={{fontSize: 22, color: '#b1466a'}}>
+                                <SectionIcon style={{fontSize: 22}}>
                                   <Icon />
-                                </Box>
-                                <Heading size={2}>{section.title}</Heading>
+                                </SectionIcon>
+                                <Heading size={3} style={{letterSpacing: '-.035em'}}>
+                                  {section.title}
+                                </Heading>
                               </Flex>
-                              <Text muted size={1} dir="rtl" style={{textAlign: 'left'}}>
+                              <Text muted size={1} dir="rtl" style={{textAlign: 'left', paddingLeft: 54}}>
                                 {section.titleFa}
                               </Text>
                             </Stack>
                             {state ? (
-                              <Badge tone={state.ready ? 'positive' : 'caution'}>
+                              <ExpressiveBadge $ready={state.ready}>
                                 {state.ready ? 'Ready' : 'Needs attention'}
-                              </Badge>
+                              </ExpressiveBadge>
                             ) : null}
                           </Flex>
                         </Box>
@@ -573,14 +720,14 @@ export function WebsiteMapTool() {
                         </Text>
                         <Flex align="center" justify="space-between" gap={3} wrap="wrap">
                           <Flex align="center" gap={2}>
-                            <Badge mode="outline" tone="primary">
+                            <Badge mode="outline" tone="primary" style={{borderRadius: 999}}>
                               {section.editorTab}
                             </Badge>
                             <Text muted size={1}>
                               {state?.detail ?? 'Checking…'}
                             </Text>
                           </Flex>
-                          <Flex align="center" gap={2} style={{color: '#9d395a'}}>
+                          <Flex align="center" gap={2} style={{color: expressive.primary}}>
                             <Text size={1} weight="semibold">
                               Open editor
                             </Text>
@@ -595,11 +742,17 @@ export function WebsiteMapTool() {
             })}
           </Grid>
 
-          <Card padding={[4, 5]} radius={3} border style={{background: '#fff1f0'}}>
+          <GuidanceCard padding={[4, 5]}>
             <Flex align="flex-start" gap={3}>
-              <Box style={{fontSize: 22, color: '#b1466a'}}>
+              <SectionIcon
+                style={{
+                  background: expressive.warningContainer,
+                  color: expressive.warningText,
+                  fontSize: 22,
+                }}
+              >
                 <WarningOutlineIcon />
-              </Box>
+              </SectionIcon>
               <Stack space={2}>
                 <Text weight="semibold">Editing a production?</Text>
                 <Text muted size={1}>
@@ -608,7 +761,7 @@ export function WebsiteMapTool() {
                 </Text>
               </Stack>
             </Flex>
-          </Card>
+          </GuidanceCard>
         </Stack>
       </Box>
     </DashboardShell>
