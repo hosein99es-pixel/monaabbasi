@@ -1,0 +1,31 @@
+{
+  "status": "passed_with_warnings",
+  "targetDataset": "migration-test",
+  "counts": {
+    "productions": 18,
+    "portfolioPages": 1,
+    "assets": 78,
+    "awards": 6,
+    "teachingExperiences": 6,
+    "galleryItems": 4
+  },
+  "errors": [],
+  "warnings": [
+    "$.portfolioPage.contact.heading: missing fa translation",
+    "$.portfolioPage.gallery[0].image.alt: missing fa translation",
+    "$.portfolioPage.gallery[1].image.alt: missing fa translation",
+    "$.portfolioPage.gallery[2].image.alt: missing fa translation",
+    "$.portfolioPage.gallery[3].image.alt: missing fa translation",
+    "$.portfolioPage.headshot.alt: missing fa translation",
+    "$.portfolioPage.resumeImage.alt: missing fa translation",
+    "$.portfolioPage.upcomingWork.image.alt: missing fa translation"
+  ],
+  "checks": [
+    "source-to-transform counts",
+    "source key uniqueness",
+    "asset file existence",
+    "localized field coverage",
+    "Portable Text shape and stable keys",
+    "array key uniqueness"
+  ]
+}

@@ -22,13 +22,22 @@ const TYPES = {
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.txt': 'text/plain; charset=utf-8',
-  '.woff2': 'font/woff2'
+  '.woff2': 'font/woff2',
+  '.yml': 'text/yaml; charset=utf-8',
+  '.yaml': 'text/yaml; charset=utf-8'
 };
 
 const server = http.createServer((req, res) => {
   try {
     const urlPath = decodeURIComponent(new URL(req.url, `http://localhost`).pathname);
     let filePath = path.join(DIST, urlPath);
+    // Redirect /dir -> /dir/ so a CMS page's relative config.yml fetch resolves
+    // correctly (e.g. /admin must become /admin/ or it looks for /config.yml).
+    if (!urlPath.endsWith('/') && fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+      res.writeHead(301, { location: `${urlPath}/` });
+      res.end();
+      return;
+    }
     if (urlPath.endsWith('/')) filePath = path.join(filePath, 'index.html');
     if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) filePath = path.join(filePath, 'index.html');
     if (!fs.existsSync(filePath)) {

@@ -5,15 +5,22 @@
   "description": "Bilingual (English/Persian) static portfolio for Fateme \"Mona\" Abbasi.",
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "build:site": "node scripts/build.mjs",
+    "build:studio": "npm --prefix monaabbasi/studio install && npm --prefix monaabbasi/studio run build && node scripts/place-admin.mjs",
+    "build": "npm run build:site && npm run build:studio",
+    "build:all": "npm run build",
     "clean": "node -e \"import('node:fs').then(fs=>fs.rmSync('dist',{recursive:true,force:true}))\"",
-    "serve": "node scripts/serve.mjs"
+    "serve": "node scripts/serve.mjs",
+    "smoke": "node scripts/smoke.mjs"
   },
   "config": {
-    "siteUrl": "https://fatemeabbasi.com"
+    "siteUrl": "https://fatemeabbasi.netlify.app"
   },
   "devDependencies": {
     "jsdom": "^24.0.0",
     "playwright": "^1.61.0"
+  },
+  "dependencies": {
+    "marked": "^18.0.5"
   }
 }

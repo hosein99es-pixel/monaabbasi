@@ -2178,6 +2178,20 @@
     }
   }
 
+  /* Editor-added sections (CMS): simple responsive media grid. */
+  .section-extra__media {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-block-start: 1.5rem;
+  }
+
+  .section-extra__media img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--md-sys-shape-corner-large);
+  }
+
   /* ===== Container query contexts =====
      Cards, dialogs, and the preview document are sized independently of the
      viewport, so their *internal* responsive behaviour is driven by their own

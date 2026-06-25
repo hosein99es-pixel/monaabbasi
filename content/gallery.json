@@ -1,0 +1,56 @@
+{
+  "items": [
+    {
+      "src": "images/edit/fateme-abbasi-headshot.jpg",
+      "alt_en": "Fateme Abbasi warm-toned headshot for her acting portfolio",
+      "alt_fa": "",
+      "label_en": "Portrait",
+      "label_fa": "پرتره",
+      "title_en": "Fateme Abbasi",
+      "title_fa": "فاطمه عباسی",
+      "copy_en": "Portrait for my acting, teaching, and theatre portfolio.",
+      "copy_fa": "پرتره‌ای برای پرتفولیوی بازیگری، تدریس و تئاتر من.",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "src": "images/image35.jpg",
+      "alt_en": "Death of a Salesman theatre production photograph",
+      "alt_fa": "",
+      "label_en": "Death of a Salesman",
+      "label_fa": "مرگ فروشنده",
+      "title_en": "Death of a Salesman",
+      "title_fa": "تئاتر مرگ فروشنده",
+      "copy_en": "A production image from Death of a Salesman at City Theater.",
+      "copy_fa": "تصویری از اجرای مرگ فروشنده در تئاتر شهر.",
+      "width": 917,
+      "height": 611
+    },
+    {
+      "src": "images/image7.jpg",
+      "alt_en": "Kachal va Kaftarbaz theatre production photograph",
+      "alt_fa": "",
+      "label_en": "Kachal va Kaftarbaz",
+      "label_fa": "کچل و کفترباز",
+      "title_en": "Kachal va Kaftarbaz",
+      "title_fa": "کچل و کفترباز",
+      "copy_en": "A production image from a free adaptation of an old Azerbaijani story.",
+      "copy_fa": "تصویری از اجرایی بر اساس برداشتی آزاد از یک داستان قدیمی آذری.",
+      "width": 1080,
+      "height": 722
+    },
+    {
+      "src": "images/image38.jpg",
+      "alt_en": "Nahal va Fazanavard short film still with Fateme Abbasi",
+      "alt_fa": "",
+      "label_en": "Nahal va Fazanavard",
+      "label_fa": "نهال و فضانورد",
+      "title_en": "Nahal va Fazanavard",
+      "title_fa": "نهال و فضانورد",
+      "copy_en": "Short film still from Nahal va Fazanavard.",
+      "copy_fa": "نمایی از فیلم کوتاه نهال و فضانورد.",
+      "width": 1080,
+      "height": 711
+    }
+  ]
+}
