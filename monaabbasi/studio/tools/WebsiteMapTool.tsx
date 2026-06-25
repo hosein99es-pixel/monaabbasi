@@ -81,14 +81,18 @@ type SectionKey =
 
 type SiteSection = {
   description: string
+  descriptionFa: string
   editorTab: string
   fieldLabels: string[]
+  fieldLabelsFa: string[]
   icon: ComponentType
   key: SectionKey
   fieldPath: string
   guidance: string
+  guidanceFa: string
   siteAnchor?: string
   siteLocation: string
+  siteLocationFa: string
   title: string
   titleFa: string
 }
@@ -97,6 +101,8 @@ type SectionState = {
   detail: string
   ready: boolean
 }
+
+type CmsLocale = 'en' | 'fa'
 
 const dashboardQuery = `{
   "portfolio": *[_id == "portfolioPage"][0]{
@@ -130,10 +136,14 @@ const sections: SiteSection[] = [
     editorTab: '01 · Profile',
     icon: HomeIcon,
     description: 'Name, introduction, roles and portrait',
+    descriptionFa: 'نام، معرفی، نقش‌ها و پرتره',
     fieldLabels: ['Name', 'Introduction', 'Portrait hotspot', 'Roles'],
+    fieldLabelsFa: ['نام', 'معرفی', 'هات‌اسپات پرتره', 'نقش‌ها'],
     guidance: 'Best for quick homepage identity changes and portrait framing.',
+    guidanceFa: 'برای تغییر سریع هویت صفحه اصلی و تنظیم قاب پرتره استفاده کنید.',
     siteAnchor: 'profile',
     siteLocation: 'Homepage hero',
+    siteLocationFa: 'هیروی صفحه اصلی',
   },
   {
     key: 'resume',
@@ -143,10 +153,14 @@ const sections: SiteSection[] = [
     editorTab: '02 · Resume',
     icon: BookIcon,
     description: 'Biography, education and skills',
+    descriptionFa: 'زندگی‌نامه، تحصیلات و مهارت‌ها',
     fieldLabels: ['Resume heading', 'Biography', 'Education', 'Skills'],
+    fieldLabelsFa: ['عنوان رزومه', 'زندگی‌نامه', 'تحصیلات', 'مهارت‌ها'],
     guidance: 'Use this section for the long-form bio and professional training story.',
+    guidanceFa: 'برای زندگی‌نامه کامل و مسیر آموزش حرفه‌ای از این بخش استفاده کنید.',
     siteAnchor: 'resume',
     siteLocation: 'Resume section',
+    siteLocationFa: 'بخش رزومه',
   },
   {
     key: 'theatre',
@@ -156,10 +170,14 @@ const sections: SiteSection[] = [
     editorTab: '03 · Theatre',
     icon: PlayIcon,
     description: 'Stage and performance credits',
+    descriptionFa: 'سوابق صحنه و اجرا',
     fieldLabels: ['Theatre intro', 'Production order', 'Featured credits'],
+    fieldLabelsFa: ['معرفی تئاتر', 'ترتیب آثار', 'سوابق شاخص'],
     guidance: 'Arrange stage credits here; edit individual productions from the Productions area.',
+    guidanceFa: 'ترتیب آثار صحنه‌ای را اینجا تنظیم کنید؛ جزئیات هر اثر از بخش آثار ویرایش می‌شود.',
     siteAnchor: 'theatre',
     siteLocation: 'Theatre section',
+    siteLocationFa: 'بخش تئاتر',
   },
   {
     key: 'film',
@@ -169,10 +187,14 @@ const sections: SiteSection[] = [
     editorTab: '04 · Film & TV',
     icon: ProjectsIcon,
     description: 'Screen work and film credits',
+    descriptionFa: 'سوابق تصویر، فیلم و تلویزیون',
     fieldLabels: ['Film intro', 'Production order', 'Screen credits'],
+    fieldLabelsFa: ['معرفی فیلم', 'ترتیب آثار', 'سوابق تصویری'],
     guidance: 'Arrange screen credits here; edit individual productions from the Productions area.',
+    guidanceFa: 'ترتیب آثار تصویری را اینجا تنظیم کنید؛ جزئیات هر اثر از بخش آثار ویرایش می‌شود.',
     siteAnchor: 'film',
     siteLocation: 'Film & TV section',
+    siteLocationFa: 'بخش فیلم و تلویزیون',
   },
   {
     key: 'awards',
@@ -182,10 +204,14 @@ const sections: SiteSection[] = [
     editorTab: '05 · Awards',
     icon: StarIcon,
     description: 'Honors and recognitions',
+    descriptionFa: 'جوایز و افتخارات',
     fieldLabels: ['Award titles', 'Descriptions', 'Section intro'],
+    fieldLabelsFa: ['عنوان جوایز', 'توضیحات', 'معرفی بخش'],
     guidance: 'Keep awards concise so they scan well on the public site.',
+    guidanceFa: 'جوایز را کوتاه و خوانا نگه دارید تا در سایت سریع دیده شوند.',
     siteAnchor: 'awards',
     siteLocation: 'Awards section',
+    siteLocationFa: 'بخش جوایز',
   },
   {
     key: 'teaching',
@@ -195,10 +221,14 @@ const sections: SiteSection[] = [
     editorTab: '06 · Teaching',
     icon: ComposeIcon,
     description: 'Classes, workshops and coaching',
+    descriptionFa: 'کلاس‌ها، کارگاه‌ها و مربی‌گری',
     fieldLabels: ['Teaching entries', 'Descriptions', 'Section intro'],
+    fieldLabelsFa: ['موارد آموزشی', 'توضیحات', 'معرفی بخش'],
     guidance: 'Use this for workshops, classes, coaching and education work.',
+    guidanceFa: 'برای کارگاه‌ها، کلاس‌ها، مربی‌گری و فعالیت‌های آموزشی استفاده کنید.',
     siteAnchor: 'teaching',
     siteLocation: 'Teaching section',
+    siteLocationFa: 'بخش آموزش',
   },
   {
     key: 'upcoming',
@@ -208,10 +238,14 @@ const sections: SiteSection[] = [
     editorTab: '07 · Upcoming',
     icon: RocketIcon,
     description: 'Current and forthcoming work',
+    descriptionFa: 'کارهای فعلی و آینده',
     fieldLabels: ['Title', 'Description', 'Image hotspot'],
+    fieldLabelsFa: ['عنوان', 'توضیح', 'هات‌اسپات تصویر'],
     guidance: 'Use this as the current highlight or next major project.',
+    guidanceFa: 'برای اثر شاخص فعلی یا پروژه مهم بعدی از این بخش استفاده کنید.',
     siteAnchor: 'upcoming',
     siteLocation: 'Upcoming section',
+    siteLocationFa: 'بخش به‌زودی',
   },
   {
     key: 'gallery',
@@ -221,10 +255,14 @@ const sections: SiteSection[] = [
     editorTab: '08 · Gallery',
     icon: ImageIcon,
     description: 'Editorial photo gallery',
+    descriptionFa: 'گالری عکس‌های منتخب',
     fieldLabels: ['Gallery images', 'Captions', 'Alt text', 'Photo hotspots'],
+    fieldLabelsFa: ['تصاویر گالری', 'کپشن‌ها', 'متن جایگزین', 'هات‌اسپات عکس‌ها'],
     guidance: 'Use image hotspots to control the visible center on the website.',
+    guidanceFa: 'با هات‌اسپات تصویر، مرکز نمایش عکس در سایت را کنترل کنید.',
     siteAnchor: 'gallery',
     siteLocation: 'Gallery section',
+    siteLocationFa: 'بخش گالری',
   },
   {
     key: 'downloads',
@@ -234,10 +272,14 @@ const sections: SiteSection[] = [
     editorTab: '09 · Downloads',
     icon: LinkIcon,
     description: 'CV and portfolio links',
+    descriptionFa: 'لینک‌های رزومه و پورتفولیو',
     fieldLabels: ['Resume file', 'Portfolio file', 'Download labels'],
+    fieldLabelsFa: ['فایل رزومه', 'فایل پورتفولیو', 'برچسب‌های دانلود'],
     guidance: 'Upload replacement files here when CV or portfolio PDFs change.',
+    guidanceFa: 'وقتی فایل رزومه یا پورتفولیو تغییر کرد، نسخه جدید را اینجا بارگذاری کنید.',
     siteAnchor: 'downloads',
     siteLocation: 'Downloads section',
+    siteLocationFa: 'بخش دانلودها',
   },
   {
     key: 'contact',
@@ -247,10 +289,14 @@ const sections: SiteSection[] = [
     editorTab: '10 · Contact',
     icon: EnvelopeIcon,
     description: 'Contact details and call to action',
+    descriptionFa: 'اطلاعات تماس و دعوت به ارتباط',
     fieldLabels: ['Email', 'Phone', 'WhatsApp', 'Contact copy'],
+    fieldLabelsFa: ['ایمیل', 'تلفن', 'واتس‌اپ', 'متن تماس'],
     guidance: 'Keep the preferred contact method obvious and current.',
+    guidanceFa: 'روش تماس اصلی را واضح و همیشه به‌روز نگه دارید.',
     siteAnchor: 'contact',
     siteLocation: 'Contact footer',
+    siteLocationFa: 'فوتر تماس',
   },
   {
     key: 'seo',
@@ -260,9 +306,13 @@ const sections: SiteSection[] = [
     editorTab: 'SEO',
     icon: BlockContentIcon,
     description: 'Google results and social metadata',
+    descriptionFa: 'نتایج گوگل و اطلاعات اشتراک‌گذاری',
     fieldLabels: ['SEO title', 'Meta description', 'Social preview'],
+    fieldLabelsFa: ['عنوان سئو', 'توضیح متا', 'پیش‌نمایش اشتراک‌گذاری'],
     guidance: 'This affects search and shared links more than the visible page.',
+    guidanceFa: 'این بخش بیشتر روی جستجو و لینک‌های اشتراک‌گذاری اثر دارد، نه ظاهر مستقیم صفحه.',
     siteLocation: 'Browser/search preview',
+    siteLocationFa: 'پیش‌نمایش مرورگر و جستجو',
   },
 ]
 
@@ -277,6 +327,144 @@ const expressive = {
   tertiaryContainer: '#b8f3f0',
   warningContainer: '#ffdcc2',
   warningText: '#311300',
+}
+
+const cmsCopy = {
+  en: {
+    awards: (count: number) => `${count} award${count === 1 ? '' : 's'}`,
+    checking: 'Checking content',
+    checkingContent: 'Checking content…',
+    chooseSection: 'Choose what you want to change',
+    closeSheet: 'Close section sheet',
+    contactDetail: 'Email & social contact',
+    contentStatusError: 'The content status could not be loaded.',
+    currentFeature: 'Current feature',
+    dataset: 'Dataset',
+    datasetStatus: 'Status is read from the current migration-test dataset.',
+    editHomepage: 'Edit homepage',
+    editingProduction: 'Editing a production?',
+    editingProductionBody:
+      'Open Structure → Productions to edit an individual theatre, film, or television credit. Use the homepage editor only to arrange their order on the website.',
+    editorLanguage: 'CMS language',
+    editorLanguageHelp: 'English first · فارسی available',
+    entries: (count: number) => `${count} entr${count === 1 ? 'y' : 'ies'}`,
+    expressiveControlRoom: 'Expressive control room',
+    fieldsEditorsChange: 'Fields editors usually change here',
+    filmTelevision: 'Film / television',
+    galleryPhotos: 'Gallery photos',
+    homepageMissing: 'Homepage not found',
+    heroBody:
+      'Choose a section below, then use the matching numbered tab in the editor. No technical fields, no guessing where content appears—just expressive, guided editing.',
+    heroTitle: 'Edit the portfolio the way the audience experiences it.',
+    langEnglish: 'EN',
+    langPersian: 'FA',
+    needsAttention: 'Needs attention',
+    openFullEditor: 'Open full editor',
+    openWebsite: 'Open website',
+    productionDetail: (count: number) => `${count} production${count === 1 ? '' : 's'}`,
+    productions: 'Productions',
+    publicWebsiteTarget: 'Public website target',
+    ready: 'Ready',
+    readiness: 'Website readiness',
+    resumeDetail: (education: number, skills: number) => `${education} education · ${skills} skills`,
+    reviewSection: 'Review section',
+    reviewSectionAria: (title: string) => `Review ${title} editing options`,
+    rolesDetail: (roles: number) => `${roles} roles · EN + FA`,
+    searchSharing: 'Search & sharing',
+    sectionHealth: 'Section health',
+    siteMetadata: 'site metadata',
+    smoothEditingBody: (editorTab: string) =>
+      `Review this sheet first. When you need to change content, open the full Sanity editor and use the matching ${editorTab} tab.`,
+    smoothEditingFlow: 'Smooth editing flow',
+    stayOnDashboard: 'Stay on dashboard',
+    statusCurrentDataset: 'Status is read from the current dataset',
+    theatrePerformance: 'Theatre / performance',
+    tryAgain: 'Try again',
+    viewOnWebsite: 'View on website',
+    websiteReadiness: (ready: number, total: number) => `${ready} of ${total} sections`,
+    websiteSections: 'Website sections',
+    whereThisAppears: 'Where this appears',
+  },
+  fa: {
+    awards: (count: number) => `${formatNumber(count, 'fa')} جایزه`,
+    checking: 'در حال بررسی محتوا',
+    checkingContent: 'در حال بررسی محتوا…',
+    chooseSection: 'بخشی را که می‌خواهید تغییر دهید انتخاب کنید',
+    closeSheet: 'بستن پنل بخش',
+    contactDetail: 'ایمیل و راه‌های تماس',
+    contentStatusError: 'وضعیت محتوا بارگذاری نشد.',
+    currentFeature: 'اثر فعلی',
+    dataset: 'دیتاست',
+    datasetStatus: 'وضعیت از دیتاست migration-test خوانده می‌شود.',
+    editHomepage: 'ویرایش صفحه اصلی',
+    editingProduction: 'ویرایش یک اثر؟',
+    editingProductionBody:
+      'برای ویرایش جزئیات یک اثر تئاتری، سینمایی یا تلویزیونی به Structure → Productions بروید. در ویرایشگر صفحه اصلی فقط ترتیب نمایش آثار را تنظیم کنید.',
+    editorLanguage: 'زبان CMS',
+    editorLanguageHelp: 'پیش‌فرض انگلیسی · فارسی فعال است',
+    entries: (count: number) => `${formatNumber(count, 'fa')} مورد`,
+    expressiveControlRoom: 'اتاق کنترل اکسپرسیو',
+    fieldsEditorsChange: 'فیلدهایی که معمولاً اینجا ویرایش می‌شوند',
+    filmTelevision: 'فیلم و تلویزیون',
+    galleryPhotos: 'عکس‌های گالری',
+    homepageMissing: 'صفحه اصلی پیدا نشد',
+    heroBody:
+      'یک بخش را انتخاب کنید، سپس در ویرایشگر از تب شماره‌دار همان بخش استفاده کنید. بدون فیلدهای فنی، بدون حدس زدن محل نمایش محتوا؛ فقط ویرایش راهنمایی‌شده و روشن.',
+    heroTitle: 'پورتفولیو را همان‌طور ویرایش کنید که مخاطب آن را تجربه می‌کند.',
+    langEnglish: 'EN',
+    langPersian: 'FA',
+    needsAttention: 'نیازمند بررسی',
+    openFullEditor: 'باز کردن ویرایشگر کامل',
+    openWebsite: 'باز کردن سایت',
+    productionDetail: (count: number) => `${formatNumber(count, 'fa')} اثر`,
+    productions: 'آثار',
+    publicWebsiteTarget: 'هدف در سایت عمومی',
+    ready: 'آماده',
+    readiness: 'آمادگی سایت',
+    resumeDetail: (education: number, skills: number) =>
+      `${formatNumber(education, 'fa')} تحصیلات · ${formatNumber(skills, 'fa')} مهارت`,
+    reviewSection: 'بررسی بخش',
+    reviewSectionAria: (title: string) => `بررسی گزینه‌های ویرایش ${title}`,
+    rolesDetail: (roles: number) => `${formatNumber(roles, 'fa')} نقش · EN + FA`,
+    searchSharing: 'جستجو و اشتراک‌گذاری',
+    sectionHealth: 'سلامت بخش',
+    siteMetadata: 'متادیتای سایت',
+    smoothEditingBody: (editorTab: string) =>
+      `اول این پنل را بررسی کنید. وقتی نیاز به تغییر محتوا داشتید، ویرایشگر کامل Sanity را باز کنید و از تب ${editorTab} استفاده کنید.`,
+    smoothEditingFlow: 'جریان ویرایش روان',
+    stayOnDashboard: 'ماندن در داشبورد',
+    statusCurrentDataset: 'وضعیت از دیتاست فعلی خوانده می‌شود',
+    theatrePerformance: 'تئاتر و اجرا',
+    tryAgain: 'تلاش دوباره',
+    viewOnWebsite: 'دیدن در سایت',
+    websiteReadiness: (ready: number, total: number) =>
+      `${formatNumber(ready, 'fa')} از ${formatNumber(total, 'fa')} بخش`,
+    websiteSections: 'بخش‌های سایت',
+    whereThisAppears: 'کجا نمایش داده می‌شود',
+  },
+} satisfies Record<CmsLocale, Record<string, unknown>>
+
+function formatNumber(value: number, locale: CmsLocale) {
+  return new Intl.NumberFormat(locale === 'fa' ? 'fa-IR' : 'en-US').format(value)
+}
+
+function getInitialCmsLocale(): CmsLocale {
+  if (typeof window === 'undefined') return 'en'
+  return window.localStorage.getItem('mona-cms-locale') === 'fa' ? 'fa' : 'en'
+}
+
+function getSectionTitle(section: SiteSection, locale: CmsLocale) {
+  return locale === 'fa' ? section.titleFa : section.title
+}
+
+function getSectionSecondaryTitle(section: SiteSection, locale: CmsLocale) {
+  return locale === 'fa' ? section.title : section.titleFa
+}
+
+function getEditorTabLabel(section: SiteSection, locale: CmsLocale) {
+  if (locale === 'en') return section.editorTab
+  if (section.editorTab === 'SEO') return 'سئو'
+  return section.editorTab.replace(section.title, section.titleFa)
 }
 
 const DashboardShell = styled(Box)`
@@ -372,7 +560,7 @@ const SectionButton = styled.button`
   background: transparent;
   cursor: pointer;
   font: inherit;
-  text-align: left;
+  text-align: inherit;
   text-decoration: none;
   outline: none;
 
@@ -380,6 +568,37 @@ const SectionButton = styled.button`
     border-radius: 30px;
     outline: 3px solid rgba(103, 80, 164, 0.32);
     outline-offset: 4px;
+  }
+`
+
+const LanguageToggle = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 3rem;
+  padding: 0.22rem;
+  border-radius: 999px;
+  background: rgba(255, 251, 255, 0.78);
+  box-shadow: inset 0 0 0 1px rgba(73, 69, 79, 0.1);
+`
+
+const LanguageButton = styled.button<{$active?: boolean}>`
+  min-width: 3.2rem;
+  min-height: 2.5rem;
+  padding: 0 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  color: ${({$active}) => ($active ? '#fffbff' : '#49454f')};
+  background: ${({$active}) => ($active ? expressive.primary : 'transparent')};
+  box-shadow: ${({$active}) => ($active ? '0 10px 22px rgba(103, 80, 164, 0.24)' : 'none')};
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 820;
+
+  &:hover,
+  &:focus-visible {
+    background: ${({$active}) => ($active ? '#7f67be' : '#f7f2fa')};
   }
 `
 
@@ -605,9 +824,10 @@ function hasBothLanguages(value?: LocalizedValue[]) {
   return populatedLanguages.has('en') && populatedLanguages.has('fa')
 }
 
-function getSectionState(key: SectionKey, data: DashboardData): SectionState {
+function getSectionState(key: SectionKey, data: DashboardData, locale: CmsLocale): SectionState {
+  const copy = cmsCopy[locale]
   const portfolio = data.portfolio
-  if (!portfolio) return {ready: false, detail: 'Homepage not found'}
+  if (!portfolio) return {ready: false, detail: copy.homepageMissing}
 
   switch (key) {
     case 'profile':
@@ -616,7 +836,7 @@ function getSectionState(key: SectionKey, data: DashboardData): SectionState {
           hasBothLanguages(portfolio.name) &&
           hasBothLanguages(portfolio.intro) &&
           hasContent(portfolio.headshot),
-        detail: `${portfolio.roles?.length ?? 0} roles · EN + FA`,
+        detail: copy.rolesDetail(portfolio.roles?.length ?? 0),
       }
     case 'resume':
       return {
@@ -624,52 +844,63 @@ function getSectionState(key: SectionKey, data: DashboardData): SectionState {
           hasBothLanguages(portfolio.resumeHeading) &&
           hasContent(portfolio.resumeBody) &&
           hasContent(portfolio.education),
-        detail: `${portfolio.education?.length ?? 0} education · ${portfolio.skills?.length ?? 0} skills`,
+        detail: copy.resumeDetail(portfolio.education?.length ?? 0, portfolio.skills?.length ?? 0),
       }
     case 'theatre':
       return {
         ready: data.theatreCount > 0,
-        detail: `${data.theatreCount} production${data.theatreCount === 1 ? '' : 's'}`,
+        detail: copy.productionDetail(data.theatreCount),
       }
     case 'film':
       return {
         ready: data.filmCount > 0,
-        detail: `${data.filmCount} production${data.filmCount === 1 ? '' : 's'}`,
+        detail: copy.productionDetail(data.filmCount),
       }
     case 'awards':
       return {
         ready: hasContent(portfolio.awards),
-        detail: `${portfolio.awards?.length ?? 0} award${portfolio.awards?.length === 1 ? '' : 's'}`,
+        detail: copy.awards(portfolio.awards?.length ?? 0),
       }
     case 'teaching':
       return {
         ready: hasContent(portfolio.teachingExperiences),
-        detail: `${portfolio.teachingExperiences?.length ?? 0} entr${portfolio.teachingExperiences?.length === 1 ? 'y' : 'ies'}`,
+        detail: copy.entries(portfolio.teachingExperiences?.length ?? 0),
       }
     case 'upcoming':
-      return {ready: hasContent(portfolio.upcomingWork), detail: 'Current feature'}
+      return {ready: hasContent(portfolio.upcomingWork), detail: copy.currentFeature}
     case 'gallery':
       return {
         ready: hasContent(portfolio.gallery),
-        detail: `${portfolio.gallery?.length ?? 0} photo${portfolio.gallery?.length === 1 ? '' : 's'}`,
+        detail:
+          locale === 'fa'
+            ? `${formatNumber(portfolio.gallery?.length ?? 0, locale)} عکس`
+            : `${portfolio.gallery?.length ?? 0} photo${portfolio.gallery?.length === 1 ? '' : 's'}`,
       }
     case 'downloads':
-      return {ready: hasContent(portfolio.downloads), detail: 'CV & portfolio files'}
+      return {
+        ready: hasContent(portfolio.downloads),
+        detail: locale === 'fa' ? 'فایل‌های رزومه و پورتفولیو' : 'CV & portfolio files',
+      }
     case 'contact':
-      return {ready: hasContent(portfolio.contact?.email), detail: 'Email & social contact'}
+      return {ready: hasContent(portfolio.contact?.email), detail: copy.contactDetail}
     case 'seo':
-      return {ready: hasContent(portfolio.seo), detail: 'Google & social cards'}
+      return {
+        ready: hasContent(portfolio.seo),
+        detail: locale === 'fa' ? 'گوگل و کارت‌های اجتماعی' : 'Google & social cards',
+      }
     default:
-      return {ready: false, detail: 'Needs review'}
+      return {ready: false, detail: copy.needsAttention}
   }
 }
 
-function LoadingState() {
+function LoadingState({locale}: {locale: CmsLocale}) {
+  const copy = cmsCopy[locale]
+
   return (
     <StatCard padding={5}>
       <Flex align="center" gap={3}>
         <Spinner muted />
-        <Text muted>Reading the current website content…</Text>
+        <Text muted>{copy.checkingContent}</Text>
       </Flex>
     </StatCard>
   )
@@ -681,16 +912,24 @@ function getSectionWebsiteUrl(section: SiteSection) {
 }
 
 function SectionEditDialog({
+  locale,
   onClose,
   section,
   state,
 }: {
+  locale: CmsLocale
   onClose: () => void
   section: SiteSection
   state?: SectionState | null
 }) {
+  const copy = cmsCopy[locale]
   const Icon = section.icon
   const websiteUrl = getSectionWebsiteUrl(section)
+  const title = getSectionTitle(section, locale)
+  const fieldLabels = locale === 'fa' ? section.fieldLabelsFa : section.fieldLabels
+  const guidance = locale === 'fa' ? section.guidanceFa : section.guidance
+  const siteLocation = locale === 'fa' ? section.siteLocationFa : section.siteLocation
+  const editorTab = getEditorTabLabel(section, locale)
 
   return (
     <Dialog
@@ -706,19 +945,19 @@ function SectionEditDialog({
                 <SectionIcon style={{fontSize: 22}}>
                   <Icon />
                 </SectionIcon>
-                <Kicker size={0}>{section.editorTab}</Kicker>
+                <Kicker size={0}>{editorTab}</Kicker>
               </Flex>
               <Stack space={3}>
                 <Heading size={4} style={{letterSpacing: '-.045em', lineHeight: 1.04}}>
-                  {section.title}
+                  {title}
                 </Heading>
                 <Text size={2} style={{maxWidth: 620, color: '#625b71', lineHeight: 1.58}}>
-                  {section.guidance}
+                  {guidance}
                 </Text>
               </Stack>
             </Stack>
             <Button
-              aria-label="Close section sheet"
+              aria-label={copy.closeSheet}
               icon={CloseIcon}
               mode="bleed"
               onClick={onClose}
@@ -740,20 +979,20 @@ function SectionEditDialog({
               <Stack space={4}>
                 <Flex align="center" justify="space-between" gap={3}>
                   <Text size={1} weight="semibold">
-                    Section health
+                    {copy.sectionHealth}
                   </Text>
                   {state ? (
                     <ExpressiveBadge $ready={state.ready}>
-                      {state.ready ? 'Ready' : 'Needs attention'}
+                      {state.ready ? copy.ready : copy.needsAttention}
                     </ExpressiveBadge>
                   ) : null}
                 </Flex>
                 <Stack space={2}>
                   <Heading size={3} style={{letterSpacing: '-.035em'}}>
-                    {state?.detail ?? 'Checking content…'}
+                    {state?.detail ?? copy.checkingContent}
                   </Heading>
                   <Text muted size={1}>
-                    Status is read from the current migration-test dataset.
+                    {copy.datasetStatus}
                   </Text>
                 </Stack>
               </Stack>
@@ -762,14 +1001,15 @@ function SectionEditDialog({
             <ModalStat padding={4}>
               <Stack space={4}>
                 <Text size={1} weight="semibold">
-                  Where this appears
+                  {copy.whereThisAppears}
                 </Text>
                 <Stack space={2}>
                   <Heading size={3} style={{letterSpacing: '-.035em'}}>
-                    {section.siteLocation}
+                    {siteLocation}
                   </Heading>
                   <Text muted size={1}>
-                    Public website target: {section.siteAnchor ? `#${section.siteAnchor}` : 'site metadata'}
+                    {copy.publicWebsiteTarget}:{' '}
+                    {section.siteAnchor ? `#${section.siteAnchor}` : copy.siteMetadata}
                   </Text>
                 </Stack>
               </Stack>
@@ -778,10 +1018,10 @@ function SectionEditDialog({
 
           <Stack space={3}>
             <Text size={1} weight="semibold">
-              Fields editors usually change here
+              {copy.fieldsEditorsChange}
             </Text>
             <Flex gap={2} wrap="wrap">
-              {section.fieldLabels.map((label) => (
+              {fieldLabels.map((label) => (
                 <FieldChip key={label}>{label}</FieldChip>
               ))}
             </Flex>
@@ -793,10 +1033,9 @@ function SectionEditDialog({
                 <CheckmarkCircleIcon />
               </SectionIcon>
               <Stack space={2}>
-                <Text weight="semibold">Smooth editing flow</Text>
+                <Text weight="semibold">{copy.smoothEditingFlow}</Text>
                 <Text muted size={1}>
-                  Review this sheet first. When you need to change content, open the full Sanity
-                  editor and use the matching {section.editorTab} tab.
+                  {copy.smoothEditingBody(editorTab)}
                 </Text>
               </Stack>
             </Flex>
@@ -804,19 +1043,19 @@ function SectionEditDialog({
 
           <Flex align="center" justify="space-between" gap={3} wrap="wrap">
             <ModalSecondaryButton onClick={onClose} type="button">
-              Stay on dashboard
+              {copy.stayOnDashboard}
             </ModalSecondaryButton>
             <Flex align="center" gap={2} wrap="wrap">
               <ModalExternalLink href={websiteUrl} rel="noreferrer" target="_blank">
                 <EyeOpenIcon />
-                <span>View on website</span>
+                <span>{copy.viewOnWebsite}</span>
               </ModalExternalLink>
               <ModalIntentLink
                 intent="edit"
                 params={{id: 'portfolioPage', path: section.fieldPath, type: 'portfolioPage'}}
               >
                 <ArrowRightIcon />
-                <span>Open full editor</span>
+                <span>{copy.openFullEditor}</span>
               </ModalIntentLink>
             </Flex>
           </Flex>
@@ -831,10 +1070,17 @@ export function WebsiteMapTool() {
   const [data, setData] = useState<DashboardData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [activeSectionKey, setActiveSectionKey] = useState<SectionKey | null>(null)
+  const [locale, setLocale] = useState<CmsLocale>(getInitialCmsLocale)
   const [refreshKey, setRefreshKey] = useState(0)
 
+  const copy = cmsCopy[locale]
+  const isFa = locale === 'fa'
   const refresh = useCallback(() => setRefreshKey((value) => value + 1), [])
   const closeSectionSheet = useCallback(() => setActiveSectionKey(null), [])
+
+  useEffect(() => {
+    window.localStorage.setItem('mona-cms-locale', locale)
+  }, [locale])
 
   useEffect(() => {
     let active = true
@@ -857,30 +1103,58 @@ export function WebsiteMapTool() {
   }, [client, refreshKey])
 
   const sectionStates = useMemo(
-    () => (data ? sections.map((section) => getSectionState(section.key, data)) : []),
-    [data],
+    () => (data ? sections.map((section) => getSectionState(section.key, data, locale)) : []),
+    [data, locale],
   )
   const readyCount = sectionStates.filter((state) => state.ready).length
   const completionPercent = Math.round((readyCount / sections.length) * 100)
   const activeSection = sections.find((section) => section.key === activeSectionKey)
   const activeSectionState =
-    activeSection && data ? getSectionState(activeSection.key, data) : null
+    activeSection && data ? getSectionState(activeSection.key, data, locale) : null
 
   return (
-    <DashboardShell padding={[3, 4, 5]}>
+    <DashboardShell dir={isFa ? 'rtl' : 'ltr'} lang={locale} padding={[3, 4, 5]}>
       <Box style={{maxWidth: 1240, margin: '0 auto'}}>
         <Stack space={6}>
           <HeroCard padding={[4, 5, 6]} shadow={1}>
             <Grid columns={[1, 1, 2]} gap={6}>
               <Stack space={5}>
-                <Kicker size={0}>Expressive control room</Kicker>
+                <Flex align="center" justify="space-between" gap={3} wrap="wrap">
+                  <Stack space={2}>
+                    <Kicker size={0}>{copy.expressiveControlRoom}</Kicker>
+                    <Text size={1} style={{color: '#625b71'}}>
+                      {copy.editorLanguageHelp}
+                    </Text>
+                  </Stack>
+                  <LanguageToggle aria-label={copy.editorLanguage} role="group">
+                    <LanguageButton
+                      $active={locale === 'en'}
+                      aria-label="Switch CMS language to English"
+                      aria-pressed={locale === 'en'}
+                      data-testid="cms-language-en"
+                      onClick={() => setLocale('en')}
+                      type="button"
+                    >
+                      {copy.langEnglish}
+                    </LanguageButton>
+                    <LanguageButton
+                      $active={locale === 'fa'}
+                      aria-label="Switch CMS language to Persian"
+                      aria-pressed={locale === 'fa'}
+                      data-testid="cms-language-fa"
+                      onClick={() => setLocale('fa')}
+                      type="button"
+                    >
+                      {copy.langPersian}
+                    </LanguageButton>
+                  </LanguageToggle>
+                </Flex>
                 <Stack space={3}>
                   <Heading size={5} style={{maxWidth: 760, letterSpacing: '-.055em', lineHeight: 0.96}}>
-                    Edit the portfolio the way the audience experiences it.
+                    {copy.heroTitle}
                   </Heading>
                   <Text size={2} style={{maxWidth: 660, color: '#625b71', lineHeight: 1.6}}>
-                    Choose a section below, then use the matching numbered tab in the editor. No
-                    technical fields, no guessing where content appears—just expressive, guided editing.
+                    {copy.heroBody}
                   </Text>
                 </Stack>
                 <Flex align="center" gap={3} wrap="wrap">
@@ -889,7 +1163,7 @@ export function WebsiteMapTool() {
                     params={{id: 'portfolioPage', type: 'portfolioPage'}}
                   >
                     <HomeIcon />
-                    <span>Edit homepage</span>
+                    <span>{copy.editHomepage}</span>
                   </HeroIntentLink>
                   <GhostAction
                     href={defaultWebsiteOrigin}
@@ -897,7 +1171,7 @@ export function WebsiteMapTool() {
                     rel="noreferrer"
                   >
                     <EyeOpenIcon />
-                    <span>Open website</span>
+                    <span>{copy.openWebsite}</span>
                   </GhostAction>
                 </Flex>
               </Stack>
@@ -907,14 +1181,14 @@ export function WebsiteMapTool() {
                   <Flex align="baseline" justify="space-between">
                     <Stack space={2}>
                       <Text size={1} style={{color: '#625b71'}}>
-                        Website readiness
+                        {copy.readiness}
                       </Text>
                       <Heading size={5} style={{letterSpacing: '-.06em'}}>
-                        {data ? `${completionPercent}%` : '—'}
+                        {data ? `${formatNumber(completionPercent, locale)}%` : '—'}
                       </Heading>
                     </Stack>
                     <Text size={1} style={{color: '#625b71'}}>
-                      {data ? `${readyCount} of ${sections.length} sections` : 'Checking content'}
+                      {data ? copy.websiteReadiness(readyCount, sections.length) : copy.checking}
                     </Text>
                   </Flex>
                   <ProgressTrack>
@@ -924,17 +1198,21 @@ export function WebsiteMapTool() {
                     <Card padding={3} style={{borderRadius: 20, background: expressive.primaryContainer}}>
                       <Stack space={2}>
                         <Text size={1} style={{color: '#625b71'}}>
-                          Productions
+                          {copy.productions}
                         </Text>
-                        <Heading size={3}>{data?.productionCount ?? '—'}</Heading>
+                        <Heading size={3}>
+                          {data ? formatNumber(data.productionCount, locale) : '—'}
+                        </Heading>
                       </Stack>
                     </Card>
                     <Card padding={3} style={{borderRadius: 20, background: expressive.tertiaryContainer}}>
                       <Stack space={2}>
                         <Text size={1} style={{color: '#625b71'}}>
-                          Gallery photos
+                          {copy.galleryPhotos}
                         </Text>
-                        <Heading size={3}>{data?.portfolio?.gallery?.length ?? '—'}</Heading>
+                        <Heading size={3}>
+                          {data ? formatNumber(data.portfolio?.gallery?.length ?? 0, locale) : '—'}
+                        </Heading>
                       </Stack>
                     </Card>
                   </Grid>
@@ -947,23 +1225,23 @@ export function WebsiteMapTool() {
             <StatCard padding={4}>
               <Stack space={2}>
                 <Text muted size={1}>
-                  Theatre / performance
+                  {copy.theatrePerformance}
                 </Text>
-                <Heading size={3}>{data?.theatreCount ?? '—'}</Heading>
+                <Heading size={3}>{data ? formatNumber(data.theatreCount, locale) : '—'}</Heading>
               </Stack>
             </StatCard>
             <StatCard padding={4}>
               <Stack space={2}>
                 <Text muted size={1}>
-                  Film / television
+                  {copy.filmTelevision}
                 </Text>
-                <Heading size={3}>{data?.filmCount ?? '—'}</Heading>
+                <Heading size={3}>{data ? formatNumber(data.filmCount, locale) : '—'}</Heading>
               </Stack>
             </StatCard>
             <StatCard padding={4}>
               <Stack space={2}>
                 <Text muted size={1}>
-                  Dataset
+                  {copy.dataset}
                 </Text>
                 <Heading size={3}>migration-test</Heading>
               </Stack>
@@ -974,23 +1252,23 @@ export function WebsiteMapTool() {
             <GuidanceCard padding={4}>
               <Flex align="center" justify="space-between" gap={4} wrap="wrap">
                 <Stack space={2}>
-                  <Text weight="semibold">The content status could not be loaded.</Text>
+                  <Text weight="semibold">{copy.contentStatusError}</Text>
                   <Text muted size={1}>
                     {error}
                   </Text>
                 </Stack>
-                <Button icon={RefreshIcon} text="Try again" mode="ghost" onClick={refresh} />
+                <Button icon={RefreshIcon} text={copy.tryAgain} mode="ghost" onClick={refresh} />
               </Flex>
             </GuidanceCard>
           ) : !data ? (
-            <LoadingState />
+            <LoadingState locale={locale} />
           ) : null}
 
           <Flex align="flex-end" justify="space-between" gap={4} wrap="wrap">
             <Stack space={2}>
-              <Kicker size={0}>Website sections</Kicker>
+              <Kicker size={0}>{copy.websiteSections}</Kicker>
               <Heading size={4} style={{letterSpacing: '-.04em'}}>
-                Choose what you want to change
+                {copy.chooseSection}
               </Heading>
             </Stack>
             <Flex align="center" gap={2}>
@@ -998,19 +1276,22 @@ export function WebsiteMapTool() {
                 <CheckmarkCircleIcon />
               </Box>
               <Text muted size={1}>
-                Status is read from the current dataset
+                {copy.statusCurrentDataset}
               </Text>
             </Flex>
           </Flex>
 
           <Grid columns={[1, 1, 2]} gap={4}>
             {sections.map((section, index) => {
-              const state = data ? getSectionState(section.key, data) : null
+              const state = data ? getSectionState(section.key, data, locale) : null
               const Icon = section.icon
+              const sectionTitle = getSectionTitle(section, locale)
+              const secondaryTitle = getSectionSecondaryTitle(section, locale)
+              const sectionDescription = isFa ? section.descriptionFa : section.description
 
               return (
                 <SectionButton
-                  aria-label={`Review ${section.title} editing options`}
+                  aria-label={copy.reviewSectionAria(sectionTitle)}
                   data-testid={`website-map-card-${section.key}`}
                   key={section.key}
                   onClick={() => setActiveSectionKey(section.key)}
@@ -1028,21 +1309,24 @@ export function WebsiteMapTool() {
                                   <Icon />
                                 </SectionIcon>
                                 <Heading size={3} style={{letterSpacing: '-.035em'}}>
-                                  {section.title}
+                                  {sectionTitle}
                                 </Heading>
                               </Flex>
                               <Text
                                 muted
                                 size={1}
-                                dir="rtl"
-                                style={{paddingLeft: 54, textAlign: 'left'}}
+                                dir={isFa ? 'ltr' : 'rtl'}
+                                style={{
+                                  paddingInlineStart: 54,
+                                  textAlign: isFa ? 'right' : 'left',
+                                }}
                               >
-                                {section.titleFa}
+                                {secondaryTitle}
                               </Text>
                             </Stack>
                             {state ? (
                               <ExpressiveBadge $ready={state.ready}>
-                                {state.ready ? 'Ready' : 'Needs attention'}
+                                {state.ready ? copy.ready : copy.needsAttention}
                               </ExpressiveBadge>
                             ) : null}
                           </Flex>
@@ -1051,20 +1335,20 @@ export function WebsiteMapTool() {
 
                       <Stack space={3}>
                         <Text muted size={1}>
-                          {section.description}
+                          {sectionDescription}
                         </Text>
                         <Flex align="center" justify="space-between" gap={3} wrap="wrap">
                           <Flex align="center" gap={2}>
                             <Badge mode="outline" tone="primary" style={{borderRadius: 999}}>
-                              {section.editorTab}
+                              {getEditorTabLabel(section, locale)}
                             </Badge>
                             <Text muted size={1}>
-                              {state?.detail ?? 'Checking…'}
+                              {state?.detail ?? copy.checkingContent}
                             </Text>
                           </Flex>
                           <Flex align="center" gap={2} style={{color: expressive.primary}}>
                             <Text size={1} weight="semibold">
-                              Review section
+                              {copy.reviewSection}
                             </Text>
                             <ArrowRightIcon />
                           </Flex>
@@ -1089,10 +1373,9 @@ export function WebsiteMapTool() {
                 <WarningOutlineIcon />
               </SectionIcon>
               <Stack space={2}>
-                <Text weight="semibold">Editing a production?</Text>
+                <Text weight="semibold">{copy.editingProduction}</Text>
                 <Text muted size={1}>
-                  Open Structure → Productions to edit an individual theatre, film, or television
-                  credit. Use the homepage editor only to arrange their order on the website.
+                  {copy.editingProductionBody}
                 </Text>
               </Stack>
             </Flex>
@@ -1102,6 +1385,7 @@ export function WebsiteMapTool() {
 
       {activeSection ? (
         <SectionEditDialog
+          locale={locale}
           onClose={closeSectionSheet}
           section={activeSection}
           state={activeSectionState}
