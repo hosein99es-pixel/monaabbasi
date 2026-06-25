@@ -4,7 +4,7 @@ import {ContentPlacementView} from '../components/ContentPlacementView'
 import {WebsitePreviewView} from '../components/WebsitePreviewView'
 
 const previewOrigin =
-  process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'https://monaabbasi.netlify.app'
+  process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'https://fatemeabbasi.netlify.app'
 
 // The left navigation reads top-to-bottom as the story of the site: first the
 // homepage, then the body of work, then the journal. Every label is bilingual

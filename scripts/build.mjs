@@ -634,6 +634,9 @@ ${publicCspBlocks}
 // location; and /admin/* falls back to the Studio's index.html (single-page app).
 // Real files are served before these 200 rewrites, so assets are unaffected.
 function writeRedirects() {
+  // Netlify reads this _redirects file. The /admin/* SPA fallback lets the Studio
+  // survive deep-link refreshes; the /static and /vendor rewrites point the
+  // Studio's root-absolute asset URLs at their real /admin/ location.
   const redirects = `/static/*   /admin/static/:splat   200
 /vendor/*   /admin/vendor/:splat   200
 /admin/*    /admin/index.html      200

@@ -1,0 +1,12 @@
+{
+  // Tells Cloudflare this deploy is a static site whose files live in ./dist
+  // (built by `npm run build:all`). The _headers and _redirects files inside
+  // ./dist are honored automatically.
+  // NOTE: "name" must match the project/Worker name shown in your Cloudflare
+  // dashboard. If your project is named something else, change it here.
+  "name": "monaabbasi",
+  "compatibility_date": "2026-06-25",
+  "assets": {
+    "directory": "./dist"
+  }
+}

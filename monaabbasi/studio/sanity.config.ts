@@ -15,7 +15,7 @@ import {websiteMapTool} from './tools/WebsiteMapTool'
 
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 const previewOrigin =
-  process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'https://monaabbasi.netlify.app'
+  process.env.SANITY_STUDIO_PREVIEW_ORIGIN || 'https://fatemeabbasi.netlify.app'
 const enablePresentationTool = process.env.SANITY_STUDIO_ENABLE_PRESENTATION === 'true'
 const hiddenEditorTools = new Set(['vision', 'releases'])
 

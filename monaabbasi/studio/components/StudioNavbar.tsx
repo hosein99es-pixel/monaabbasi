@@ -5,7 +5,7 @@ import type {NavbarProps} from 'sanity'
 // of how publishing works — in English and Persian — and a one-tap link to view
 // the live website. The default navbar (search, workspace menu, etc.) is rendered
 // underneath untouched.
-const websiteUrl = process.env.SANITY_STUDIO_WEBSITE_ORIGIN || 'https://monaabbasi.netlify.app'
+const websiteUrl = process.env.SANITY_STUDIO_WEBSITE_ORIGIN || 'https://fatemeabbasi.netlify.app'
 
 export function StudioNavbar(props: NavbarProps) {
   return (
