@@ -73,6 +73,6 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaType}
   return S.document().views([
     S.view.form().title('Edit content'),
     S.view.component(ContentPlacementView).title('Where it appears'),
-    S.view.component(WebsitePreviewView).options({origin: previewOrigin}).title('Published website'),
+    S.view.component(WebsitePreviewView).options({origin: previewOrigin}).title('Published page'),
   ])
 }

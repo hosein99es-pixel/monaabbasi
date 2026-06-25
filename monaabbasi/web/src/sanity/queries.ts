@@ -3,6 +3,7 @@ import {defineQuery} from 'next-sanity'
 export const PORTFOLIO_QUERY = defineQuery(`
   *[_id == "portfolioPage"][0] {
     _id,
+    _type,
     "name": coalesce(name[language == $locale][0].value, name[language == "en"][0].value),
     "intro": coalesce(intro[language == $locale][0].value, intro[language == "en"][0].value),
     headshot {
@@ -41,6 +42,7 @@ export const PORTFOLIO_QUERY = defineQuery(`
     },
     productions[]->{
       _id,
+      _type,
       "slug": slug.current,
       medium,
       "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),

@@ -553,10 +553,11 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: PORTFOLIO_QUERY
-// Query: *[_id == "portfolioPage"][0] {    _id,    "name": coalesce(name[language == $locale][0].value, name[language == "en"][0].value),    "intro": coalesce(intro[language == $locale][0].value, intro[language == "en"][0].value),    headshot {      crop,      hotspot,      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}    },    roles[]{_key, "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value)},    "resumeHeading": coalesce(resumeHeading[language == $locale][0].value, resumeHeading[language == "en"][0].value),    "resumeBody": coalesce(resumeBody[language == $locale][0].value, resumeBody[language == "en"][0].value),    resumeImage {      crop,      hotspot,      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}    },    education[]{      _key,      "qualification": coalesce(qualification[language == $locale][0].value, qualification[language == "en"][0].value),      "institution": coalesce(institution[language == $locale][0].value, institution[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    skills[]{      _key,      "category": coalesce(category[language == $locale][0].value, category[language == "en"][0].value),      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    sectionIntroductions[]{      _key,      section,      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),      "body": coalesce(body[language == $locale][0].value, body[language == "en"][0].value)    },    productions[]->{      _id,      "slug": slug.current,      medium,      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "year": coalesce(yearDisplay[language == $locale][0].value, yearDisplay[language == "en"][0].value),      "role": coalesce(role[language == $locale][0].value, role[language == "en"][0].value),      "director": coalesce(director[language == $locale][0].value, director[language == "en"][0].value),      "venue": coalesce(venue[language == $locale][0].value, venue[language == "en"][0].value),      "summary": coalesce(summary[language == $locale][0].value, summary[language == "en"][0].value),      heroImage {        crop,        hotspot,        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}      }    },    awards[]{      _key,      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    teachingExperiences[]{      _key,      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    upcomingWork {      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),      image {        crop,        hotspot,        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}      }    },    gallery[]{      _key,      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "caption": coalesce(caption[language == $locale][0].value, caption[language == "en"][0].value),      image {        crop,        hotspot,        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}      }    },    contact {      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),      email,      phone,      whatsappUrl    },    downloads {      portfolioFile {asset->{_id, url, originalFilename}},      resumeFile {asset->{_id, url, originalFilename}}    },    seo {      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    "footerText": coalesce(footerText[language == $locale][0].value, footerText[language == "en"][0].value)  }
+// Query: *[_id == "portfolioPage"][0] {    _id,    _type,    "name": coalesce(name[language == $locale][0].value, name[language == "en"][0].value),    "intro": coalesce(intro[language == $locale][0].value, intro[language == "en"][0].value),    headshot {      crop,      hotspot,      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}    },    roles[]{_key, "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value)},    "resumeHeading": coalesce(resumeHeading[language == $locale][0].value, resumeHeading[language == "en"][0].value),    "resumeBody": coalesce(resumeBody[language == $locale][0].value, resumeBody[language == "en"][0].value),    resumeImage {      crop,      hotspot,      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}    },    education[]{      _key,      "qualification": coalesce(qualification[language == $locale][0].value, qualification[language == "en"][0].value),      "institution": coalesce(institution[language == $locale][0].value, institution[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    skills[]{      _key,      "category": coalesce(category[language == $locale][0].value, category[language == "en"][0].value),      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    sectionIntroductions[]{      _key,      section,      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),      "body": coalesce(body[language == $locale][0].value, body[language == "en"][0].value)    },    productions[]->{      _id,      _type,      "slug": slug.current,      medium,      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "year": coalesce(yearDisplay[language == $locale][0].value, yearDisplay[language == "en"][0].value),      "role": coalesce(role[language == $locale][0].value, role[language == "en"][0].value),      "director": coalesce(director[language == $locale][0].value, director[language == "en"][0].value),      "venue": coalesce(venue[language == $locale][0].value, venue[language == "en"][0].value),      "summary": coalesce(summary[language == $locale][0].value, summary[language == "en"][0].value),      heroImage {        crop,        hotspot,        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}      }    },    awards[]{      _key,      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    teachingExperiences[]{      _key,      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    upcomingWork {      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),      image {        crop,        hotspot,        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}      }    },    gallery[]{      _key,      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "caption": coalesce(caption[language == $locale][0].value, caption[language == "en"][0].value),      image {        crop,        hotspot,        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}      }    },    contact {      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),      email,      phone,      whatsappUrl    },    downloads {      portfolioFile {asset->{_id, url, originalFilename}},      resumeFile {asset->{_id, url, originalFilename}}    },    seo {      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)    },    "footerText": coalesce(footerText[language == $locale][0].value, footerText[language == "en"][0].value)  }
 export type PORTFOLIO_QUERY_RESULT =
   | {
       _id: "portfolioPage";
+      _type: "author";
       name: null;
       intro: null;
       headshot: null;
@@ -579,6 +580,7 @@ export type PORTFOLIO_QUERY_RESULT =
     }
   | {
       _id: "portfolioPage";
+      _type: "category";
       name: null;
       intro: null;
       headshot: null;
@@ -593,29 +595,7 @@ export type PORTFOLIO_QUERY_RESULT =
       awards: null;
       teachingExperiences: null;
       upcomingWork: null;
-      gallery: Array<{
-        _key: string;
-        label: string | null;
-        title: string | null;
-        caption: SimpleBlockContent | null;
-        image: {
-          crop: SanityImageCrop | null;
-          hotspot: SanityImageHotspot | null;
-          alt: string | null;
-          asset: {
-            _id: string;
-            url: string;
-            metadata: {
-              lqip: string | null;
-              dimensions: {
-                width: number;
-                height: number;
-                aspectRatio: number;
-              } | null;
-            } | null;
-          } | null;
-        };
-      }> | null;
+      gallery: null;
       contact: null;
       downloads: null;
       seo: null;
@@ -623,6 +603,7 @@ export type PORTFOLIO_QUERY_RESULT =
     }
   | {
       _id: "portfolioPage";
+      _type: "portfolioPage";
       name: string | null;
       intro: SimpleBlockContent | null;
       headshot: {
@@ -693,6 +674,7 @@ export type PORTFOLIO_QUERY_RESULT =
       }> | null;
       productions: Array<{
         _id: string;
+        _type: "production";
         slug: string;
         medium: "film" | "performance" | "shortFilm" | "television" | "theatre";
         title: string | null;
@@ -802,6 +784,120 @@ export type PORTFOLIO_QUERY_RESULT =
       } | null;
       footerText: string | null;
     }
+  | {
+      _id: "portfolioPage";
+      _type: "post";
+      name: null;
+      intro: null;
+      headshot: null;
+      roles: null;
+      resumeHeading: null;
+      resumeBody: null;
+      resumeImage: null;
+      education: null;
+      skills: null;
+      sectionIntroductions: null;
+      productions: null;
+      awards: null;
+      teachingExperiences: null;
+      upcomingWork: null;
+      gallery: null;
+      contact: null;
+      downloads: null;
+      seo: null;
+      footerText: null;
+    }
+  | {
+      _id: "portfolioPage";
+      _type: "production";
+      name: null;
+      intro: null;
+      headshot: null;
+      roles: null;
+      resumeHeading: null;
+      resumeBody: null;
+      resumeImage: null;
+      education: null;
+      skills: null;
+      sectionIntroductions: null;
+      productions: null;
+      awards: null;
+      teachingExperiences: null;
+      upcomingWork: null;
+      gallery: Array<{
+        _key: string;
+        label: string | null;
+        title: string | null;
+        caption: SimpleBlockContent | null;
+        image: {
+          crop: SanityImageCrop | null;
+          hotspot: SanityImageHotspot | null;
+          alt: string | null;
+          asset: {
+            _id: string;
+            url: string;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number;
+                height: number;
+                aspectRatio: number;
+              } | null;
+            } | null;
+          } | null;
+        };
+      }> | null;
+      contact: null;
+      downloads: null;
+      seo: null;
+      footerText: null;
+    }
+  | {
+      _id: "portfolioPage";
+      _type: "sanity.fileAsset";
+      name: null;
+      intro: null;
+      headshot: null;
+      roles: null;
+      resumeHeading: null;
+      resumeBody: null;
+      resumeImage: null;
+      education: null;
+      skills: null;
+      sectionIntroductions: null;
+      productions: null;
+      awards: null;
+      teachingExperiences: null;
+      upcomingWork: null;
+      gallery: null;
+      contact: null;
+      downloads: null;
+      seo: null;
+      footerText: null;
+    }
+  | {
+      _id: "portfolioPage";
+      _type: "sanity.imageAsset";
+      name: null;
+      intro: null;
+      headshot: null;
+      roles: null;
+      resumeHeading: null;
+      resumeBody: null;
+      resumeImage: null;
+      education: null;
+      skills: null;
+      sectionIntroductions: null;
+      productions: null;
+      awards: null;
+      teachingExperiences: null;
+      upcomingWork: null;
+      gallery: null;
+      contact: null;
+      downloads: null;
+      seo: null;
+      footerText: null;
+    }
   | null;
 
 // Source: ../web/src/sanity/queries.ts
@@ -892,7 +988,7 @@ export type POST_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_id == "portfolioPage"][0] {\n    _id,\n    "name": coalesce(name[language == $locale][0].value, name[language == "en"][0].value),\n    "intro": coalesce(intro[language == $locale][0].value, intro[language == "en"][0].value),\n    headshot {\n      crop,\n      hotspot,\n      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n    },\n    roles[]{_key, "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value)},\n    "resumeHeading": coalesce(resumeHeading[language == $locale][0].value, resumeHeading[language == "en"][0].value),\n    "resumeBody": coalesce(resumeBody[language == $locale][0].value, resumeBody[language == "en"][0].value),\n    resumeImage {\n      crop,\n      hotspot,\n      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n    },\n    education[]{\n      _key,\n      "qualification": coalesce(qualification[language == $locale][0].value, qualification[language == "en"][0].value),\n      "institution": coalesce(institution[language == $locale][0].value, institution[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    skills[]{\n      _key,\n      "category": coalesce(category[language == $locale][0].value, category[language == "en"][0].value),\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    sectionIntroductions[]{\n      _key,\n      section,\n      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),\n      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),\n      "body": coalesce(body[language == $locale][0].value, body[language == "en"][0].value)\n    },\n    productions[]->{\n      _id,\n      "slug": slug.current,\n      medium,\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "year": coalesce(yearDisplay[language == $locale][0].value, yearDisplay[language == "en"][0].value),\n      "role": coalesce(role[language == $locale][0].value, role[language == "en"][0].value),\n      "director": coalesce(director[language == $locale][0].value, director[language == "en"][0].value),\n      "venue": coalesce(venue[language == $locale][0].value, venue[language == "en"][0].value),\n      "summary": coalesce(summary[language == $locale][0].value, summary[language == "en"][0].value),\n      heroImage {\n        crop,\n        hotspot,\n        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n      }\n    },\n    awards[]{\n      _key,\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    teachingExperiences[]{\n      _key,\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    upcomingWork {\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),\n      image {\n        crop,\n        hotspot,\n        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n      }\n    },\n    gallery[]{\n      _key,\n      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "caption": coalesce(caption[language == $locale][0].value, caption[language == "en"][0].value),\n      image {\n        crop,\n        hotspot,\n        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n      }\n    },\n    contact {\n      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),\n      email,\n      phone,\n      whatsappUrl\n    },\n    downloads {\n      portfolioFile {asset->{_id, url, originalFilename}},\n      resumeFile {asset->{_id, url, originalFilename}}\n    },\n    seo {\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    "footerText": coalesce(footerText[language == $locale][0].value, footerText[language == "en"][0].value)\n  }\n': PORTFOLIO_QUERY_RESULT;
+    '\n  *[_id == "portfolioPage"][0] {\n    _id,\n    _type,\n    "name": coalesce(name[language == $locale][0].value, name[language == "en"][0].value),\n    "intro": coalesce(intro[language == $locale][0].value, intro[language == "en"][0].value),\n    headshot {\n      crop,\n      hotspot,\n      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n    },\n    roles[]{_key, "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value)},\n    "resumeHeading": coalesce(resumeHeading[language == $locale][0].value, resumeHeading[language == "en"][0].value),\n    "resumeBody": coalesce(resumeBody[language == $locale][0].value, resumeBody[language == "en"][0].value),\n    resumeImage {\n      crop,\n      hotspot,\n      "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n      asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n    },\n    education[]{\n      _key,\n      "qualification": coalesce(qualification[language == $locale][0].value, qualification[language == "en"][0].value),\n      "institution": coalesce(institution[language == $locale][0].value, institution[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    skills[]{\n      _key,\n      "category": coalesce(category[language == $locale][0].value, category[language == "en"][0].value),\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    sectionIntroductions[]{\n      _key,\n      section,\n      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),\n      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),\n      "body": coalesce(body[language == $locale][0].value, body[language == "en"][0].value)\n    },\n    productions[]->{\n      _id,\n      _type,\n      "slug": slug.current,\n      medium,\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "year": coalesce(yearDisplay[language == $locale][0].value, yearDisplay[language == "en"][0].value),\n      "role": coalesce(role[language == $locale][0].value, role[language == "en"][0].value),\n      "director": coalesce(director[language == $locale][0].value, director[language == "en"][0].value),\n      "venue": coalesce(venue[language == $locale][0].value, venue[language == "en"][0].value),\n      "summary": coalesce(summary[language == $locale][0].value, summary[language == "en"][0].value),\n      heroImage {\n        crop,\n        hotspot,\n        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n      }\n    },\n    awards[]{\n      _key,\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    teachingExperiences[]{\n      _key,\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    upcomingWork {\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),\n      image {\n        crop,\n        hotspot,\n        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n      }\n    },\n    gallery[]{\n      _key,\n      "label": coalesce(label[language == $locale][0].value, label[language == "en"][0].value),\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "caption": coalesce(caption[language == $locale][0].value, caption[language == "en"][0].value),\n      image {\n        crop,\n        hotspot,\n        "alt": coalesce(alt[language == $locale][0].value, alt[language == "en"][0].value),\n        asset->{_id, url, metadata{lqip, dimensions{width, height, aspectRatio}}}\n      }\n    },\n    contact {\n      "heading": coalesce(heading[language == $locale][0].value, heading[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value),\n      email,\n      phone,\n      whatsappUrl\n    },\n    downloads {\n      portfolioFile {asset->{_id, url, originalFilename}},\n      resumeFile {asset->{_id, url, originalFilename}}\n    },\n    seo {\n      "title": coalesce(title[language == $locale][0].value, title[language == "en"][0].value),\n      "description": coalesce(description[language == $locale][0].value, description[language == "en"][0].value)\n    },\n    "footerText": coalesce(footerText[language == $locale][0].value, footerText[language == "en"][0].value)\n  }\n': PORTFOLIO_QUERY_RESULT;
     '\n  *[_type == "post" && defined(slug.current)]\n  | order(coalesce(publishedAt, _createdAt) desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    mainImage {asset, alt, crop, hotspot},\n    "author": author->{name},\n    "categories": categories[]->{_id, title}\n  }\n': POSTS_QUERY_RESULT;
     '\n  *[_type == "post" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    mainImage {asset, alt, crop, hotspot},\n    "author": author->{name, bio, image {asset, alt, crop, hotspot}},\n    "categories": categories[]->{_id, title},\n    body[]\n  }\n': POST_QUERY_RESULT;
   }

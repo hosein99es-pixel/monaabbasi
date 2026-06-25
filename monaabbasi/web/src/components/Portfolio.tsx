@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import {createDataAttribute, stegaClean} from 'next-sanity'
 
 import type {PORTFOLIO_QUERY_RESULT} from '../../sanity.types'
 import {localeCopy, type Locale} from '@/lib/locales'
+import {dataset, projectId, studioUrl} from '@/sanity/env'
 import {urlFor} from '@/sanity/image'
 import {PortableText} from './PortableText'
 
@@ -54,8 +56,29 @@ function SectionTitle({act, eyebrow, title}: {act: string; eyebrow: string; titl
   )
 }
 
+function clean(value?: string | null) {
+  return stegaClean(value ?? '')
+}
+
+function sanityAttr(id: string | null | undefined, type: string | null | undefined, path: string) {
+  if (!id || !type) return undefined
+
+  return createDataAttribute({
+    baseUrl: studioUrl,
+    dataset,
+    id,
+    path,
+    projectId,
+    type,
+  }).toString()
+}
+
+function pageAttr(page: Portfolio, path: string) {
+  return sanityAttr(page._id, page._type, path)
+}
+
 function introFor(page: Portfolio, section: string) {
-  return page.sectionIntroductions?.find((item) => item.section === section)
+  return page.sectionIntroductions?.find((item) => clean(item.section) === section)
 }
 
 function ProductionGrid({items, locale}: {items: Production[]; locale: Locale}) {
@@ -63,15 +86,19 @@ function ProductionGrid({items, locale}: {items: Production[]; locale: Locale}) 
   return (
     <div className="production-grid">
       {items.map((production, index) => (
-        <article className="production-card" key={production._id}>
-          <div className="production-image">
+        <article
+          className="production-card"
+          data-sanity={sanityAttr(production._id, production._type, 'title')}
+          key={production._id}
+        >
+          <div className="production-image" data-sanity={sanityAttr(production._id, production._type, 'heroImage')}>
             <Artwork
               image={production.heroImage as SanityImage}
               sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw"
             />
             <span className="card-number">{String(index + 1).padStart(2, '0')}</span>
           </div>
-          <div className="production-copy">
+          <div className="production-copy" data-sanity={sanityAttr(production._id, production._type, 'summary')}>
             <div className="production-meta">
               <span>{production.role}</span>
               <span>{production.year}</span>
@@ -88,8 +115,12 @@ function ProductionGrid({items, locale}: {items: Production[]; locale: Locale}) 
 export function PortfolioSite({page, locale}: {page: Portfolio; locale: Locale}) {
   const c = localeCopy[locale]
   const otherLocale = locale === 'en' ? 'fa' : 'en'
-  const theatre = page.productions?.filter((item) => ['theatre', 'performance'].includes(item.medium ?? '')) ?? []
-  const film = page.productions?.filter((item) => ['shortFilm', 'film', 'television'].includes(item.medium ?? '')) ?? []
+  const theatre =
+    page.productions?.filter((item) => ['theatre', 'performance'].includes(clean(item.medium))) ??
+    []
+  const film =
+    page.productions?.filter((item) => ['shortFilm', 'film', 'television'].includes(clean(item.medium))) ??
+    []
   const theatreIntro = introFor(page, 'theatre')
   const filmIntro = introFor(page, 'film')
   const awardsIntro = introFor(page, 'awards')
@@ -122,16 +153,16 @@ export function PortfolioSite({page, locale}: {page: Portfolio; locale: Locale})
       </header>
 
       <main id="main">
-        <section className="hero" id="profile" aria-labelledby="profile-title">
-          <div className="hero-art">
+        <section className="hero" id="profile" aria-labelledby="profile-title" data-sanity={pageAttr(page, 'intro')}>
+          <div className="hero-art" data-sanity={pageAttr(page, 'headshot')}>
             <Artwork image={page.headshot} className="hero-image" priority sizes="100vw" />
             <div className="hero-shade" />
           </div>
           <div className="hero-content">
             <p className="act-label">{c.act} 01</p>
-            <h1 id="profile-title">{page.name}</h1>
+            <h1 id="profile-title" data-sanity={pageAttr(page, 'name')}>{page.name}</h1>
             <PortableText value={page.intro} className="hero-intro" />
-            <ul className="role-list" aria-label={locale === 'fa' ? 'زمینه‌های کاری' : 'Portfolio categories'}>
+            <ul className="role-list" aria-label={locale === 'fa' ? 'زمینه‌های کاری' : 'Portfolio categories'} data-sanity={pageAttr(page, 'roles')}>
               {page.roles?.map((role) => <li key={role._key}>{role.label}</li>)}
             </ul>
             <div className="hero-actions">
@@ -141,9 +172,9 @@ export function PortfolioSite({page, locale}: {page: Portfolio; locale: Locale})
           </div>
         </section>
 
-        <section className="section section-resume" id="resume" aria-labelledby="resume-title">
-          <div className="resume-art"><Artwork image={page.resumeImage as SanityImage} sizes="(max-width: 800px) 100vw, 42vw" /></div>
-          <div className="resume-copy">
+        <section className="section section-resume" id="resume" aria-labelledby="resume-title" data-sanity={pageAttr(page, 'resumeBody')}>
+          <div className="resume-art" data-sanity={pageAttr(page, 'resumeImage')}><Artwork image={page.resumeImage as SanityImage} sizes="(max-width: 800px) 100vw, 42vw" /></div>
+          <div className="resume-copy" data-sanity={pageAttr(page, 'resumeHeading')}>
             <SectionTitle act={`${c.act} 02`} eyebrow={c.resume} title={page.resumeHeading} />
             <PortableText value={page.resumeBody} className="rich-copy" />
             <div className="detail-columns">
@@ -153,39 +184,39 @@ export function PortfolioSite({page, locale}: {page: Portfolio; locale: Locale})
           </div>
         </section>
 
-        <section className="section" id="theatre" aria-labelledby="theatre-title">
+        <section className="section" id="theatre" aria-labelledby="theatre-title" data-sanity={pageAttr(page, 'productions')}>
           <SectionTitle act={`${c.act} 03`} eyebrow={theatreIntro?.label ?? c.theatre} title={theatreIntro?.heading ?? c.theatre} />
           <PortableText value={theatreIntro?.body} className="section-intro" />
           <ProductionGrid items={theatre} locale={locale} />
         </section>
 
-        <section className="section section-rose" id="film" aria-labelledby="film-title">
+        <section className="section section-rose" id="film" aria-labelledby="film-title" data-sanity={pageAttr(page, 'productions')}>
           <SectionTitle act={`${c.act} 04`} eyebrow={filmIntro?.label ?? c.film} title={filmIntro?.heading ?? c.film} />
           <PortableText value={filmIntro?.body} className="section-intro" />
           <ProductionGrid items={film} locale={locale} />
         </section>
 
-        <section className="section" id="awards" aria-labelledby="awards-title">
+        <section className="section" id="awards" aria-labelledby="awards-title" data-sanity={pageAttr(page, 'awards')}>
           <SectionTitle act={`${c.act} 05`} eyebrow={awardsIntro?.label ?? c.awards} title={awardsIntro?.heading ?? c.awards} />
           <div className="award-grid">{page.awards?.map((award, index) => <article key={award._key}><span>{String(index + 1).padStart(2, '0')}</span><h3>{award.title}</h3><PortableText value={award.description} /></article>)}</div>
         </section>
 
-        <section className="section section-teaching" id="teaching" aria-labelledby="teaching-title">
+        <section className="section section-teaching" id="teaching" aria-labelledby="teaching-title" data-sanity={pageAttr(page, 'teachingExperiences')}>
           <SectionTitle act={`${c.act} 06`} eyebrow={teachingIntro?.label ?? c.teaching} title={teachingIntro?.heading ?? c.teaching} />
           <div className="timeline">{page.teachingExperiences?.map((item) => <article key={item._key}><div className="timeline-dot"/><div><h3>{item.title}</h3><PortableText value={item.description} /></div></article>)}</div>
         </section>
 
-        <section className="section upcoming" id="upcoming" aria-labelledby="upcoming-title">
-          <div className="upcoming-image"><Artwork image={page.upcomingWork?.image as SanityImage} sizes="(max-width: 800px) 100vw, 50vw" /></div>
-          <div><SectionTitle act={`${c.act} 07`} eyebrow={c.upcoming} title={page.upcomingWork?.title} /><PortableText value={page.upcomingWork?.description} className="section-intro" /></div>
+        <section className="section upcoming" id="upcoming" aria-labelledby="upcoming-title" data-sanity={pageAttr(page, 'upcomingWork')}>
+          <div className="upcoming-image" data-sanity={pageAttr(page, 'upcomingWork.image')}><Artwork image={page.upcomingWork?.image as SanityImage} sizes="(max-width: 800px) 100vw, 50vw" /></div>
+          <div data-sanity={pageAttr(page, 'upcomingWork.description')}><SectionTitle act={`${c.act} 07`} eyebrow={c.upcoming} title={page.upcomingWork?.title} /><PortableText value={page.upcomingWork?.description} className="section-intro" /></div>
         </section>
 
-        <section className="section" id="gallery" aria-labelledby="gallery-title">
+        <section className="section" id="gallery" aria-labelledby="gallery-title" data-sanity={pageAttr(page, 'gallery')}>
           <SectionTitle act={`${c.act} 08`} eyebrow={galleryIntro?.label ?? c.gallery} title={galleryIntro?.heading ?? c.gallery} />
           <div className="gallery-grid">{page.gallery?.map((item, index) => <figure key={item._key} className={`gallery-item gallery-item-${index + 1}`}><Artwork image={item.image as SanityImage} sizes="(max-width: 700px) 100vw, 50vw" /><figcaption><span>{item.label}</span><strong>{item.title}</strong></figcaption></figure>)}</div>
         </section>
 
-        <section className="section downloads" id="downloads" aria-labelledby="downloads-title">
+        <section className="section downloads" id="downloads" aria-labelledby="downloads-title" data-sanity={pageAttr(page, 'downloads')}>
           <SectionTitle act={`${c.act} 09`} eyebrow={downloadsIntro?.label ?? c.downloads} title={downloadsIntro?.heading ?? c.downloads} />
           <PortableText value={downloadsIntro?.body} className="section-intro" />
           <div className="download-actions">
@@ -194,7 +225,7 @@ export function PortfolioSite({page, locale}: {page: Portfolio; locale: Locale})
           </div>
         </section>
 
-        <section className="contact" id="contact" aria-labelledby="contact-title">
+        <section className="contact" id="contact" aria-labelledby="contact-title" data-sanity={pageAttr(page, 'contact')}>
           <p className="act-label">{c.act} 10</p>
           <p className="eyebrow">{c.contact}</p>
           <h2 id="contact-title">{page.contact?.heading}</h2>

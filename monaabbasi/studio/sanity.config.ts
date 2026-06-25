@@ -26,8 +26,13 @@ export default defineConfig({
   plugins: [
     structureTool({structure, defaultDocumentNode}),
     presentationTool({
-      title: 'Published website',
-      previewUrl: previewOrigin,
+      title: 'Live preview',
+      previewUrl: {
+        initial: `${previewOrigin}/en`,
+        previewMode: {
+          enable: '/api/draft-mode/enable',
+        },
+      },
       resolve: presentationResolve,
     }),
     visionTool({defaultApiVersion: '2026-06-22'}),

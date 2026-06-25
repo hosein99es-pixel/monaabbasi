@@ -17,10 +17,10 @@ export const WebsitePreviewView: UserViewComponent<PreviewOptions> = ({
         <Flex align="center" gap={3} justify="space-between" wrap="wrap">
           <Stack space={2}>
             <Text size={1} weight="semibold">
-              Live website placement
+              Published website placement
             </Text>
             <Text muted size={1}>
-              {url}
+              {url} · Use the Live preview tool for click-to-edit draft editing.
             </Text>
           </Stack>
           <Button as="a" href={url} mode="ghost" target="_blank" text="Open in new tab ↗" />
