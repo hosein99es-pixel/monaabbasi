@@ -6,7 +6,7 @@ export const PREVIEW = import.meta.env.PUBLIC_PREVIEW === '1';
 
 export const NAME = 'Mohammad Hossein Eslami';
 export const SHORT_NAME = 'Hossein Eslami';
-export const TAGLINE = 'Theatre director · Dramaturg · Video mapping';
+export const TAGLINE = 'Director · Scene Designer · Producer';
 export const DESCRIPTION =
   'Mohammad Hossein Eslami is a theatre director, dramaturg and video-mapping artist based in Tehran, working in postdramatic and intermedial performance.';
 export const EMAIL = 'mohammadhosein.eslami95@gmail.com';
