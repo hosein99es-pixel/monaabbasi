@@ -1,102 +1,318 @@
 ---
 import Base from '../layouts/Base.astro';
-import Projector from '../components/Projector.astro';
-import Slide from '../components/Slide.astro';
-import Tickets from '../components/Tickets.astro';
-import { Image } from 'astro:assets';
-import { getWorks } from '../lib/works';
-import { pad } from '../lib/text';
-import { person } from '../lib/schema';
+import Pic from '../components/Pic.astro';
+import Frame from '../components/Frame.astro';
+import HGallery from '../components/HGallery.astro';
+import Story from '../components/Story.astro';
+import WordReveal from '../components/WordReveal.astro';
+import { getCollection, render } from 'astro:content';
+import type { ImageMetadata } from 'astro';
 import portrait from '../assets/portrait.jpg';
-import { NAME, TAGLINE, PREVIEW } from '../consts';
+import { person } from '../lib/schema';
+import { clean } from '../lib/text';
+import { NAME, EMAIL, LINKEDIN, DOWNLOADS, SITE_URL } from '../consts';
+import fs from 'node:fs';
 
-const works = await getWorks();
+// ---------------------------------------------------------------- content
+const works = (await getCollection('works')).sort((a, b) => a.data.order - b.data.order);
 const W = Object.fromEntries(works.map((w) => [w.id, w]));
-const no = (id: string) => pad(W[id].data.order);
-const url = (id: string) => `/works/${id}/`;
-const pic = (id: string, i: number) => W[id].data.gallery[i];
+const Content = Object.fromEntries(await Promise.all(works.map(async (w) => [w.id, (await render(w)).Content])));
 
-// Scroll-telling sequence: each step projects one image; text comes from the works themselves.
-const steps = [
-  { id: 'mephisto-for-ever', img: pic('mephisto-for-ever', 0), text: 'An actor makes a deal with power so he can stay on stage. What is left of art once beauty starts working for those in control?' },
-  { id: 'mephisto-for-ever', img: pic('mephisto-for-ever', 5), kicker: 'A troupe performing itself', text: 'Classical and modern acting, puppetry and contemporary dance sit side by side; scenes of power are carried by bodies, distance and image rather than words.' },
-  { id: 'mephisto-for-ever', img: pic('mephisto-for-ever', 6), fit: true, kicker: 'Set design', text: 'One-metre cubes, a trussed arch and a stepped platform build a second, smaller stage inside the stage.' },
-  { id: 'in-front-of-city-theater', img: pic('in-front-of-city-theater', 0), text: "The life of Sohrab A'raabi, killed in the protests that followed Iran's 2009 election, told in four episodes by the people closest to him." },
-  { id: 'in-front-of-city-theater', img: pic('in-front-of-city-theater', 4), kicker: 'Choreography & live music', text: "Two actors play two sides of one character in a duet built on Pina Bausch's trust exercises; five songs composed in rehearsal mix alternative rock and Persian folk music." },
-  { id: 'maid-to-marry', img: pic('maid-to-marry', 0), text: 'A cyber version of the script on monitors, the play on stage, and seven teenagers playing board games and describing their day, all at the same time.' },
-  { id: 'asgardia', img: pic('asgardia', 0), text: 'Six strangers on a mission to the first nation in space, intercut with a mythic line drawn from the story of Adam and Eve.' },
-  { id: 'the-good-person-of-szechwan', img: pic('the-good-person-of-szechwan', 0), text: "A wooden floor tuned to sound under the actors' feet, so that bodies and ground became a kind of music." },
-  { id: 'mixed-sandwich', img: pic('mixed-sandwich', 0), text: 'Media production and live projection for an independent, underground performance.' },
+// every photograph of every work, addressable as "slug/file"
+type P = { src: ImageMetadata; alt: string; caption?: string };
+const pics: Record<string, P> = {};
+for (const w of works)
+  for (const g of [...w.data.gallery, ...w.data.archive]) {
+    const base = g.src.src.split('/').pop()!.split('?')[0].split('.')[0];
+    pics[`${w.id}/${base}`] ??= g;
+  }
+const pic = (k: string) => {
+  const p = pics[k];
+  if (!p) throw new Error(`Missing photo ${k}`);
+  return p;
+};
+const it = (k: string, caption?: string, shape?: string) => ({ ...pic(k), caption: caption ?? pic(k).caption, shape });
+
+const facts = (id: string) => {
+  const d = W[id].data;
+  return [
+    { k: 'Year', v: d.month ? `${d.month} ${d.year}` : String(d.year) },
+    { k: 'Venue', v: `${d.venue}, ${d.city}` },
+    { k: d.roles.length > 1 ? 'Roles' : 'Role', v: d.roles.join(', ') },
+    { k: 'Text', v: d.author },
+    { k: 'Duration', v: d.duration },
+  ];
+};
+const chips = (id: string) => {
+  const d = W[id].data;
+  return [String(d.year), ...(clean(d.venue) ? [clean(d.venue)] : []), ...d.roles];
+};
+const body = (id: string) => Content[id];
+
+// ---------------------------------------------------------------- palette per chapter [accent, container]
+const C = {
+  meph: ['#FF3B6B', '#FFD6E0'],
+  city: ['#2E5BFF', '#DCE3FF'],
+  maid: ['#FFB800', '#FFF0C2'],
+  asg: ['#FF7A1A', '#FFE1CC'],
+  good: ['#00A88F', '#CBF3EA'],
+  mix: ['#7B4DFF', '#E6DDFF'],
+};
+
+// ---------------------------------------------------------------- hero mosaic
+// photo, desktop grid-area, phone grid-area ('' = desktop only), shape, fly-out x (vw), y (vh), rotation (deg)
+const tiles: [string, string, string, string, number, number, number][] = [
+  ['in-front-of-city-theater/23', '1/1/4/4', '1/1/3/3', 'rounded', -60, -40, -8],
+  ['maid-to-marry/m7', '1/4/3/6', '3/1/4/3', 'cookie', -20, -70, 10],
+  ['mephisto-for-ever/ribbons', '1/6/3/9', '1/3/2/5', 'xl', 5, -80, -4],
+  ['asgardia/11', '1/9/3/11', '2/3/3/4', 'arch', 30, -70, 8],
+  ['in-front-of-city-theater/40', '1/11/5/13', '2/4/4/5', 'pill', 70, -45, 6],
+  ['the-good-person-of-szechwan/g2', '4/1/7/3', '', 'square', -75, 0, -6],
+  ['in-front-of-city-theater/music', '4/3/7/4', '', 'pill', -55, 15, 12],
+  ['in-front-of-city-theater/53', '3/10/7/11', '', 'pill', 55, 5, -10],
+  ['mixed-sandwich/s1', '5/11/7/13', '', 'rounded', 75, 20, 6],
+  ['maid-to-marry/m9898', '7/1/9/4', '8/1/10/3', 'xl', -60, 60, 6],
+  ['asgardia/13', '7/4/9/6', '9/3/10/4', 'clover', -15, 80, -12],
+  ['mephisto-for-ever/puppets', '7/6/9/9', '8/3/9/5', 'square', 5, 85, 4],
+  ['in-front-of-city-theater/27', '7/9/9/11', '', 'sunny', 30, 75, -8],
+  ['asgardia/04', '7/11/9/13', '3/3/4/5', 'cookie12', 65, 55, 10],
 ];
+const heroPic = pic('mephisto-for-ever/makeup');
+
+// ---------------------------------------------------------------- writing
+const writing = (await getCollection('writing')).sort((a, b) => a.data.order - b.data.order);
+const WContent = await Promise.all(writing.map(async (e) => (await render(e)).Content));
+
+const size = (href: string) => {
+  try { return `${(fs.statSync(`public${href}`).size / 1e6).toFixed(1)} MB`; } catch { return ''; }
+};
+
+const jsonLd = [
+  person(new URL(SITE_URL)),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Works by ${NAME}`,
+    itemListElement: works.map((w, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: w.data.title,
+        dateCreated: String(w.data.year),
+        description: w.data.summary,
+        url: `${SITE_URL}/#${w.id}`,
+        creator: { '@id': `${SITE_URL}/#person` },
+        ...(clean(w.data.venue) && { locationCreated: { '@type': 'Place', name: clean(w.data.venue), address: w.data.city } }),
+      },
+    })),
+  },
+];
+// works that have their own chapter above; every other work (including new ones) goes to the bento grid
+const FEATURED = new Set(['mephisto-for-ever', 'in-front-of-city-theater', 'maid-to-marry', 'asgardia', 'the-good-person-of-szechwan', 'mixed-sandwich']);
+const bento = works.filter((w) => !FEATURED.has(w.id));
+const BENTO_COLORS = ['#FFB800', '#FF3B6B', '#7B4DFF', '#00A88F', '#2E5BFF', '#FF7A1A'];
+const Meph = body('mephisto-for-ever');
+const City = body('in-front-of-city-theater');
+const Maid = body('maid-to-marry');
+const Asg = body('asgardia');
+const Good = body('the-good-person-of-szechwan');
+const Mix = body('mixed-sandwich');
 ---
-<Base intro jsonLd={person(Astro.site!)}>
-  <Projector slot="before" />
-
-  <section class="hero" aria-labelledby="hero-name">
-    <div class="hero__name">
-      <h1 id="hero-name" data-spot>{NAME}</h1>
-      <p>{TAGLINE}. Postdramatic and intermedial performance, Tehran.</p>
-    </div>
-    <div class="wall">
-      <a class="wall__item w1" href={url('mephisto-for-ever')} data-spot>
-        <Slide src={pic('mephisto-for-ever', 0).src} alt={pic('mephisto-for-ever', 0).alt} sizes="(max-width: 900px) 62vw, 25vw" priority label={`No. ${no('mephisto-for-ever')} · 2026 · In rehearsal`} />
-      </a>
-      <a class="wall__item wall__title wall__title--xl w2" href={url('mephisto-for-ever')} data-spot>Mephisto<br />For Ever</a>
-      <a class="wall__item w3" href={url('in-front-of-city-theater')}>
-        <Slide src={pic('in-front-of-city-theater', 0).src} alt={pic('in-front-of-city-theater', 0).alt} sizes="(max-width: 900px) 54vw, 21vw" label={`No. ${no('in-front-of-city-theater')} · 2018`} />
-      </a>
-      <a class="wall__item wall__title wall__title--l w4" href={url('in-front-of-city-theater')} data-spot>In Front of<br />City Theater<small>Director · Co-scene designer</small></a>
-      <a class="wall__item w5" href={url('maid-to-marry')}>
-        <Slide src={pic('maid-to-marry', 1).src} alt={pic('maid-to-marry', 1).alt} sizes="(max-width: 900px) 70vw, 19vw" label={`No. ${no('maid-to-marry')} · 2023`} />
-      </a>
-      <a class="wall__item wall__title wall__title--l w6" href={url('maid-to-marry')}>Maid to Marry</a>
-      <a class="wall__item wall__title wall__title--m w7" href={url('asgardia')}>Asgardia<small>2016</small></a>
-      <a class="wall__item wall__title wall__title--s w8" href={url('the-good-person-of-szechwan')}>The Good Person<br />of Szechwan<small>Set design · 2022</small></a>
-      <a class="wall__item wall__title wall__title--s w9" href={url('the-proposal')}>The Proposal</a>
-      <a class="wall__item wall__title wall__title--s w10" href={url('mixed-sandwich')}>Mixed Sandwich<small>Media · 2024</small></a>
-      <a class="wall__item wall__title wall__title--s w11" href={url('king-lear')}>King Lear</a>
-    </div>
-  </section>
-
-  <section class="statement wrap" aria-label="Statement">
-    <p class="kicker reveal">✦ Practice</p>
-    <p class="statement__text reveal">My work moves between text-based theatre, devised ensemble work, live music, contemporary dance and <em>media</em>.</p>
-    <p class="statement__sub reveal">I am drawn to postdramatic and political theatre and to intermediality, and I often design the scenography of my own productions.</p>
-  </section>
-
-  <section class="programme wrap" aria-labelledby="programme-title">
-    <div class="programme__head">
-      <h2 id="programme-title">The Programme</h2>
-      <a class="mono" href="/works/">All works →</a>
-    </div>
-    <div class="programme__grid">
-      <div class="screen" aria-hidden="true">
-        <div class="screen__frame">
-          {steps.map((s, i) => (
-            <div class:list={['screen__slide', { 'is-active': i === 0, fit: s.fit }]} data-i={i}>
-              <Image src={s.img.src} alt="" widths={PREVIEW ? [1000] : [640, 1000, 1400]} sizes="(max-width: 900px) 100vw, 56vw" loading={i < 2 ? 'eager' : 'lazy'} />
-            </div>
-          ))}
-          <div class="screen__shutter"></div>
-        </div>
-        <div class="screen__meta mono">
-          <span>Slide projector</span>
-          <span class="screen__count"><span data-count>01</span> / {pad(steps.length)}</span>
-        </div>
+<Base jsonLd={jsonLd}>
+  <!-- ============================================================ HERO: photo wall → Mephisto -->
+  <section class="hero" data-scene data-accent={C.meph[0]} aria-labelledby="hero-name">
+    <div class="hero__pin">
+      <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="mosaic">
+        {tiles.map(([k, d, m, shape, dx, dy, rot]) => (
+          <figure class:list={['tile', `shape-${shape}`, { 'desk-only': !m }]} style={`--gd:${d};--gm:${m || d};--dx:${dx};--dy:${dy};--rot:${rot}`}>
+            <Pic src={pic(k).src} alt={pic(k).alt} sizes="(max-width: 700px) 45vw, 22vw" widths={[400, 700]} />
+          </figure>
+        ))}
       </div>
-      <ol class="steps" role="list">
-        {steps.map((s, i) => {
-          const w = W[s.id].data;
+      <div class="zoom" aria-hidden="true">
+        <Pic src={heroPic.src} alt="" sizes="100vw" widths={[800, 1400, 1800]} eager class="zoom__img" />
+        <div class="zoom__shade"></div>
+      </div>
+      <div class="card glass brutal">
+        <p class="label">Theatre director · Dramaturg · Video mapping</p>
+        <h1 id="hero-name" class="card__name">Mohammad<br />Hossein Eslami</h1>
+        <p class="card__line">Postdramatic and intermedial performance, made in Tehran: text, bodies, live music and screens on one stage.</p>
+        <p class="card__cue label"><span class="cue-dot" aria-hidden="true"></span> Scroll</p>
+      </div>
+      <p class="frame__text is-right hero__text">
+        {['What is left', 'of art once', 'beauty starts', 'working for', 'those in', 'control?'].map((t, i) => (
+          <span class:list={['frame__line', { em: i > 3 }]} style={`--t:${(0.4 + i * 0.045).toFixed(3)}`}>{t} </span>
+        ))}
+      </p>
+      <div class="frame__info glass glass--dark is-left hero__info">
+        <p class="label">01 — Now in rehearsal</p>
+        <h2 class="frame__title">Mephisto For Ever</h2>
+        <ul class="chips">{chips('mephisto-for-ever').map((c) => <li class="chip chip--light">{c}</li>)}<li class="chip chip--acc">Opening Nov 2026</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <div id="work"></div>
+
+  <!-- ============================================================ 01 MEPHISTO -->
+  <Story id="mephisto-for-ever" no="01 — In rehearsal" title="Mephisto For Ever" lede="An actor makes a deal with power so he can stay on stage." facts={facts('mephisto-for-ever')} credits={W['mephisto-for-ever'].data.credits} accent={C.meph[0]} container={C.meph[1]}
+    photos={[{ ...pic('mephisto-for-ever/phones'), shape: 'arch' }, { ...pic('mephisto-for-ever/puppets'), shape: 'cookie' }]}>
+    <Meph />
+  </Story>
+
+  <section class="design" style={`--acc:${C.meph[0]};--accc:${C.meph[1]}`} data-accent={C.meph[0]} aria-label="Mephisto For Ever: set, puppet stage and previsualisation">
+    <div class="wrap design__grid">
+      <figure class="design__card glass brutal rv">
+        <Pic src={pic('mephisto-for-ever/set-elevation').src} alt={pic('mephisto-for-ever/set-elevation').alt} sizes="(max-width: 900px) 90vw, 55vw" widths={[800, 1400]} />
+        <figcaption class="label">Set · front elevation · 16 cubes, trussed arch, stepped platform · 9.4 × 4.1 m</figcaption>
+      </figure>
+      <figure class="design__card glass brutal rv">
+        <Pic src={pic('mephisto-for-ever/puppet-stage').src} alt={pic('mephisto-for-ever/puppet-stage').alt} sizes="(max-width: 900px) 90vw, 35vw" widths={[600, 1000]} />
+        <figcaption class="label">Puppet stage · 4 plexiglass frames · 110 × 80 × 32 cm each</figcaption>
+      </figure>
+      <div class="design__previs">
+        {['previs-balloons', 'previs-curtain', 'previs-train'].map((k) => (
+          <figure class="brutal rv"><Pic src={pic(`mephisto-for-ever/${k}`).src} alt={pic(`mephisto-for-ever/${k}`).alt} sizes="(max-width: 900px) 90vw, 30vw" widths={[600, 900]} /><figcaption class="label">{pic(`mephisto-for-ever/${k}`).caption}</figcaption></figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <HGallery title="In the rehearsal room" kicker="01 · Mephisto For Ever" accent={C.meph[0]}
+    items={[it('mephisto-for-ever/ribbons', 'Movement work'), it('mephisto-for-ever/shadow', 'Shadow play', 'arch'), it('mephisto-for-ever/inverted', 'Inverted bodies'), it('mephisto-for-ever/ribbon-close'), it('mephisto-for-ever/rehearsal-bw'), it('mephisto-for-ever/green-screen', 'Filming for the video mapping', 'pill')]} />
+
+  <!-- ============================================================ 02 CITY THEATER -->
+  <Frame id="in-front-of-city-theater" accent={C.city[0]} src={pic('in-front-of-city-theater/23').src} alt={pic('in-front-of-city-theater/23').alt}
+    lines={[{ t: 'Four episodes.' }, { t: 'Four witnesses.' }, { t: 'One life.', em: true }]}
+    box="left:5vw;top:16svh;width:38vw" align="right" shade="left" focus="50% 40%" mfocus="62% 30%"
+    info={{ no: '02', title: 'In Front of City Theater', chips: chips('in-front-of-city-theater') }} infoSide="right" />
+  <Story no="02" title="In Front of City Theater" lede={W['in-front-of-city-theater'].data.summary} facts={facts('in-front-of-city-theater')} credits={W['in-front-of-city-theater'].data.credits} accent={C.city[0]} container={C.city[1]}
+    photos={[{ ...pic('in-front-of-city-theater/music'), shape: 'cookie12' }, { ...pic('in-front-of-city-theater/34'), shape: 'rounded' }]}>
+    <City />
+  </Story>
+  <Frame accent={C.city[0]} src={pic('in-front-of-city-theater/27').src} alt={pic('in-front-of-city-theater/27').alt} tone="dark" height={2}
+    lines={[{ t: 'Two actors.' }, { t: 'Two sides of' }, { t: 'one character.', em: true }]}
+    box="left:48vw;top:9svh;width:36vw" size={0.54} focus="50% 40%" mfocus="55% 50%" />
+  <HGallery title="Sohrab's story, episode by episode" kicker="02 · In Front of City Theater" accent={C.city[0]}
+    items={['21', '40', '29', '47', '51', '09', '62', '52', '38', '16', '44', '56'].map((n, i) => it(`in-front-of-city-theater/${n}`, undefined, i === 1 ? 'arch' : i === 8 ? 'cookie' : undefined))} />
+
+  <!-- ============================================================ 03 MAID TO MARRY -->
+  <Frame id="maid-to-marry" accent={C.maid[0]} src={pic('maid-to-marry/m7').src} alt={pic('maid-to-marry/m7').alt}
+    lines={[{ t: 'Three' }, { t: 'performances,' }, { t: 'at the same time.', em: true }]}
+    box="left:5vw;top:20svh;width:34vw" align="right" shade="left" focus="50% 35%" mfocus="58% 35%"
+    info={{ no: '03 — MA thesis', title: 'Maid to Marry', chips: chips('maid-to-marry') }} infoSide="right" />
+  <Story no="03 — Practical MA thesis" title="Maid to Marry" lede={W['maid-to-marry'].data.summary} facts={facts('maid-to-marry')} credits={W['maid-to-marry'].data.credits} accent={C.maid[0]} container={C.maid[1]}
+    photos={[{ ...pic('maid-to-marry/m0'), shape: 'arch' }, { ...pic('maid-to-marry/m21'), shape: 'sunny' }]}>
+    <Maid />
+  </Story>
+  <HGallery title="Screens, cards and teenagers" kicker="03 · Maid to Marry" accent={C.maid[0]}
+    items={['m9898', 'muiwqi', 'm9283', 'm8', 'm6', 'm3232', 'm2', 'm5', 'm3'].map((n, i) => it(`maid-to-marry/${n}`, undefined, i === 4 ? 'cookie' : undefined))} />
+
+  <!-- ============================================================ 04 ASGARDIA -->
+  <Frame id="asgardia" accent={C.asg[0]} src={pic('asgardia/04').src} alt={pic('asgardia/04').alt}
+    lines={[{ t: 'Six strangers.' }, { t: 'One spaceship.' }, { t: 'Adam and Eve,', em: true }, { t: 'in orbit.', em: true }]}
+    box="left:57vw;top:12svh;width:38vw" shade="right" focus="50% 40%" mfocus="30% 40%"
+    info={{ no: '04 — First professional production', title: 'Asgardia', chips: chips('asgardia') }} />
+  <Story no="04" title="Asgardia" lede={W['asgardia'].data.summary} facts={facts('asgardia')} credits={W['asgardia'].data.credits} accent={C.asg[0]} container={C.asg[1]}
+    photos={[{ ...pic('asgardia/11'), shape: 'rounded' }, { ...pic('asgardia/09'), shape: 'arch' }]}>
+    <Asg />
+  </Story>
+  <HGallery title="A company built from scratch" kicker="04 · Asgardia" accent={C.asg[0]}
+    items={['10', '06', '03', '13', '12', '08', '01', '05', '02'].map((n, i) => it(`asgardia/${n}`, undefined, i === 3 ? 'clover' : undefined))} />
+
+  <!-- ============================================================ 05 GOOD PERSON -->
+  <Frame id="the-good-person-of-szechwan" accent={C.good[0]} src={pic('the-good-person-of-szechwan/g1').src} alt={pic('the-good-person-of-szechwan/g1').alt}
+    lines={[{ t: 'A floor tuned' }, { t: 'like an', em: true }, { t: 'instrument.', em: true }]}
+    box="left:60vw;top:13svh;width:34vw" shade="right" focus="50% 40%" mfocus="45% 40%" height={2}
+    info={{ no: '05 — Set design', title: 'The Good Person of Szechwan', chips: chips('the-good-person-of-szechwan') }} />
+  <Story no="05 — Set design" title="The Good Person of Szechwan" lede={W['the-good-person-of-szechwan'].data.summary} facts={facts('the-good-person-of-szechwan')} credits={W['the-good-person-of-szechwan'].data.credits} accent={C.good[0]} container={C.good[1]}
+    photos={[{ ...pic('the-good-person-of-szechwan/g2'), shape: 'rounded' }, { ...pic('the-good-person-of-szechwan/g3'), shape: 'rounded' }]}>
+    <Good />
+  </Story>
+
+  <!-- ============================================================ 06 MIXED SANDWICH -->
+  <Frame id="mixed-sandwich" accent={C.mix[0]} src={pic('mixed-sandwich/s1').src} alt={pic('mixed-sandwich/s1').alt}
+    lines={[{ t: 'Media for an' }, { t: 'underground', em: true }, { t: 'stage.' }]}
+    box="left:5vw;top:18svh;width:36vw" shade="left" focus="50% 40%" mfocus="50% 40%" height={2}
+    info={{ no: '06 — Media & projection', title: 'Mixed Sandwich', chips: chips('mixed-sandwich') }} infoSide="right" />
+  <Story no="06 — Media & projection" title="Mixed Sandwich" lede={W['mixed-sandwich'].data.summary} facts={facts('mixed-sandwich')} credits={W['mixed-sandwich'].data.credits} accent={C.mix[0]} container={C.mix[1]} draft
+    photos={[{ ...pic('mixed-sandwich/s2'), shape: 'pill' }, { ...pic('mixed-sandwich/s3'), shape: 'rounded' }]}>
+    <Mix />
+  </Story>
+
+  <!-- ============================================================ EARLIER WORK (bento) -->
+  <section class="bento-sec" aria-labelledby="earlier" data-accent="#15120E">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="label">{bento.length ? `${String(bento[0].data.order).padStart(2, '0')} — ${String(bento[bento.length - 1].data.order).padStart(2, '0')}` : ''}</p>
+        <h2 id="earlier" class="sec-title">Studio &amp; earlier work</h2>
+      </div>
+      <div class="bento">
+        {bento.map((w, i) => {
+          const id = w.id;
+          const d = w.data;
+          const col = BENTO_COLORS[i % BENTO_COLORS.length];
+          const X = body(id);
           return (
-            <li class:list={['step', { 'is-active': i === 0 }]} data-i={i}>
-              <div>
-                <p class="step__no">No. {pad(w.order)}{s.kicker ? ` — ${s.kicker}` : ''}</p>
-                <h3><a href={url(s.id)}>{w.title}</a></h3>
-                <p class="step__meta mono">{w.year} · {w.venue.startsWith('[') ? w.city : `${w.venue}, ${w.city}`} · {w.roles.join(', ')}</p>
-                <p>{s.text}</p>
-                <a class="step__link" href={url(s.id)}>View the work<span class="sr-only">: {w.title}</span> →</a>
-                <span class="sr-only">Image: {s.img.alt}</span>
+            <article class:list={['bento__item', 'brutal', 'rv', `b${i}`]} id={id} style={`--acc:${col}`}>
+              <figure class="bento__img"><Pic src={d.cover.src} alt={d.cover.alt} sizes="(max-width: 900px) 90vw, 40vw" widths={[600, 1000]} /></figure>
+              <div class="bento__body">
+                <p class="label">{String(d.order).padStart(2, '0')} · {d.year}</p>
+                <h3 class="bento__title">{d.title}</h3>
+                <ul class="chips">{chips(id).slice(1).map((c) => <li class="chip">{c}</li>)}</ul>
+                <div class="prose prose--sm"><X /></div>
               </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ ABOUT -->
+  <div id="about"></div>
+  <WordReveal kicker="About" text="My work moves between text-based theatre, devised ensemble work, live music, contemporary dance and media." accentWords={['media', 'dance', 'music']} />
+  <section class="about" data-accent="#7B4DFF">
+    <div class="wrap about__grid">
+      <figure class="about__portrait shape-cookie rv">
+        <Pic src={portrait} alt={`Black-and-white portrait of ${NAME}`} sizes="(max-width: 900px) 80vw, 36vw" widths={[500, 900]} />
+      </figure>
+      <div class="about__text rv">
+        <p class="about__lede">I am a theatre director, dramaturg and video-mapping artist based in Tehran, working in postdramatic and intermedial performance.</p>
+        <p>I hold an MA in Theatre Directing from Tehran University of Art (2019–2023). My thesis studied the representation of identity in the work of Elizabeth LeCompte and The Wooster Group, and my practical thesis was <em>Maid to Marry</em>, after Eugène Ionesco. Before theatre I studied software engineering at Shahid Beheshti University, and that background still shapes the way I bring media onto the stage.</p>
+        <p>I often design the scenography of my own productions, from the pop-up-book set of <em>In Front of City Theater</em> to the modular cubes and puppet stage of <em>Mephisto For Ever</em>, and I have designed sets and media for other directors. My training includes three years of contemporary dance and choreography, an advanced playwriting course and a dramaturgy workshop at Farvardin Playwriting School, and applied theatre with Christoph Pauger. In 2015 I co-founded the Khiyal Theatre Group.</p>
+        <ul class="chips chips--big">
+          <li class="chip chip--acc">MA Theatre Directing · Tehran University of Art</li>
+          <li class="chip">BSc Software Engineering · Shahid Beheshti University</li>
+          <li class="chip">Ranked 3rd nationally · MA entrance exam 2019</li>
+          <li class="chip">IELTS Academic 8.0</li>
+          <li class="chip">Persian · English · Arabic (basic)</li>
+        </ul>
+        <p class="label about__interests">Research interests — Postdramatic theatre · Intermediality · Political theatre · Gender and queer studies</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ WRITING -->
+  <section class="writing" id="writing" data-accent="#FFB800" aria-labelledby="writing-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="label">Writing &amp; research</p>
+        <h2 id="writing-title" class="sec-title">Writing</h2>
+      </div>
+      <ol class="wlist" role="list">
+        {writing.map((e, i) => {
+          const d = e.data;
+          const X = WContent[i];
+          return (
+            <li class="witem brutal rv">
+              <div class="witem__meta"><span class="chip chip--acc">{d.type}</span><span class="label">{d.year}</span></div>
+              <h3 class="witem__title">{d.title}</h3>
+              <p class="witem__sub">{[d.coauthors, d.institution, d.advisors && `Advisors: ${d.advisors}`, d.status].filter(Boolean).join(' · ')}</p>
+              <div class="prose prose--sm"><X /></div>
+              {d.pdf ? <a class="btn btn--ink" href={d.pdf} download>Download PDF</a> : <span class="ph">[PDF]</span>}
             </li>
           );
         })}
@@ -104,54 +320,35 @@ const steps = [
     </div>
   </section>
 
-  <section class="section wrap" id="downloads" aria-labelledby="dl-title">
-    <div class="section__head">
-      <h2 id="dl-title">Take the programme home</h2>
-      <span class="mono muted">Downloads</span>
+  <!-- ============================================================ CV + CONTACT -->
+  <section class="cv" id="cv" data-accent="#FF3B6B" aria-labelledby="cv-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="label">Downloads</p>
+        <h2 id="cv-title" class="sec-title">CV &amp; Portfolio</h2>
+      </div>
+      <div class="dl">
+        {DOWNLOADS.map((d, i) => (
+          <a class:list={['dl__btn', 'brutal', 'rv', `d${i}`]} href={d.href} download>
+            <span class="dl__icon" aria-hidden="true">↓</span>
+            <span class="dl__title">{d.label}</span>
+            <span class="label">{d.meta}{size(d.href) && ` · ${size(d.href)}`}</span>
+          </a>
+        ))}
+      </div>
     </div>
-    <Tickets />
   </section>
 
-  <section class="section wrap" aria-labelledby="about-teaser">
-    <div class="about">
-      <div class="reveal">
-        <Slide src={portrait} alt={`Black-and-white portrait of ${NAME}`} sizes="(max-width: 820px) 90vw, 36vw" widths={[400, 700, 1000]} />
-      </div>
-      <div class="reveal">
-        <p class="kicker">✦ About</p>
-        <h2 id="about-teaser" class="lede">I am a theatre director, dramaturg and video-mapping artist based in Tehran.</h2>
-        <p>I hold an MA in Theatre Directing from Tehran University of Art, where my thesis studied the representation of identity in the work of Elizabeth LeCompte. Before theatre I studied software engineering, and that background still shapes the way I bring media onto the stage.</p>
-        <p><a class="btn" href="/about/">Full biography</a>&nbsp; <a class="btn" href="/contact/">Contact</a></p>
-      </div>
+  <footer class="contact" id="contact" data-accent="#2E5BFF">
+    <div class="wrap">
+      <p class="label">Contact — festivals, residencies, collaborations, academic enquiries</p>
+      <a class="contact__mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      <ul class="chips chips--big">
+        <li><a class="chip chip--light" href={LINKEDIN} target="_blank" rel="me noopener">LinkedIn ↗</a></li>
+        <li class="chip chip--light">Tehran, Iran</li>
+        <li class="chip chip--light">English · Persian</li>
+      </ul>
+      <p class="contact__small label">© {new Date().getFullYear()} {NAME} · Photographs © their photographers</p>
     </div>
-  </section>
+  </footer>
 </Base>
-
-<script>
-  // Scroll-telling: the step in the middle of the viewport decides which slide is projected.
-  const screen = document.querySelector<HTMLElement>('.screen');
-  const slides = document.querySelectorAll<HTMLElement>('.screen__slide');
-  const steps = document.querySelectorAll<HTMLElement>('.step');
-  const count = document.querySelector<HTMLElement>('[data-count]');
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current = 0;
-  const show = (i: number) => {
-    if (i === current) return;
-    current = i;
-    slides.forEach((s, k) => s.classList.toggle('is-active', k === i));
-    steps.forEach((s, k) => s.classList.toggle('is-active', k === i));
-    if (count) count.textContent = String(i + 1).padStart(2, '0');
-    if (screen && !calm) {
-      screen.classList.remove('is-changing');
-      void screen.offsetWidth;
-      screen.classList.add('is-changing');
-    }
-  };
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && show(Number((e.target as HTMLElement).dataset.i))),
-      { rootMargin: '-45% 0px -45% 0px' },
-    );
-    steps.forEach((s) => io.observe(s));
-  }
-</script>

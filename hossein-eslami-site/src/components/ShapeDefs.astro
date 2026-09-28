@@ -1,0 +1,10 @@
+---
+import { SHAPES } from '../lib/shapes';
+---
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    {Object.entries(SHAPES).map(([k, d]) => (
+      <clipPath id={`shape-${k}`} clipPathUnits="objectBoundingBox"><path d={d} /></clipPath>
+    ))}
+  </defs>
+</svg>

@@ -1,0 +1,52 @@
+---
+// Project text: sticky heading column + body, with photographs cut into expressive shapes.
+import Pic from './Pic.astro';
+import type { ImageMetadata } from 'astro';
+import { html, visible } from '../lib/text';
+interface Photo { src: ImageMetadata; alt: string; shape?: string }
+interface Props {
+  no: string;
+  title: string;
+  lede: string;
+  facts: { k: string; v: string }[];
+  credits: { role: string; name: string }[];
+  photos?: Photo[];
+  accent: string;
+  container: string;
+  draft?: boolean;
+  id?: string;
+}
+const { no, title, lede, facts, credits, photos = [], accent, container, draft, id } = Astro.props;
+---
+<section class="story" id={id} data-accent={accent} style={`--acc:${accent};--accc:${container}`}>
+  <div class="story__grid wrap">
+    <div class="story__head">
+      <p class="label">{no}</p>
+      <h2 class="story__title">{title}</h2>
+      <p class="story__lede">{lede}</p>
+      <dl class="facts">
+        {facts.filter((f) => visible(f.v)).map((f) => (
+          <div><dt class="label">{f.k}</dt><dd set:html={html(f.v)} /></div>
+        ))}
+      </dl>
+    </div>
+    <div class="story__body">
+      {draft && <p class="draft">[DRAFT TRANSLATION – needs review]</p>}
+      <div class="prose rv"><slot /></div>
+      {photos.length > 0 && (
+        <div class="story__photos">
+          {photos.map((ph, i) => (
+            <figure class:list={['story__ph', 'rv', `shape-${ph.shape ?? 'rounded'}`, `n${i}`]}>
+              <Pic src={ph.src} alt={ph.alt} sizes="(max-width: 900px) 90vw, 30vw" widths={[500, 900]} />
+            </figure>
+          ))}
+        </div>
+      )}
+      <dl class="credits rv">
+        {credits.filter((c) => visible(c.name)).map((c) => (
+          <div><dt class="label">{c.role}</dt><dd set:html={html(c.name)} /></div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>

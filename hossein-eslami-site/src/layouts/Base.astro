@@ -1,144 +1,63 @@
 ---
-import '@fontsource/instrument-serif/400.css';
-import '@fontsource/instrument-serif/400-italic.css';
-import '@fontsource-variable/hanken-grotesk';
-import '@fontsource/ibm-plex-mono/400.css';
-import '../styles/global.css';
+import '@fontsource-variable/roboto-flex/wdth.css';
+import '../styles/site.css';
 import { getImage } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import portrait from '../assets/portrait.jpg';
-import serifFont from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
-import sansFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
-import { NAME, SHORT_NAME, DESCRIPTION, EMAIL, LINKEDIN, TAGLINE, SHOW_PLACEHOLDERS, DOWNLOADS, PREVIEW } from '../consts';
+import fontUrl from '@fontsource-variable/roboto-flex/files/roboto-flex-latin-wdth-normal.woff2?url';
+import ShapeDefs from '../components/ShapeDefs.astro';
+import { NAME, DESCRIPTION, SHOW_PLACEHOLDERS, PREVIEW } from '../consts';
 
-interface Props {
-  title?: string;
-  description?: string;
-  image?: ImageMetadata;
-  imageAlt?: string;
-  type?: 'website' | 'article' | 'profile';
-  jsonLd?: object | object[];
-  theme?: 'dark' | 'paper';
-  intro?: boolean;
-}
-const {
-  title,
-  description = DESCRIPTION,
-  image = portrait,
-  imageAlt = `Portrait of ${NAME}`,
-  type = 'website',
-  jsonLd,
-  theme = 'dark',
-  intro = false,
-} = Astro.props;
-
-const pageTitle = title ? `${title} — ${NAME}` : `${NAME} — Theatre Director, Dramaturg & Video Mapping`;
+interface Props { title?: string; description?: string; jsonLd?: object[] }
+const { title, description = DESCRIPTION, jsonLd = [] } = Astro.props;
+const pageTitle = title ?? `${NAME} — Theatre Director, Dramaturg & Video Mapping`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogUrl = PREVIEW
-  ? ''
-  : new URL((await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 })).src, Astro.site).href;
-
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const ogUrl = PREVIEW ? '' : new URL((await getImage({ src: portrait, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src, Astro.site).href;
 const nav = [
-  { href: '/works/', label: 'Works' },
-  { href: '/writing/', label: 'Writing' },
-  { href: '/about/', label: 'About' },
-  { href: '/contact/', label: 'Contact' },
+  { href: '#work', label: 'Work' },
+  { href: '#about', label: 'About' },
+  { href: '#writing', label: 'Writing' },
+  { href: '#contact', label: 'Contact' },
 ];
-const isActive = (href: string) => path.startsWith(href.replace(/\/$/, ''));
-const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 <!doctype html>
-<html lang="en" class:list={[{ 'theme-paper': theme === 'paper' }]}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="preload" href={serifFont} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content={theme === 'paper' ? '#F5F2EC' : '#050505'} />
-    <meta property="og:type" content={type} />
-    <meta property="og:site_name" content={NAME} />
-    <meta property="og:title" content={title ?? NAME} />
+    <meta name="theme-color" content="#FFF8F0" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={NAME} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={imageAlt} />
+    {ogUrl && <meta property="og:image" content={ogUrl} />}
     <meta name="twitter:card" content="summary_large_image" />
-    <script is:inline>
-      document.documentElement.classList.add('js');
-    </script>
-    {intro && (
-      <script is:inline>
-        try {
-          if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('projectorOn')) {
-            document.documentElement.dataset.intro = 'on';
-          }
-        } catch (e) {}
-      </script>
-    )}
-    {ld.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
   </head>
   <body class:list={[{ review: SHOW_PLACEHOLDERS }]}>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <slot name="before" />
-    <header class="site-header">
-      <a class="brand" href="/" aria-label={`${NAME}, home`}>
-        <span class="brand__name">{NAME}</span>
-        <span class="brand__tag">{TAGLINE}</span>
-      </a>
-      <nav aria-label="Main">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list">
-          <span class="sr-only">Menu</span><span class="nav-toggle__bars" aria-hidden="true"></span>
-        </button>
-        <ul id="nav-list" class="nav-list">
-          {nav.map((n) => (
-            <li><a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
-          ))}
-          <li><a class="nav-cta" href="/about/#downloads">CV &amp; Portfolio</a></li>
+    <a class="skip" href="#main">Skip to content</a>
+    <ShapeDefs />
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <header class="nav glass">
+      <a class="nav__brand" href="#top">M. Hossein Eslami</a>
+      <nav aria-label="Sections">
+        <ul class="nav__list" id="nav-list">
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
         </ul>
       </nav>
+      <a class="nav__cv btn btn--ink" href="#cv">CV &amp; Portfolio</a>
+      <button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-list"><span class="sr">Menu</span><i aria-hidden="true"></i></button>
     </header>
     <main id="main">
       <slot />
     </main>
-    <footer class="site-footer">
-      <div class="site-footer__inner">
-        <p class="site-footer__name">{NAME}</p>
-        <p class="mono">{TAGLINE}</p>
-        <ul class="site-footer__links mono">
-          <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
-          <li><a href={LINKEDIN} rel="me noopener" target="_blank">LinkedIn</a></li>
-          {DOWNLOADS.map((d) => <li><a href={d.href} download>{d.label} (PDF)</a></li>)}
-        </ul>
-        <p class="mono site-footer__small">© {new Date().getFullYear()} {SHORT_NAME}. Photographs © their photographers.</p>
-      </div>
-    </footer>
     <script>
-      // mobile menu
-      const t = document.querySelector<HTMLButtonElement>('.nav-toggle');
-      t?.addEventListener('click', () => {
-        const open = t.getAttribute('aria-expanded') !== 'true';
-        t.setAttribute('aria-expanded', String(open));
-        document.documentElement.classList.toggle('menu-open', open);
-      });
-      // fade-in on scroll
-      const els = document.querySelectorAll('.reveal');
-      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const io = new IntersectionObserver(
-          (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }),
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-        );
-        els.forEach((el) => io.observe(el));
-      } else {
-        els.forEach((el) => el.classList.add('is-in'));
-      }
+      import '../scripts/engine';
     </script>
   </body>
 </html>

@@ -1,0 +1,43 @@
+---
+// Full-bleed photograph pinned while you scroll; lines of text appear inside the frame,
+// placed in the empty part of the picture, and a glass card introduces the project.
+import Pic from './Pic.astro';
+import type { ImageMetadata } from 'astro';
+interface Line { t: string; em?: boolean }
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  lines: Line[];
+  box: string;               // desktop position of the text, e.g. "left:6vw;top:16svh;width:36vw"
+  align?: 'left' | 'right';
+  tone?: 'light' | 'dark';   // light = white text on a dark area of the photo
+  shade?: 'left' | 'right' | 'top' | 'none';
+  focus?: string;            // object-position on wide screens
+  mfocus?: string;           // object-position on phones
+  info?: { no: string; title: string; chips: string[] };
+  infoSide?: 'left' | 'right';
+  id?: string;
+  accent?: string;
+  height?: number;           // scene length in viewport heights
+  size?: number;             // text scale (1 = default)
+}
+const { src, alt, lines, box, align = 'left', tone = 'light', shade = 'none', focus = '50% 50%', mfocus = focus, info, infoSide = 'left', id, accent, height = 2.3, size = 1 } = Astro.props;
+---
+<section class:list={['frame', `frame--${tone}`, `shade-${shade}`]} data-scene id={id} data-accent={accent} style={`--h:${height};--focus:${focus};--mfocus:${mfocus};${accent ? `--acc:${accent};` : ''}`}>
+  <div class="frame__pin">
+    <Pic src={src} alt={alt} class="frame__img" sizes="100vw" widths={[800, 1400, 1800]} />
+    <div class="frame__shade" aria-hidden="true"></div>
+    <p class:list={['frame__text', `is-${align}`]} style={`${box};--fs:${size}`}>
+      {lines.map((l, i) => (
+        <span class:list={['frame__line', { em: l.em }]} style={`--t:${(0.08 + i * 0.1).toFixed(2)}`}>{l.t} </span>
+      ))}
+    </p>
+    {info && (
+      <div class:list={['frame__info', 'glass', 'glass--dark', `is-${infoSide}`]}>
+        <p class="label">{info.no}</p>
+        <h2 class="frame__title">{info.title}</h2>
+        <ul class="chips">{info.chips.map((c) => <li class="chip chip--light">{c}</li>)}</ul>
+      </div>
+    )}
+  </div>
+</section>

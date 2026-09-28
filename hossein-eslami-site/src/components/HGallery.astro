@@ -1,0 +1,25 @@
+---
+// Apple-style horizontal filmstrip: vertical scroll moves the strip sideways.
+import Pic from './Pic.astro';
+import type { ImageMetadata } from 'astro';
+interface Item { src: ImageMetadata; alt: string; caption?: string; shape?: string }
+interface Props { title: string; kicker?: string; items: Item[]; accent?: string }
+const { title, kicker, items, accent } = Astro.props;
+---
+<section class="hg" data-scene data-hg data-accent={accent} style={accent ? `--acc:${accent}` : undefined} aria-label={title}>
+  <div class="hg__pin">
+    <div class="hg__head">
+      {kicker && <p class="label">{kicker}</p>}
+      <h3 class="hg__title">{title}</h3>
+    </div>
+    <ul class="hg__track" role="list">
+      {items.map((it, i) => (
+        <li class:list={['hg__item', it.shape && `shape-${it.shape}`]} style={`--ar:${(it.src.width / it.src.height).toFixed(3)}`}>
+          <Pic src={it.src} alt={it.alt} sizes="(max-width: 700px) 80vw, 45vw" widths={[600, 1000]} />
+          <span class="hg__cap label">{String(i + 1).padStart(2, '0')}{it.caption ? ` · ${it.caption}` : ''}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="hg__rail" aria-hidden="true"><span></span></div>
+  </div>
+</section>

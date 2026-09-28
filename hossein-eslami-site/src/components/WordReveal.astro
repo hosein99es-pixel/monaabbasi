@@ -1,0 +1,16 @@
+---
+// Statement whose words light up one by one as the page scrolls (pinned).
+interface Props { text: string; accentWords?: string[]; kicker?: string }
+const { text, accentWords = [], kicker } = Astro.props;
+const words = text.split(' ');
+---
+<section class="reveal-scene" data-scene style={`--n:${words.length}`}>
+  <div class="reveal-scene__pin wrap">
+    {kicker && <p class="label">{kicker}</p>}
+    <p class="reveal-scene__text">
+      {words.map((w, i) => (
+        <span class:list={{ em: accentWords.includes(w.replace(/[.,]/g, '')) }} style={`--i:${i}`}>{w} </span>
+      ))}
+    </p>
+  </div>
+</section>
