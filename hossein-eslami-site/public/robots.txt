@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hossein-eslami.netlify.app/sitemap-index.xml

@@ -1,0 +1,21 @@
+---
+import { DOWNLOADS } from '../consts';
+import fs from 'node:fs';
+const size = (href: string) => {
+  try {
+    const b = fs.statSync(`public${href}`).size;
+    return `${(b / 1e6).toFixed(1)} MB`;
+  } catch { return ''; }
+};
+---
+<div class="tickets">
+  {DOWNLOADS.map((d, i) => (
+    <a class="ticket" href={d.href} download>
+      <span>
+        <span class="ticket__title">{d.label}</span>
+        <span class="ticket__meta">{d.meta}{size(d.href) && ` · ${size(d.href)}`}</span>
+      </span>
+      <span class="ticket__stub" aria-hidden="true">No. 00{i + 1}<br />Download</span>
+    </a>
+  ))}
+</div>

@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import Slide from '../components/Slide.astro';
+import Tickets from '../components/Tickets.astro';
+import portrait from '../assets/portrait.jpg';
+import { person } from '../lib/schema';
+import { NAME } from '../consts';
+---
+<Base title="About" type="profile" jsonLd={person(Astro.site!)} description={`About ${NAME}: theatre director, dramaturg and video-mapping artist based in Tehran. Biography, CV and portfolio.`}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">✦ About</p>
+      <h1>About</h1>
+    </header>
+    <div class="about">
+      <div class="about__portrait">
+        <Slide src={portrait} alt={`Black-and-white portrait of ${NAME}`} sizes="(max-width: 820px) 90vw, 40vw" widths={[400, 700, 1000, 1140]} priority label="Portrait" />
+      </div>
+      <div>
+        <p class="lede">I am a theatre director, dramaturg and video-mapping artist based in Tehran, working in postdramatic and intermedial performance.</p>
+
+        <h2 class="kicker">Biography</h2>
+        <p>I hold an MA in Theatre Directing from Tehran University of Art (2019–2023). My thesis studied the representation of identity in the work of Elizabeth LeCompte and The Wooster Group, and my practical thesis was <a href="/works/maid-to-marry/"><em>Maid to Marry</em></a>, after Eugène Ionesco. Before theatre I studied software engineering at Shahid Beheshti University, and that background still shapes the way I bring media onto the stage.</p>
+        <p>My work moves between text-based theatre, devised ensemble work, live music, contemporary dance and media. I often design the scenography of my own productions, from the pop-up-book set of <a href="/works/in-front-of-city-theater/"><em>In Front of City Theater</em></a> (2018) to the modular cubes and puppet stage of <a href="/works/mephisto-for-ever/"><em>Mephisto For Ever</em></a>, and I have designed sets and media for other directors, including <a href="/works/the-good-person-of-szechwan/"><em>The Good Person of Szechwan</em></a> (2022) and <a href="/works/mixed-sandwich/"><em>Mixed Sandwich</em></a> (2024).</p>
+        <p>My training includes three years of contemporary dance and choreography, an advanced playwriting course and a dramaturgy workshop at Farvardin Playwriting School, and a workshop in applied theatre with Christoph Pauger. In 2015 I co-founded the Khiyal Theatre Group, a professional company that grew out of the Shahid Beheshti University Theatre Association.</p>
+        <p>I am currently directing, producing and designing <em>Mephisto For Ever</em>, based on Tom Lanoye's play and Klaus Mann's novel, which opens at the Labkhand Theatre Complex in Tehran in November 2026.</p>
+
+        <dl class="facts">
+          <div><dt>Education</dt><dd>MA Theatre Directing, Tehran University of Art, 2019–2023<br />BSc Software Engineering, Shahid Beheshti University, 2013–2018</dd></div>
+          <div><dt>Research</dt><dd>Postdramatic theatre · Intermediality studies · Political theatre · Gender and queer studies</dd></div>
+          <div><dt>Honours</dt><dd>Ranked 3rd nationally, Master's Entrance Examination (Theatre Directing), 2019</dd></div>
+          <div><dt>Languages</dt><dd>Persian (native) · English (IELTS Academic 8.0) · Arabic (basic)</dd></div>
+          <div><dt>Based in</dt><dd>Tehran, Iran</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <section class="section" id="downloads" aria-labelledby="dl-title">
+      <div class="section__head">
+        <h2 id="dl-title">CV &amp; Portfolio</h2>
+        <span class="mono muted">Downloads</span>
+      </div>
+      <Tickets />
+    </section>
+  </div>
+</Base>

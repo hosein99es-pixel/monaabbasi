@@ -1,0 +1,147 @@
+---
+// Dark visual layer over the home page. Content stays in the DOM underneath; the layer
+// never takes pointer events. Only shown when <html data-intro="on"> (set by an inline script
+// in <head> unless reduced motion is on or the projector was already lit this session).
+---
+<div class="projector" aria-hidden="true">
+  <div class="projector__beam"></div>
+  <div class="projector__halo"></div>
+  <div class="projector__blink"></div>
+</div>
+<div class="projector-ui">
+  <div class="projector-ui__inner">
+    <p class="projector-ui__hint">Move to turn on the light</p>
+    <button class="projector-ui__skip" type="button">Skip intro</button>
+  </div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const layer = document.querySelector<HTMLElement>('.projector');
+  const beam = document.querySelector<HTMLElement>('.projector__beam');
+  const halo = document.querySelector<HTMLElement>('.projector__halo');
+  const blink = document.querySelector<HTMLElement>('.projector__blink');
+  const skip = document.querySelector<HTMLButtonElement>('.projector-ui__skip');
+
+  if (root.dataset.intro === 'on' && layer && beam && halo && blink && skip) {
+    const desktop = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!desktop) layer.classList.add('projector--spot');
+
+    let x = -400, y = innerHeight / 2;      // current light position
+    let tx = x, ty = y;                     // target (mouse)
+    let lit = false;
+    let raf = 0;
+    const half = () => beam.offsetWidth / 2;
+
+    const place = (px: number, py: number, s = 1) => {
+      const h = half();
+      beam.style.transform = `translate3d(${px - h}px, ${py - h}px, 0) scale(${s})`;
+      halo.style.transform = `translate3d(${px}px, ${py}px, 0) scale(${s})`;
+    };
+
+    const done = () => {
+      root.dataset.intro = 'done';
+      try { sessionStorage.setItem('projectorOn', '1'); } catch (e) {}
+      cancelAnimationFrame(raf);
+      removeEventListener('pointermove', onMove);
+      ['wheel', 'keydown', 'pointerdown', 'touchstart', 'scroll'].forEach((t) => removeEventListener(t, ignite));
+    };
+
+    // Projector lamp warming up: 2–3 flickers (~400 ms), then the beam opens to fill the screen (~800 ms).
+    function ignite() {
+      if (lit) return;
+      lit = true;
+      cancelAnimationFrame(raf);
+      place(x, y);
+      const radius = desktop ? 260 : 150;
+      const reach = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      const scale = (reach * 1.25) / radius;
+      const flicker = blink!.animate(
+        [{ opacity: 0 }, { opacity: 0.92 }, { opacity: 0.1 }, { opacity: 0.8 }, { opacity: 0 }, { opacity: 0.55 }, { opacity: 0 }],
+        { duration: 400, easing: 'steps(6, end)' },
+      );
+      flicker.onfinish = () => {
+        const h = half();
+        const from = `translate3d(${x - h}px, ${y - h}px, 0) scale(1)`;
+        const to = `translate3d(${x - h}px, ${y - h}px, 0) scale(${scale})`;
+        halo!.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: 'forwards' });
+        const open = beam!.animate(
+          [{ transform: from, opacity: 1 }, { transform: to, opacity: 1, offset: 0.85 }, { transform: to, opacity: 0 }],
+          { duration: 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' },
+        );
+        open.onfinish = done;
+      };
+    }
+
+    let started = false;
+    let travelled = 0;
+    function onMove(e: PointerEvent) {
+      if (e.pointerType !== 'mouse') return;
+      if (!started) {
+        // first movement: light appears under the cursor; it switches on after ~700 px or 2 s
+        started = true;
+        x = tx = e.clientX;
+        y = ty = e.clientY;
+        setTimeout(ignite, 2000);
+        return;
+      }
+      travelled += Math.hypot(e.clientX - tx, e.clientY - ty);
+      tx = e.clientX;
+      ty = e.clientY;
+      if (travelled > 700) ignite();
+    }
+
+    skip.addEventListener('click', ignite);
+    ['wheel', 'keydown', 'pointerdown', 'touchstart', 'scroll'].forEach((t) =>
+      addEventListener(t, ignite, { passive: true, once: true }),
+    );
+
+    if (desktop) {
+      addEventListener('pointermove', onMove, { passive: true });
+      const follow = () => {
+        x += (tx - x) * 0.22;
+        y += (ty - y) * 0.22;
+        place(x, y);
+        raf = requestAnimationFrame(follow);
+      };
+      raf = requestAnimationFrame(follow);
+      setTimeout(ignite, 9000); // never leave a still visitor in the dark
+    } else {
+      // Dedolight-style focus: glide to 2–3 key points, pause briefly on each (~2.3 s total).
+      const spots = [...document.querySelectorAll<HTMLElement>('[data-spot]')]
+        .map((el) => el.getBoundingClientRect())
+        .filter((r) => r.bottom > 0 && r.top < innerHeight)
+        .slice(0, 3)
+        .map((r) => ({ x: r.left + r.width / 2, y: r.top + Math.min(r.height / 2, innerHeight * 0.4) }));
+      if (spots.length === 0) spots.push({ x: innerWidth / 2, y: innerHeight / 2 });
+      const legs: { fx: number; fy: number; x: number; y: number; move: number; hold: number }[] = [];
+      let px = -160, py = spots[0].y;
+      spots.forEach((s, i) => {
+        legs.push({ fx: px, fy: py, x: s.x, y: s.y, move: i === 0 ? 520 : 440, hold: i === spots.length - 1 ? 200 : 300 });
+        px = s.x; py = s.y;
+      });
+      const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      let leg = 0, t0 = performance.now();
+      const run = (now: number) => {
+        const L = legs[leg];
+        const t = now - t0;
+        if (t < L.move) {
+          const k = ease(t / L.move);
+          x = L.fx + (L.x - L.fx) * k;
+          y = L.fy + (L.y - L.fy) * k;
+        } else {
+          x = L.x; y = L.y;
+          if (t > L.move + L.hold) {
+            leg++;
+            t0 = now;
+            if (leg >= legs.length) return ignite();
+          }
+        }
+        place(x, y);
+        raf = requestAnimationFrame(run);
+      };
+      place(x, y);
+      raf = requestAnimationFrame(run);
+    }
+  }
+</script>

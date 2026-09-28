@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getImage } from 'astro:assets';
+import { getWorks } from '../../lib/works';
+import { pad, clean } from '../../lib/text';
+import { CATEGORIES } from '../../consts';
+
+const works = await getWorks();
+const rows = await Promise.all(
+  works.map(async (w) => {
+    const peek = await getImage({ src: w.data.cover.src, width: 600, format: 'webp' });
+    const thumb = await getImage({ src: w.data.cover.src, width: 176, height: 176, fit: 'cover', format: 'webp' });
+    return { w, peek: peek.src, thumb: thumb.src };
+  }),
+);
+const used = Object.keys(CATEGORIES).filter((c) => works.some((w) => w.data.category.includes(c as never)));
+---
+<Base title="Works" description="Theatre, dramaturgy, scenography and video mapping by Mohammad Hossein Eslami, 2015–2026.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">✦ Index of works</p>
+      <h1>Works</h1>
+      <p>Productions, designs and performances, in order of weight rather than date.</p>
+    </header>
+
+    <div class="filters" role="group" aria-label="Filter works by category">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All <span class="muted">({works.length})</span></button>
+      {used.map((c) => (
+        <button class="filter" type="button" data-filter={c} aria-pressed="false">
+          {CATEGORIES[c as keyof typeof CATEGORIES]}
+        </button>
+      ))}
+    </div>
+    <p class="sr-only" aria-live="polite" data-status></p>
+
+    <ol class="worklist" role="list">
+      {rows.map(({ w, peek, thumb }) => (
+        <li data-cats={w.data.category.join(' ')}>
+          <a class="row" href={`/works/${w.id}/`} data-peek={peek}>
+            <img class="row__thumb" src={thumb} alt="" width="88" height="88" loading="lazy" decoding="async" />
+            <span class="row__no">No. {pad(w.data.order)}</span>
+            <span class="row__title">{w.data.title}</span>
+            <span class="row__year">{w.data.year}</span>
+            <span class="row__meta mono">
+              {w.data.roles.join(', ')} · {clean(w.data.venue) ? `${clean(w.data.venue)}, ` : ''}{w.data.city}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+  <div class="peek" aria-hidden="true"><img alt="" /></div>
+</Base>
+
+<script>
+  // category filter
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLLIElement>('.worklist li');
+  const status = document.querySelector('[data-status]');
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const f = b.dataset.filter!;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      let n = 0;
+      items.forEach((li) => {
+        const on = f === 'all' || li.dataset.cats!.split(' ').includes(f);
+        li.hidden = !on;
+        if (on) n++;
+      });
+      if (status) status.textContent = `${n} works shown`;
+    }),
+  );
+
+  // hover preview that follows the cursor (mouse only)
+  const peek = document.querySelector<HTMLElement>('.peek');
+  const img = peek?.querySelector('img');
+  if (peek && img && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let x = 0, y = 0, raf = 0;
+    const move = () => {
+      peek.style.transform = `translate3d(${x + 28}px, ${y - 110}px, 0)`;
+      raf = 0;
+    };
+    document.querySelectorAll<HTMLAnchorElement>('.row').forEach((row) => {
+      row.addEventListener('mouseenter', () => {
+        img.src = row.dataset.peek!;
+        peek.classList.add('is-on');
+      });
+      row.addEventListener('mouseleave', () => peek.classList.remove('is-on'));
+      row.addEventListener('mousemove', (e) => {
+        x = e.clientX;
+        y = e.clientY;
+        if (!raf) raf = requestAnimationFrame(move);
+      });
+    });
+  }
+</script>
