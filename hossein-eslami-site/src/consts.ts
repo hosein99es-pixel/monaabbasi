@@ -1,6 +1,9 @@
 // Site-wide settings. Change SITE_URL once the Netlify domain is known.
 export const SITE_URL = 'https://hossein-eslami.netlify.app';
 
+// Lighter image set for the in-chat preview build (PUBLIC_PREVIEW=1). Never set on Netlify.
+export const PREVIEW = import.meta.env.PUBLIC_PREVIEW === '1';
+
 export const NAME = 'Mohammad Hossein Eslami';
 export const SHORT_NAME = 'Hossein Eslami';
 export const TAGLINE = 'Theatre director · Dramaturg · Video mapping';

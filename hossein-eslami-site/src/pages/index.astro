@@ -8,7 +8,7 @@ import { getWorks } from '../lib/works';
 import { pad } from '../lib/text';
 import { person } from '../lib/schema';
 import portrait from '../assets/portrait.jpg';
-import { NAME, TAGLINE } from '../consts';
+import { NAME, TAGLINE, PREVIEW } from '../consts';
 
 const works = await getWorks();
 const W = Object.fromEntries(works.map((w) => [w.id, w]));
@@ -74,7 +74,7 @@ const steps = [
         <div class="screen__frame">
           {steps.map((s, i) => (
             <div class:list={['screen__slide', { 'is-active': i === 0, fit: s.fit }]} data-i={i}>
-              <Image src={s.img.src} alt="" widths={[640, 1000, 1400]} sizes="(max-width: 900px) 100vw, 56vw" formats={['avif', 'webp']} loading={i < 2 ? 'eager' : 'lazy'} />
+              <Image src={s.img.src} alt="" widths={PREVIEW ? [1000] : [640, 1000, 1400]} sizes="(max-width: 900px) 100vw, 56vw" loading={i < 2 ? 'eager' : 'lazy'} />
             </div>
           ))}
           <div class="screen__shutter"></div>

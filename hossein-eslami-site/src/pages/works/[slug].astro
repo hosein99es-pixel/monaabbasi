@@ -6,7 +6,7 @@ import { Picture, getImage } from 'astro:assets';
 import { render } from 'astro:content';
 import { getWorks, type Work } from '../../lib/works';
 import { html, visible, pad, clean } from '../../lib/text';
-import { NAME, SHOW_PLACEHOLDERS } from '../../consts';
+import { NAME, SHOW_PLACEHOLDERS, PREVIEW } from '../../consts';
 
 export async function getStaticPaths() {
   const works = await getWorks();
@@ -34,11 +34,11 @@ const archive = await Promise.all(
   d.archive.map(async (a) => ({
     ...a,
     thumb: (await getImage({ src: a.src, width: 320, height: 320, fit: 'cover', format: 'webp' })).src,
-    full: (await getImage({ src: a.src, width: 1800, format: 'webp' })).src,
+    full: (await getImage({ src: a.src, width: Math.min(a.src.width, PREVIEW ? 1400 : 1800), format: 'webp' })).src,
   })),
 );
 
-const og = await getImage({ src: d.cover.src, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
+const og = PREVIEW ? { src: '/' } : await getImage({ src: d.cover.src, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
@@ -61,7 +61,7 @@ const portrait = (w: number, h: number) => h > w * 1.05;
   <article>
     <header class="work-hero">
       <div class="work-hero__img">
-        <Picture src={d.cover.src} alt={d.cover.alt} widths={[640, 1024, 1440, 1800].filter((w) => w <= d.cover.src.width)} sizes="100vw" formats={['avif', 'webp']} loading="eager" fetchpriority="high" />
+        <Picture src={d.cover.src} alt={d.cover.alt} widths={PREVIEW ? [Math.min(1200, d.cover.src.width)] : [640, 1024, 1440, 1800].filter((w) => w <= d.cover.src.width)} sizes="100vw" formats={PREVIEW ? ['webp'] : ['avif', 'webp']} fallbackFormat={PREVIEW ? 'webp' : undefined} loading="eager" fetchpriority="high" />
       </div>
       <div class="work-hero__text wrap">
         <p class="kicker">No. {pad(d.order)} · {d.category.map((c) => c.replace('-', ' ')).join(' · ')}</p>
