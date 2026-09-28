@@ -7,13 +7,11 @@ city: "Tehran"
 roles: ["Director", "Co-Playwright"]
 category: ["theatre"]
 author: "Mohammad Hossein Eslami & Reyhane Yazdani"
-duration: "[DURATION]"
 summary: "Six strangers on a mission to the first nation in space."
 credits:
   - { role: "Text", name: "Mohammad Hossein Eslami & Reyhane Yazdani" }
   - { role: "Direction", name: "Mohammad Hossein Eslami" }
   - { role: "Photography", name: "Maziar Shafiei" }
-  - { role: "Cast & company", name: "[CREDITS]" }
 cover:
   src: "../../assets/works/asgardia/04.jpg"
   alt: "A bearded man in a headband facing a woman, a red apple hanging between them"
@@ -47,13 +45,10 @@ archive:
     alt: "Performers in pale jumpsuits scattered across the stage"
   - src: "../../assets/works/asgardia/14.jpg"
     alt: "A bearded man in a headband beside a hanging red apple"
-video_url: ""
-brochure_pdf: ""
-press: []
 ---
 *Asgardia*, co-written with Reyhane Yazdani, takes its name from Asgardia, the first country in space. Six characters, strangers to one another from different social backgrounds, are handpicked by a corporation for a mission to Asgardia. Inside the spaceship they face conflicts, challenges and their own desires. A parallel mythical line, drawn from the story of Adam and Eve in the Old Testament, looks for the roots of human conflict at the beginning of existence and shows human life as a cycle.
 
-## Director's Note
+**Director's Note**
 
 *Asgardia* was my first professional production as a director. We started with only an idea and built a theatre group from scratch, through training and development. The actors and other members of the company contributed ideas, which we, as playwrights, used to structure the story. The whole process took fourteen months, from the first stages to the final performance.
 

@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+// One Markdown file per work in src/content/works/. Optional fields that are empty are not shown.
 const works = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/works' }),
   schema: ({ image }) => {
@@ -12,7 +13,7 @@ const works = defineCollection({
       year: z.number(),
       month: z.string().optional(),
       status: z.string().optional(),
-      venue: z.string(),
+      venue: z.string().default(''),
       city: z.string(),
       roles: z.array(z.string()),
       category: z.array(z.enum(['theatre', 'video-mapping', 'dramaturgy', 'scenography'])),
@@ -23,20 +24,6 @@ const works = defineCollection({
       cover: pic,
       gallery: z.array(pic).default([]),
       archive: z.array(pic).default([]),
-      video_url: z.string().default(''),
-      brochure_pdf: z.string().default(''),
-      press: z
-        .array(
-          z.object({
-            source: z.string(),
-            title: z.string().optional(),
-            date: z.string().optional(),
-            url: z.string().optional(),
-            quote: z.string().optional(),
-          }),
-        )
-        .default([]),
-      draft_translation: z.array(z.string()).default([]),
     });
   },
 });
@@ -53,7 +40,6 @@ const writing = defineCollection({
     coauthors: z.string().optional(),
     status: z.string().optional(),
     pdf: z.string().default(''),
-    related_work: z.string().optional(),
   }),
 });
 

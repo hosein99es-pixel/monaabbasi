@@ -30,19 +30,16 @@ npm run build      # ساخت نسخه‌ی نهایی در پوشه‌ی dist
 
 | فیلد | توضیح |
 |---|---|
-| `title`, `year`, `venue`, `city` | عنوان، سال، سالن، شهر |
+| `title`, `year`, `venue`, `city` | عنوان، سال، سالن (اختیاری)، شهر |
 | `order` | ترتیب نمایش (۱ = اول، به ترتیب اهمیت) |
 | `roles` | نقش‌های شما، مثل `["Director", "Scene Designer"]` |
 | `category` | یک یا چند مورد از: `theatre`، `video-mapping`، `dramaturgy`، `scenography` |
-| `author`, `duration` | نویسنده، مدت اجرا |
+| `author`, `duration` | نویسنده، مدت اجرا (اختیاری؛ اگر خالی باشد نمایش داده نمی‌شود) |
 | `summary` | یک جمله‌ی کوتاه (در متادیتا و اشتراک‌گذاری استفاده می‌شود) |
 | `credits` | فهرست عوامل: `- { role: "Lighting", name: "..." }` |
 | `cover` | عکس اصلی: `src` (مسیر نسبی مثل `"../../assets/works/new-play/01.jpg"`) و `alt` (توضیح انگلیسی عکس) |
 | `gallery` | عکس‌هایی که به ترتیب در صفحه‌ی اثر نمایش داده می‌شوند (`caption` اختیاری) |
 | `archive` | عکس‌های دیگر اثر؛ برای استفاده در نوار افقی یک فصل |
-| `video_url` | لینک YouTube یا Vimeo؛ ویدئو فقط وقتی بازدیدکننده روی Play بزند بارگذاری می‌شود |
-| `brochure_pdf` | مسیر بروشور، مثلاً `"/downloads/new-play.pdf"` (فایل را در `public/downloads/` بگذارید) |
-| `press` | نقدها: `- { source: "...", title: "...", date: "...", url: "...", quote: "..." }` |
 
 4. زیر خط دوم `---` متن اثر را بنویسید. `## Director's Note` یک تیتر فرعی می‌سازد.
 
@@ -59,15 +56,10 @@ npm run build      # ساخت نسخه‌ی نهایی در پوشه‌ی dist
 ## نوشته‌ها (Writing)
 هر نوشته یک فایل در `src/content/writing/` است و خودکار در بخش Writing می‌آید. برای فعال شدن دکمه‌ی دانلود، PDF را در `public/downloads/` بگذارید و مسیرش را در فیلد `pdf` بنویسید.
 
-## جاهای خالی ([PLACEHOLDER])
-هر جا اطلاعات نبود، یک عبارت داخل کروشه گذاشته شده، مثل `[DURATION]` یا `[CREDITS]`. در حال حاضر `SHOW_PLACEHOLDERS = true` در `src/consts.ts` است، پس این جاها با کادر نقطه‌چین نارنجی روی سایت دیده می‌شوند تا بتوانید پرشان کنید.
-**قبل از انتشار عمومی** آن را `false` کنید؛ جاهای خالی خودکار از سایت حذف می‌شوند.
-برچسب‌های `[DRAFT TRANSLATION – needs review]` هم فقط در همین حالت دیده می‌شوند (فیلد `draft_translation` در فایل اثر).
-
 ## انتشار روی Netlify
 1. در Netlify: **Add new site → Import an existing project** و همین مخزن گیت‌هاب را انتخاب کنید.
 2. **Base directory** را `hossein-eslami-site` بگذارید. بقیه‌ی تنظیمات از `netlify.toml` خوانده می‌شود (Build command: `npm run build`، Publish directory: `dist`).
-3. بعد از اولین انتشار، آدرس نهایی سایت را در `src/consts.ts` (متغیر `SITE_URL`) و در `public/robots.txt` بنویسید و دوباره push کنید تا sitemap و Open Graph آدرس درست داشته باشند.
+3. آدرس سایت (برای sitemap، robots.txt و پیش‌نمایش لینک در شبکه‌های اجتماعی) خودکار از Netlify گرفته می‌شود. اگر بعداً دامنه‌ی اختصاصی وصل کردید، کافی است در Netlify آن را Primary domain کنید و یک بار دوباره Deploy بزنید.
 
 ## نکته‌های فنی
 - حرکت‌ها با اسکرول کنترل می‌شوند: `src/scripts/engine.ts` برای هر بخش `data-scene` مقدار `--p` (۰ تا ۱) را می‌سازد و CSS با آن جابه‌جایی و محو شدن را تنظیم می‌کند. اسکرول نرم با کتابخانه‌ی Lenis است؛ با تنظیم «کاهش حرکت» سیستم‌عامل خاموش می‌شود.

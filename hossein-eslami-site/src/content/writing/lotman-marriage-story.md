@@ -7,4 +7,3 @@ institution: "Tehran University of Art"
 advisors: "Prof. Ramtin Shahbazi"
 pdf: ""
 ---
-[ABSTRACT]

@@ -1,5 +1,5 @@
-// Site-wide settings. Change SITE_URL once the Netlify domain is known.
-export const SITE_URL = 'https://hossein-eslami.netlify.app';
+// Site-wide settings.
+// The site address is taken from Netlify at build time (process.env.URL); see astro.config.mjs.
 
 // Lighter image set for the in-chat preview build (PUBLIC_PREVIEW=1). Never set on Netlify.
 export const PREVIEW = import.meta.env.PUBLIC_PREVIEW === '1';
@@ -12,18 +12,6 @@ export const DESCRIPTION =
 export const EMAIL = 'mohammadhosein.eslami95@gmail.com';
 export const LINKEDIN = 'https://linkedin.com/in/hosein-eslami-5b8290111/';
 export const LOCATION = 'Tehran, Iran';
-
-// While true, missing information is shown on the site as visible [PLACEHOLDERS]
-// so it can be reviewed. Set to false before launch: placeholders are then hidden.
-export const SHOW_PLACEHOLDERS = true;
-
-export const CATEGORIES = {
-  theatre: 'Theatre',
-  'video-mapping': 'Video Mapping & Media',
-  dramaturgy: 'Dramaturgy',
-  scenography: 'Scenography',
-} as const;
-export type Category = keyof typeof CATEGORIES;
 
 export const DOWNLOADS = [
   { href: '/downloads/Mohammad-Hossein-Eslami-CV.pdf', label: 'Curriculum Vitae', meta: 'PDF · 3 pages · A4' },

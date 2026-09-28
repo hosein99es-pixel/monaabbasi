@@ -9,4 +9,3 @@ pdf: ""
 ---
 An article co-written with Kamran Sepehran on Elizabeth LeCompte's artistic inquiry into identity in *The Emperor Jones* and *To You, the Birdie!*
 
-[ABSTRACT]

@@ -11,4 +11,3 @@ related_work: "maid-to-marry"
 ---
 MA thesis in Theatre Directing on the representation of identity in the work of Elizabeth LeCompte. Its practical component was the production *Maid to Marry*.
 
-[ABSTRACT]

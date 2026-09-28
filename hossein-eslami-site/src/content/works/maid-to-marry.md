@@ -7,14 +7,12 @@ city: "Tehran"
 roles: ["Director"]
 category: ["theatre", "dramaturgy", "video-mapping"]
 author: "After Eugène Ionesco"
-duration: "[DURATION]"
 summary: "Three performances at once: a cyber version of the script on monitors, the play on stage, and seven teenagers performing rather than acting."
 credits:
   - { role: "After", name: "Eugène Ionesco" }
   - { role: "Direction", name: "Mohammad Hossein Eslami" }
   - { role: "Dramaturgy", name: "Mohammad Hossein Eslami with Mehdi Sharifi" }
   - { role: "Supervisor", name: "Prof. Esmaeil Shafiee" }
-  - { role: "Cast & company", name: "[CREDITS]" }
 cover:
   src: "../../assets/works/maid-to-marry/m9898.jpg"
   alt: "Performers seated around cards on the floor, a projection screen and a TV behind"
@@ -46,15 +44,12 @@ archive:
     alt: "A dark jacket hanging on a hanger in a beam of light"
   - src: "../../assets/works/maid-to-marry/m5.jpg"
     alt: "A bearded man in a sequined mask, in profile"
-video_url: ""
-brochure_pdf: ""
-press: []
 ---
 *Maid to Marry* was my practical MA thesis in directing, supervised by Prof. Esmaeil Shafiee. It is based on Eugène Ionesco's short absurdist play about identity; we added a second subject, education, and made our own version of the script.
 
 The dramaturgy, developed with Mehdi Sharifi, uses other texts and technical devices as mediators. Three performances happen at the same time: a symbolic "cyber" version of the script on monitors; the play itself on stage; and seven teenagers, performers rather than actors, who play board games and narrate their day.
 
-## Director's Note
+**Director's Note**
 
 The approach grew out of my research on Elizabeth LeCompte, the basis of my theoretical thesis. Following her methods, we staged an existing play while bringing in completely different material, which gave the original text a polyphonic telling.
 

@@ -6,7 +6,7 @@ const words = text.split(' ');
 ---
 <section class="reveal-scene" data-scene style={`--n:${words.length}`}>
   <div class="reveal-scene__pin wrap">
-    {kicker && <p class="label">{kicker}</p>}
+    {kicker && <h2 class="label">{kicker}</h2>}
     <p class="reveal-scene__text">
       {words.map((w, i) => (
         <span class:list={{ em: accentWords.includes(w.replace(/[.,]/g, '')) }} style={`--i:${i}`}>{w} </span>

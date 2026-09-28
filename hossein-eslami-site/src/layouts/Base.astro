@@ -5,18 +5,24 @@ import { getImage } from 'astro:assets';
 import portrait from '../assets/portrait.jpg';
 import fontUrl from '@fontsource-variable/roboto-flex/files/roboto-flex-latin-wdth-normal.woff2?url';
 import ShapeDefs from '../components/ShapeDefs.astro';
-import { NAME, DESCRIPTION, SHOW_PLACEHOLDERS, PREVIEW } from '../consts';
+import { NAME, DESCRIPTION, PREVIEW } from '../consts';
 
-interface Props { title?: string; description?: string; jsonLd?: object[] }
-const { title, description = DESCRIPTION, jsonLd = [] } = Astro.props;
-const pageTitle = title ?? `${NAME} — Theatre Director, Dramaturg & Video Mapping`;
+interface Props { title?: string; description?: string; jsonLd?: object[]; noindex?: boolean }
+const { title, description = DESCRIPTION, jsonLd = [], noindex = false } = Astro.props;
+const pageTitle = title ? `${title} — ${NAME}` : `${NAME} — Theatre Director, Dramaturg & Video Mapping`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogUrl = PREVIEW ? '' : new URL((await getImage({ src: portrait, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src, Astro.site).href;
+const og = PREVIEW ? null : await getImage({ src: portrait, width: 1200, height: 630, fit: 'cover', position: 'top', format: 'jpg', quality: 82 });
+const ogUrl = og ? new URL(og.src, Astro.site).href : '';
+const touch = PREVIEW ? null : await getImage({ src: portrait, width: 180, height: 180, fit: 'cover', position: 'top', format: 'png' });
+
+// On the home page the menu scrolls within the page; elsewhere (404) it links back to the home page.
+const home = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const to = (id: string) => (home ? `#${id}` : `/#${id}`);
 const nav = [
-  { href: '#work', label: 'Work' },
-  { href: '#about', label: 'About' },
-  { href: '#writing', label: 'Writing' },
-  { href: '#contact', label: 'Contact' },
+  { id: 'work', label: 'Work' },
+  { id: 'about', label: 'About' },
+  { id: 'writing', label: 'Writing' },
+  { id: 'contact', label: 'Contact' },
 ];
 ---
 <!doctype html>
@@ -26,31 +32,39 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {touch && <link rel="apple-touch-icon" href={touch.src} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#FFF8F0" />
+    <meta name="author" content={NAME} />
     <meta property="og:type" content="profile" />
-    <meta property="og:title" content={NAME} />
+    <meta property="og:site_name" content={NAME} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_GB" />
     {ogUrl && <meta property="og:image" content={ogUrl} />}
+    {ogUrl && <meta property="og:image:width" content="1200" />}
+    {ogUrl && <meta property="og:image:height" content="630" />}
+    {ogUrl && <meta property="og:image:alt" content={`Black-and-white portrait of ${NAME}`} />}
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>document.documentElement.classList.add('js');</script>
     {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
   </head>
-  <body class:list={[{ review: SHOW_PLACEHOLDERS }]}>
+  <body>
     <a class="skip" href="#main">Skip to content</a>
     <ShapeDefs />
     <div class="progress" aria-hidden="true"><span></span></div>
     <header class="nav glass">
-      <a class="nav__brand" href="#top">M. Hossein Eslami</a>
+      <a class="nav__brand" href={home ? '#top' : '/'}>M. Hossein Eslami</a>
       <nav aria-label="Sections">
         <ul class="nav__list" id="nav-list">
-          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          {nav.map((n) => <li><a href={to(n.id)}>{n.label}</a></li>)}
         </ul>
       </nav>
-      <a class="nav__cv btn btn--ink" href="#cv">CV &amp; Portfolio</a>
+      <a class="nav__cv btn btn--ink" href={to('cv')}>CV &amp; Portfolio</a>
       <button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-list"><span class="sr">Menu</span><i aria-hidden="true"></i></button>
     </header>
     <main id="main">

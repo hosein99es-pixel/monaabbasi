@@ -33,9 +33,9 @@ const { src, alt, lines, box, align = 'left', tone = 'light', shade = 'none', fo
       ))}
     </p>
     {info && (
-      <div class:list={['frame__info', 'glass', 'glass--dark', `is-${infoSide}`]}>
+      <div class:list={['frame__info', 'glass', 'glass--dark', `is-${infoSide}`]} aria-hidden="true">
         <p class="label">{info.no}</p>
-        <h2 class="frame__title">{info.title}</h2>
+        <p class="frame__title">{info.title}</p>
         <ul class="chips">{info.chips.map((c) => <li class="chip chip--light">{c}</li>)}</ul>
       </div>
     )}

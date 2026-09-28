@@ -8,13 +8,11 @@ city: "Tehran"
 roles: ["Director", "Producer", "Scene Designer"]
 category: ["theatre", "dramaturgy", "video-mapping", "scenography"]
 author: "Tom Lanoye, after Klaus Mann's novel Mephisto"
-duration: "[DURATION]"
 summary: "An actor makes a deal with power so he can stay on stage."
 credits:
   - { role: "Text", name: "Tom Lanoye" }
   - { role: "Novel", name: "Klaus Mann" }
   - { role: "Direction, production & set design", name: "Mohammad Hossein Eslami" }
-  - { role: "Cast & company", name: "[CREDITS]" }
 cover:
   src: "../../assets/works/mephisto-for-ever/makeup.jpg"
   alt: "A young man with his face lit from below while two women apply make-up to him"
@@ -65,21 +63,17 @@ archive:
     alt: "3D previsualisation: a woman in black in a white tunnel of light"
   - src: "../../assets/works/mephisto-for-ever/previs-rebekka.jpg"
     alt: "3D previsualisation: a man and a woman side by side in formal clothes"
-video_url: ""
-brochure_pdf: ""
-press: []
-draft_translation: ["venue"]
 ---
 *Mephisto For Ever* follows an actor who makes a deal with power so he can stay on stage. At its heart is a simple, uncomfortable question: what is left of art once beauty starts working for those in control? Our dramaturgical research moves between Goethe's *Faust*, its appropriation by Nazi cultural policy, and the life of Gustaf Gründgens. We want Mephisto to appear not as a devil who comes from outside, but as something already living inside the artist.
 
-## Director's Note
+**Director's Note**
 
 The production uses the carnival-like nature of a theatre company, framed as metatheatre: a troupe performing itself. Classical, modern, puppetry and contemporary dance sit side by side. Scenes of power are carried mostly by bodies, distance and image rather than words. The costumes decay across five stages, and their palette is designed together with the video mapping.
 
-## Design
+**Design**
 
 I am also designing the set. It is built from sixteen one-metre cubes, a 4.4-metre arch beam and a stepped platform, 9.4 metres wide and 4.1 metres high overall, in pine, chicken wire and papier-mâché. The puppet stage is a row of four identical frames of timber and clear plexiglass, 4.4 metres long in all.
 
-## Process
+**Process**
 
 I previsualise key scenes in 3D. The photographs below come from rehearsals.

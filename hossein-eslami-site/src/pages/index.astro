@@ -9,8 +9,7 @@ import { getCollection, render } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import portrait from '../assets/portrait.jpg';
 import { person } from '../lib/schema';
-import { clean } from '../lib/text';
-import { NAME, EMAIL, LINKEDIN, DOWNLOADS, SITE_URL } from '../consts';
+import { NAME, EMAIL, LINKEDIN, DOWNLOADS } from '../consts';
 import fs from 'node:fs';
 
 // ---------------------------------------------------------------- content
@@ -37,7 +36,7 @@ const facts = (id: string) => {
   const d = W[id].data;
   return [
     { k: 'Year', v: d.month ? `${d.month} ${d.year}` : String(d.year) },
-    { k: 'Venue', v: `${d.venue}, ${d.city}` },
+    { k: 'Venue', v: d.venue ? `${d.venue}, ${d.city}` : d.city },
     { k: d.roles.length > 1 ? 'Roles' : 'Role', v: d.roles.join(', ') },
     { k: 'Text', v: d.author },
     { k: 'Duration', v: d.duration },
@@ -45,7 +44,7 @@ const facts = (id: string) => {
 };
 const chips = (id: string) => {
   const d = W[id].data;
-  return [String(d.year), ...(clean(d.venue) ? [clean(d.venue)] : []), ...d.roles];
+  return [String(d.year), ...(d.venue ? [d.venue] : []), ...d.roles];
 };
 const body = (id: string) => Content[id];
 
@@ -87,8 +86,9 @@ const size = (href: string) => {
   try { return `${(fs.statSync(`public${href}`).size / 1e6).toFixed(1)} MB`; } catch { return ''; }
 };
 
+const SITE = Astro.site!.href.replace(/\/$/, '');
 const jsonLd = [
-  person(new URL(SITE_URL)),
+  person(Astro.site!),
   {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -101,9 +101,9 @@ const jsonLd = [
         name: w.data.title,
         dateCreated: String(w.data.year),
         description: w.data.summary,
-        url: `${SITE_URL}/#${w.id}`,
-        creator: { '@id': `${SITE_URL}/#person` },
-        ...(clean(w.data.venue) && { locationCreated: { '@type': 'Place', name: clean(w.data.venue), address: w.data.city } }),
+        url: `${SITE}/#${w.id}`,
+        creator: { '@id': `${SITE}/#person` },
+        ...(w.data.venue && { locationCreated: { '@type': 'Place', name: w.data.venue, address: w.data.city } }),
       },
     })),
   },
@@ -131,8 +131,8 @@ const Mix = body('mixed-sandwich');
           </figure>
         ))}
       </div>
-      <div class="zoom" aria-hidden="true">
-        <Pic src={heroPic.src} alt="" sizes="100vw" widths={[800, 1400, 1800]} eager class="zoom__img" />
+      <div class="zoom">
+        <Pic src={heroPic.src} alt={heroPic.alt} sizes="100vw" widths={[800, 1400, 1800]} eager class="zoom__img" />
         <div class="zoom__shade"></div>
       </div>
       <div class="card glass brutal">
@@ -146,9 +146,9 @@ const Mix = body('mixed-sandwich');
           <span class:list={['frame__line', { em: i > 3 }]} style={`--t:${(0.4 + i * 0.045).toFixed(3)}`}>{t} </span>
         ))}
       </p>
-      <div class="frame__info glass glass--dark is-left hero__info">
+      <div class="frame__info glass glass--dark is-left hero__info" aria-hidden="true">
         <p class="label">01 — Now in rehearsal</p>
-        <h2 class="frame__title">Mephisto For Ever</h2>
+        <p class="frame__title">Mephisto For Ever</p>
         <ul class="chips">{chips('mephisto-for-ever').map((c) => <li class="chip chip--light">{c}</li>)}<li class="chip chip--acc">Opening Nov 2026</li></ul>
       </div>
     </div>
@@ -192,9 +192,9 @@ const Mix = body('mixed-sandwich');
     photos={[{ ...pic('in-front-of-city-theater/music'), shape: 'cookie12' }, { ...pic('in-front-of-city-theater/34'), shape: 'rounded' }]}>
     <City />
   </Story>
-  <Frame accent={C.city[0]} src={pic('in-front-of-city-theater/27').src} alt={pic('in-front-of-city-theater/27').alt} tone="dark" height={2}
+  <Frame accent={C.city[0]} src={pic('in-front-of-city-theater/27').src} alt={pic('in-front-of-city-theater/27').alt} height={2}
     lines={[{ t: 'Two actors.' }, { t: 'Two sides of' }, { t: 'one character.', em: true }]}
-    box="left:48vw;top:9svh;width:36vw" size={0.54} focus="50% 40%" mfocus="55% 50%" />
+    box="left:17.5vw;top:62svh;width:30vw" size={0.46} focus="50% 40%" mfocus="55% 50%" />
   <HGallery title="From the production" kicker="02 · In Front of City Theater" accent={C.city[0]}
     items={['21', '40', '29', '47', '51', '09', '62', '52', '38', '16', '44', '56'].map((n, i) => it(`in-front-of-city-theater/${n}`, undefined, i === 1 ? 'arch' : i === 8 ? 'cookie' : undefined))} />
 
@@ -237,7 +237,7 @@ const Mix = body('mixed-sandwich');
     lines={[{ t: 'Media for an' }, { t: 'underground', em: true }, { t: 'stage.' }]}
     box="left:5vw;top:18svh;width:36vw" shade="left" focus="50% 40%" mfocus="50% 40%" height={2}
     info={{ no: '06 — Media & projection', title: 'Mixed Sandwich', chips: chips('mixed-sandwich') }} infoSide="right" />
-  <Story no="06 — Media & projection" title="Mixed Sandwich" lede={W['mixed-sandwich'].data.summary} facts={facts('mixed-sandwich')} credits={W['mixed-sandwich'].data.credits} accent={C.mix[0]} container={C.mix[1]} draft
+  <Story no="06 — Media & projection" title="Mixed Sandwich" lede={W['mixed-sandwich'].data.summary} facts={facts('mixed-sandwich')} credits={W['mixed-sandwich'].data.credits} accent={C.mix[0]} container={C.mix[1]}
     photos={[{ ...pic('mixed-sandwich/s2'), shape: 'pill' }, { ...pic('mixed-sandwich/s3'), shape: 'rounded' }]}>
     <Mix />
   </Story>
@@ -312,7 +312,7 @@ const Mix = body('mixed-sandwich');
               <h3 class="witem__title">{d.title}</h3>
               <p class="witem__sub">{[d.coauthors, d.institution, d.advisors && (d.type.startsWith('Course') ? d.advisors : `Advisors: ${d.advisors}`), d.status].filter(Boolean).join(' · ')}</p>
               <div class="prose prose--sm"><X /></div>
-              {d.pdf ? <a class="btn btn--ink" href={d.pdf} download>Download PDF</a> : <span class="ph">[PDF]</span>}
+              {d.pdf && <a class="btn btn--ink" href={d.pdf} download>Download PDF</a>}
             </li>
           );
         })}
@@ -341,7 +341,7 @@ const Mix = body('mixed-sandwich');
 
   <footer class="contact" id="contact" data-accent="#2E5BFF">
     <div class="wrap">
-      <p class="label">Contact — festivals, residencies, collaborations, academic enquiries</p>
+      <h2 class="label">Contact — festivals, residencies, collaborations, academic enquiries</h2>
       <a class="contact__mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
       <ul class="chips chips--big">
         <li><a class="chip chip--light" href={LINKEDIN} target="_blank" rel="me noopener">LinkedIn ↗</a></li>

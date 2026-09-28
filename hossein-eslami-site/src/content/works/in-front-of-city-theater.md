@@ -7,14 +7,12 @@ city: "Tehran"
 roles: ["Director", "Co-Scene Designer"]
 category: ["theatre", "scenography"]
 author: "Salman Alighardashi"
-duration: "[DURATION]"
 summary: "Four episodes, four characters close to Sohrab A'raabi, one life."
 credits:
   - { role: "Text", name: "Salman Alighardashi" }
   - { role: "Direction", name: "Mohammad Hossein Eslami" }
   - { role: "Set design", name: "Mohammad Hossein Eslami & Mohsen Khamechian" }
-  - { role: "Photography", name: "Darush Adhami, Mohammad Golmohammadi, Reza Hosseinzadeh" }
-  - { role: "Cast & company", name: "[CREDITS]" }
+  - { role: "Photography", name: "Dariush Adhami, Mohammad Golmohammadi, Reza Hosseinzadeh" }
 cover:
   src: "../../assets/works/in-front-of-city-theater/23.jpg"
   alt: "A woman in a red coat kneeling and crying out, holding white cloth"
@@ -143,18 +141,15 @@ archive:
     alt: "A woman in black crying out, ropes trailing from her wrists"
   - src: "../../assets/works/in-front-of-city-theater/61.jpg"
     alt: "A woman in a light robe reaching one arm upward"
-video_url: ""
-brochure_pdf: ""
-press: []
 ---
 *In Front of City Theater* is based on a true story: the life of Sohrab A'raabi, a victim of the political turmoil around the Green Movement and Iran's 2009 election. The play is divided into four episodes, each centred on a different character closely connected to Sohrab; through their narratives, Sohrab's fate unfolds. The text, by Salman Alighardashi, draws on classical Persian literature, including the epic myth of Rostam and Sohrab from the *Shahnameh*.
 
-## Director's Note
+**Director's Note**
 
 The project took a year, with a group of fifteen, six of them actors. One episode is built on choreography inspired by my contemporary dance classes: two actors play two sides of the same character, Zohreh, Sohrab's lover, and the scene draws on Pina Bausch's trust dance.
 
 The performance uses live music. Five tracks were composed during rehearsals, blending alternative rock with Persian folk music, with lyrics taken from Mehdi Akhavan-Sales's poetry collection *The Ending of the Shahnameh*. The music was there to strengthen the dramatic impact and draw the audience into the story.
 
-## Set
+**Set**
 
 I co-designed the set with Mohsen Khamechian. We took our starting point from 3D children's books, as a way of showing the chapters of Sohrab's life unfolding: a metal structure like turning book pages, with each scene bringing out its own objects. Designing and building it was a considerable challenge, and I learned a great deal from it.
