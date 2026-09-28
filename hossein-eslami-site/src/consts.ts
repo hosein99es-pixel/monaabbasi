@@ -8,10 +8,13 @@ export const NAME = 'Mohammad Hossein Eslami';
 export const SHORT_NAME = 'Hossein Eslami';
 export const TAGLINE = 'Director · Scene Designer · Producer';
 export const DESCRIPTION =
-  'Mohammad Hossein Eslami is a theatre director, dramaturg and video-mapping artist based in Tehran, working in postdramatic and intermedial performance.';
+  'Mohammad Hossein Eslami is a theatre director, scene designer and producer based in Tehran.';
 export const EMAIL = 'mohammadhosein.eslami95@gmail.com';
 export const LINKEDIN = 'https://linkedin.com/in/hosein-eslami-5b8290111/';
 export const LOCATION = 'Tehran, Iran';
+export const HANDLE = 'hoseinizm';
+export const INSTAGRAM = `https://instagram.com/${HANDLE}`;
+export const TELEGRAM = `https://t.me/${HANDLE}`;
 
 export const DOWNLOADS = [
   { href: '/downloads/Mohammad-Hossein-Eslami-CV.pdf', label: 'Curriculum Vitae', meta: 'PDF · 3 pages · A4' },

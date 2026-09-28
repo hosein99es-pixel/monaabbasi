@@ -142,14 +142,14 @@ archive:
   - src: "../../assets/works/in-front-of-city-theater/61.jpg"
     alt: "A woman in a light robe reaching one arm upward"
 ---
-*In Front of City Theater* is based on a true story: the life of Sohrab A'raabi, a victim of the political turmoil around the Green Movement and Iran's 2009 election. The play is divided into four episodes, each centred on a different character closely connected to Sohrab; through their narratives, Sohrab's fate unfolds. The text, by Salman Alighardashi, draws on classical Persian literature, including the epic myth of Rostam and Sohrab from the *Shahnameh*.
+*In Front of City Theater* is based on a true story: the life of Sohrab A'raabi, a victim of the political turmoil around the Green Movement and Iran's 2009 election. The play has four episodes, each told by someone close to Sohrab, and piece by piece their stories show what happened to him. The text, by Salman Alighardashi, draws on classical Persian literature, including the epic myth of Rostam and Sohrab from the *Shahnameh*.
 
 **Director's Note**
 
 The project took a year, with a group of fifteen, six of them actors. One episode is built on choreography inspired by my contemporary dance classes: two actors play two sides of the same character, Zohreh, Sohrab's lover, and the scene draws on Pina Bausch's trust dance.
 
-The performance uses live music. Five tracks were composed during rehearsals, blending alternative rock with Persian folk music, with lyrics taken from Mehdi Akhavan-Sales's poetry collection *The Ending of the Shahnameh*. The music was there to strengthen the dramatic impact and draw the audience into the story.
+The performance uses live music. Five tracks were composed during rehearsals, blending alternative rock with Persian folk music, with lyrics taken from Mehdi Akhavan-Sales's poetry collection *The Ending of the Shahnameh*. The music was there to push the drama and pull the audience into the story.
 
 **Set**
 
-I co-designed the set with Mohsen Khamechian. We took our starting point from 3D children's books, as a way of showing the chapters of Sohrab's life unfolding: a metal structure like turning book pages, with each scene bringing out its own objects. Designing and building it was a considerable challenge, and I learned a great deal from it.
+I co-designed the set with Mohsen Khamechian. We took our starting point from 3D children's books, as a way of showing the chapters of Sohrab's life unfolding: a metal structure like turning book pages, with each scene bringing out its own objects. It was hard to design and build, and I learned a lot from it.

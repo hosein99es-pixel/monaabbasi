@@ -8,7 +8,7 @@ city: "Tehran"
 roles: ["Media Producer", "Media Projection Coordinator"]
 category: ["video-mapping"]
 author: ""
-summary: "An alternative underground production, staged independently."
+summary: "Staged underground, without an official permit."
 credits:
   - { role: "Direction", name: "Mohammad Hossein Heshmati & Aref Hassanzadeh" }
   - { role: "Media production & projection", name: "Mohammad Hossein Eslami" }

@@ -64,7 +64,7 @@ archive:
   - src: "../../assets/works/mephisto-for-ever/previs-rebekka.jpg"
     alt: "3D previsualisation: a man and a woman side by side in formal clothes"
 ---
-*Mephisto For Ever* follows an actor who makes a deal with power so he can stay on stage. At its heart is a simple, uncomfortable question: what is left of art once beauty starts working for those in control? Our dramaturgical research moves between Goethe's *Faust*, its appropriation by Nazi cultural policy, and the life of Gustaf Gründgens. We want Mephisto to appear not as a devil who comes from outside, but as something already living inside the artist.
+*Mephisto For Ever* follows an actor who makes a deal with power so he can stay on stage. The question behind it is simple and uncomfortable: what is left of art once beauty starts working for those in control? Our dramaturgical research moves between Goethe's *Faust*, its appropriation by Nazi cultural policy, and the life of Gustaf Gründgens. We want Mephisto to appear not as a devil who comes from outside, but as something already living inside the artist.
 
 **Director's Note**
 

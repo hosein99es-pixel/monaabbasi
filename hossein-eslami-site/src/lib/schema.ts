@@ -1,4 +1,4 @@
-import { NAME, SHORT_NAME, DESCRIPTION, EMAIL, LINKEDIN } from '../consts';
+import { NAME, SHORT_NAME, DESCRIPTION, EMAIL, LINKEDIN, INSTAGRAM, TELEGRAM } from '../consts';
 
 /** schema.org Person, used on the home and About pages and as creator on works. */
 export const person = (site: URL) => ({
@@ -11,11 +11,11 @@ export const person = (site: URL) => ({
   description: DESCRIPTION,
   jobTitle: 'Theatre Director',
   email: `mailto:${EMAIL}`,
-  sameAs: [LINKEDIN],
+  sameAs: [LINKEDIN, INSTAGRAM, TELEGRAM],
   address: { '@type': 'PostalAddress', addressLocality: 'Tehran', addressCountry: 'IR' },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'Tehran University of Art' },
     { '@type': 'CollegeOrUniversity', name: 'Shahid Beheshti University' },
   ],
-  knowsAbout: ['Theatre directing', 'Dramaturgy', 'Video mapping', 'Scenography', 'Postdramatic theatre', 'Intermediality'],
+  knowsAbout: ['Theatre directing', 'Scenography', 'Theatre production', 'Postdramatic theatre', 'Intermediality'],
 });

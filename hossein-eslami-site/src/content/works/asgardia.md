@@ -54,4 +54,4 @@ archive:
 
 The structure is episodic, with two lines running in parallel. The main line, on board the spaceship, is played realistically; between its scenes, segments outside time and place use dance and choreography to create a *Verfremdungseffekt*, a distancing effect.
 
-It was a low-budget production, and managing costs was one of the main challenges. Most of the eleven actors were performing professionally for the first time, which helped me develop my skills in working with a large ensemble.
+It was a low-budget production, and managing costs was one of the main challenges. Most of the eleven actors were performing professionally for the first time, and that taught me a lot about working with a large ensemble.
