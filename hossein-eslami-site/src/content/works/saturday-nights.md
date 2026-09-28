@@ -8,7 +8,7 @@ roles: ["Actor", "Co-Choreographer"]
 category: ["theatre"]
 author: "[AUTHOR]"
 duration: "[DURATION]"
-summary: "Eight dances and two short plays inside a rock concert."
+summary: "Eight dance pieces and two short plays within a rock concert."
 credits:
   - { role: "Music", name: "Padir" }
   - { role: "Choreography", name: "Farnoosh Azor & Mohammad Hossein Eslami" }
@@ -27,4 +27,4 @@ video_url: ""
 brochure_pdf: ""
 press: []
 ---
-*Saturday Nights* was a weekly series at the Independent Theater of Tehran that introduced new rock and metal bands. The band Padir wanted more than a concert, so they asked us to design and stage a full performance around their music. With Farnoosh Azor, I choreographed eight dance pieces and two short plays placed between the songs. Performing inside a concert showed me how closely music, movement and image depend on each other.
+*Saturday Nights* was a weekly series at the Independent Theater of Tehran that introduced new rock and metal bands. The band Padir wanted more than a concert, and asked us to design and stage a full performance. With Farnoosh Azor, I choreographed eight dance pieces and two short plays, placed between the songs. Performing in it broadened my understanding of how music, movement and visual elements work together.

@@ -9,6 +9,6 @@ status: "Completed"
 pdf: ""
 related_work: "maid-to-marry"
 ---
-A study of how identity is represented in the work of Elizabeth LeCompte and The Wooster Group. The thesis was accompanied by a practical component, the production *Maid to Marry*, which carried the research into the rehearsal room.
+MA thesis in Theatre Directing on the representation of identity in the work of Elizabeth LeCompte. Its practical component was the production *Maid to Marry*.
 
 [ABSTRACT]

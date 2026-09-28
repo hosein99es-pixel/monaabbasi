@@ -138,7 +138,7 @@ const Mix = body('mixed-sandwich');
       <div class="card glass brutal">
         <p class="label">Theatre director · Dramaturg · Video mapping</p>
         <h1 id="hero-name" class="card__name">Mohammad<br />Hossein Eslami</h1>
-        <p class="card__line">Postdramatic and intermedial performance, made in Tehran: text, bodies, live music and screens on one stage.</p>
+        <p class="card__line">Postdramatic and intermedial performance. Based in Tehran.</p>
         <p class="card__cue label"><span class="cue-dot" aria-hidden="true"></span> Scroll</p>
       </div>
       <p class="frame__text is-right hero__text">
@@ -166,11 +166,11 @@ const Mix = body('mixed-sandwich');
     <div class="wrap design__grid">
       <figure class="design__card glass brutal rv">
         <Pic src={pic('mephisto-for-ever/set-elevation').src} alt={pic('mephisto-for-ever/set-elevation').alt} sizes="(max-width: 900px) 90vw, 55vw" widths={[800, 1400]} />
-        <figcaption class="label">Set · front elevation · 16 cubes, trussed arch, stepped platform · 9.4 × 4.1 m</figcaption>
+        <figcaption class="label">Set · front elevation · 16 cubes, arch beam, stepped platform · 9.4 × 4.1 m</figcaption>
       </figure>
       <figure class="design__card glass brutal rv">
         <Pic src={pic('mephisto-for-ever/puppet-stage').src} alt={pic('mephisto-for-ever/puppet-stage').alt} sizes="(max-width: 900px) 90vw, 35vw" widths={[600, 1000]} />
-        <figcaption class="label">Puppet stage · 4 plexiglass frames · 110 × 80 × 32 cm each</figcaption>
+        <figcaption class="label">Puppet stage · 4 timber and plexiglass frames · 110 × 80 × 32 cm each</figcaption>
       </figure>
       <div class="design__previs">
         {['previs-balloons', 'previs-curtain', 'previs-train'].map((k) => (
@@ -181,11 +181,11 @@ const Mix = body('mixed-sandwich');
   </section>
 
   <HGallery title="In the rehearsal room" kicker="01 · Mephisto For Ever" accent={C.meph[0]}
-    items={[it('mephisto-for-ever/ribbons', 'Movement work'), it('mephisto-for-ever/shadow', 'Shadow play', 'arch'), it('mephisto-for-ever/inverted', 'Inverted bodies'), it('mephisto-for-ever/ribbon-close'), it('mephisto-for-ever/rehearsal-bw'), it('mephisto-for-ever/green-screen', 'Filming for the video mapping', 'pill')]} />
+    items={[it('mephisto-for-ever/ribbons', 'Ribbons'), it('mephisto-for-ever/shadow', 'Shadow play', 'arch'), it('mephisto-for-ever/inverted', 'Inverted bodies'), it('mephisto-for-ever/ribbon-close'), it('mephisto-for-ever/rehearsal-bw'), it('mephisto-for-ever/green-screen', 'Green screen', 'pill')]} />
 
   <!-- ============================================================ 02 CITY THEATER -->
   <Frame id="in-front-of-city-theater" accent={C.city[0]} src={pic('in-front-of-city-theater/23').src} alt={pic('in-front-of-city-theater/23').alt}
-    lines={[{ t: 'Four episodes.' }, { t: 'Four witnesses.' }, { t: 'One life.', em: true }]}
+    lines={[{ t: 'Four episodes.' }, { t: 'Four narrators.' }, { t: 'One life.', em: true }]}
     box="left:5vw;top:16svh;width:38vw" align="right" shade="left" focus="50% 40%" mfocus="62% 30%"
     info={{ no: '02', title: 'In Front of City Theater', chips: chips('in-front-of-city-theater') }} infoSide="right" />
   <Story no="02" title="In Front of City Theater" lede={W['in-front-of-city-theater'].data.summary} facts={facts('in-front-of-city-theater')} credits={W['in-front-of-city-theater'].data.credits} accent={C.city[0]} container={C.city[1]}
@@ -195,7 +195,7 @@ const Mix = body('mixed-sandwich');
   <Frame accent={C.city[0]} src={pic('in-front-of-city-theater/27').src} alt={pic('in-front-of-city-theater/27').alt} tone="dark" height={2}
     lines={[{ t: 'Two actors.' }, { t: 'Two sides of' }, { t: 'one character.', em: true }]}
     box="left:48vw;top:9svh;width:36vw" size={0.54} focus="50% 40%" mfocus="55% 50%" />
-  <HGallery title="Sohrab's story, episode by episode" kicker="02 · In Front of City Theater" accent={C.city[0]}
+  <HGallery title="From the production" kicker="02 · In Front of City Theater" accent={C.city[0]}
     items={['21', '40', '29', '47', '51', '09', '62', '52', '38', '16', '44', '56'].map((n, i) => it(`in-front-of-city-theater/${n}`, undefined, i === 1 ? 'arch' : i === 8 ? 'cookie' : undefined))} />
 
   <!-- ============================================================ 03 MAID TO MARRY -->
@@ -212,7 +212,7 @@ const Mix = body('mixed-sandwich');
 
   <!-- ============================================================ 04 ASGARDIA -->
   <Frame id="asgardia" accent={C.asg[0]} src={pic('asgardia/04').src} alt={pic('asgardia/04').alt}
-    lines={[{ t: 'Six strangers.' }, { t: 'One spaceship.' }, { t: 'Adam and Eve,', em: true }, { t: 'in orbit.', em: true }]}
+    lines={[{ t: 'Six strangers.' }, { t: 'One spaceship.' }, { t: 'Adam and Eve.', em: true }]}
     box="left:57vw;top:12svh;width:38vw" shade="right" focus="50% 40%" mfocus="30% 40%"
     info={{ no: '04 — First professional production', title: 'Asgardia', chips: chips('asgardia') }} />
   <Story no="04" title="Asgardia" lede={W['asgardia'].data.summary} facts={facts('asgardia')} credits={W['asgardia'].data.credits} accent={C.asg[0]} container={C.asg[1]}
@@ -224,7 +224,7 @@ const Mix = body('mixed-sandwich');
 
   <!-- ============================================================ 05 GOOD PERSON -->
   <Frame id="the-good-person-of-szechwan" accent={C.good[0]} src={pic('the-good-person-of-szechwan/g1').src} alt={pic('the-good-person-of-szechwan/g1').alt}
-    lines={[{ t: 'A floor tuned' }, { t: 'like an', em: true }, { t: 'instrument.', em: true }]}
+    lines={[{ t: 'A wooden floor' }, { t: 'that plays', em: true }, { t: 'notes.', em: true }]}
     box="left:60vw;top:13svh;width:34vw" shade="right" focus="50% 40%" mfocus="45% 40%" height={2}
     info={{ no: '05 — Set design', title: 'The Good Person of Szechwan', chips: chips('the-good-person-of-szechwan') }} />
   <Story no="05 — Set design" title="The Good Person of Szechwan" lede={W['the-good-person-of-szechwan'].data.summary} facts={facts('the-good-person-of-szechwan')} credits={W['the-good-person-of-szechwan'].data.credits} accent={C.good[0]} container={C.good[1]}
@@ -246,8 +246,8 @@ const Mix = body('mixed-sandwich');
   <section class="bento-sec" aria-labelledby="earlier" data-accent="#15120E">
     <div class="wrap">
       <div class="sec-head rv">
-        <p class="label">{bento.length ? `${String(bento[0].data.order).padStart(2, '0')} — ${String(bento[bento.length - 1].data.order).padStart(2, '0')}` : ''}</p>
-        <h2 id="earlier" class="sec-title">Studio &amp; earlier work</h2>
+        <p class="label">{bento.length ? `${String(FEATURED.size + 1).padStart(2, '0')} — ${String(FEATURED.size + bento.length).padStart(2, '0')}` : ''}</p>
+        <h2 id="earlier" class="sec-title">More work</h2>
       </div>
       <div class="bento">
         {bento.map((w, i) => {
@@ -259,7 +259,7 @@ const Mix = body('mixed-sandwich');
             <article class:list={['bento__item', 'brutal', 'rv', `b${i}`]} id={id} style={`--acc:${col}`}>
               <figure class="bento__img"><Pic src={d.cover.src} alt={d.cover.alt} sizes="(max-width: 900px) 90vw, 40vw" widths={[600, 1000]} /></figure>
               <div class="bento__body">
-                <p class="label">{String(d.order).padStart(2, '0')} · {d.year}</p>
+                <p class="label">{String(FEATURED.size + i + 1).padStart(2, '0')} · {d.year}</p>
                 <h3 class="bento__title">{d.title}</h3>
                 <ul class="chips">{chips(id).slice(1).map((c) => <li class="chip">{c}</li>)}</ul>
                 <div class="prose prose--sm"><X /></div>
@@ -281,8 +281,8 @@ const Mix = body('mixed-sandwich');
       </figure>
       <div class="about__text rv">
         <p class="about__lede">I am a theatre director, dramaturg and video-mapping artist based in Tehran, working in postdramatic and intermedial performance.</p>
-        <p>I hold an MA in Theatre Directing from Tehran University of Art (2019–2023). My thesis studied the representation of identity in the work of Elizabeth LeCompte and The Wooster Group, and my practical thesis was <em>Maid to Marry</em>, after Eugène Ionesco. Before theatre I studied software engineering at Shahid Beheshti University, and that background still shapes the way I bring media onto the stage.</p>
-        <p>I often design the scenography of my own productions, from the pop-up-book set of <em>In Front of City Theater</em> to the modular cubes and puppet stage of <em>Mephisto For Ever</em>, and I have designed sets and media for other directors. My training includes three years of contemporary dance and choreography, an advanced playwriting course and a dramaturgy workshop at Farvardin Playwriting School, and applied theatre with Christoph Pauger. In 2015 I co-founded the Khiyal Theatre Group.</p>
+        <p>I hold an MA in Theatre Directing from Tehran University of Art (2019–2023). My thesis studied the representation of identity in the work of Elizabeth LeCompte, and my practical thesis was <em>Maid to Marry</em>, after Eugène Ionesco. I also hold a BSc in Software Engineering from Shahid Beheshti University (2013–2018); my final project there was <em>The Rock</em>, an animation based on Albert Camus's <em>The Myth of Sisyphus</em>.</p>
+        <p>I co-designed the set of <em>In Front of City Theater</em> and am designing the set of <em>Mephisto For Ever</em>. For other directors, I designed the set of <em>The Good Person of Szechwan</em> and produced the media for <em>Mixed Sandwich</em>. My training includes contemporary dance classes with Nima Hosseinzadeh (2015–2018), an advanced playwriting course and a dramaturgy workshop at Farvardin Playwriting School, and a workshop on theatre and society with Christoph Pauger. In 2015 I was a founding member of the Khiyal Theatre Group.</p>
         <ul class="chips chips--big">
           <li class="chip chip--acc">MA Theatre Directing · Tehran University of Art</li>
           <li class="chip">BSc Software Engineering · Shahid Beheshti University</li>
@@ -310,7 +310,7 @@ const Mix = body('mixed-sandwich');
             <li class="witem brutal rv">
               <div class="witem__meta"><span class="chip chip--acc">{d.type}</span><span class="label">{d.year}</span></div>
               <h3 class="witem__title">{d.title}</h3>
-              <p class="witem__sub">{[d.coauthors, d.institution, d.advisors && `Advisors: ${d.advisors}`, d.status].filter(Boolean).join(' · ')}</p>
+              <p class="witem__sub">{[d.coauthors, d.institution, d.advisors && (d.type.startsWith('Course') ? d.advisors : `Advisors: ${d.advisors}`), d.status].filter(Boolean).join(' · ')}</p>
               <div class="prose prose--sm"><X /></div>
               {d.pdf ? <a class="btn btn--ink" href={d.pdf} download>Download PDF</a> : <span class="ph">[PDF]</span>}
             </li>

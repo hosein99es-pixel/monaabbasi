@@ -8,7 +8,7 @@ roles: ["Director"]
 category: ["theatre"]
 author: "William Shakespeare"
 duration: "[DURATION]"
-summary: "Eight versions of the storm scene, each testing one directorial element."
+summary: "Eight versions of one scene, each emphasising a different directorial element."
 credits:
   - { role: "Text", name: "William Shakespeare" }
   - { role: "Direction", name: "Mohammad Hossein Eslami" }
@@ -25,8 +25,8 @@ video_url: ""
 brochure_pdf: ""
 press: []
 ---
-*King Lear* was my final project for the Advanced Directing 2 course in my MA, led by Prof. Esmaeil Shafiee. The task was to choose and stage the play's key scenes, and we centred on the storm, where Lear rages against his daughters on the heath.
+*King Lear* was my final project for the Advanced Directing 2 course in my MA, led by Prof. Esmaeil Shafiee. The task was to choose and stage the play's most important scenes; we focused on the scene in which Lear curses his own children in the barren desert.
 
 ## Director's Note
 
-With very limited resources, we made eight versions of the scene, each testing a different directorial element: light, staging, mise-en-scène. The final performance combined the strongest ideas. It taught me to pay attention to the scenes that look minor, which often hold the key to reading a play.
+With limited resources, I worked closely with the actors on different readings of the scene. We made eight versions of it, each emphasising different directorial elements such as lighting, staging and mise-en-scène, and combined the best ideas in the final performance. The project taught me to pay attention to scenes that seem minor; they often hold the key to understanding a play.

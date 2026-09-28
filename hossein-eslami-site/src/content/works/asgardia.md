@@ -12,7 +12,7 @@ summary: "Six strangers on a mission to the first nation in space."
 credits:
   - { role: "Text", name: "Mohammad Hossein Eslami & Reyhane Yazdani" }
   - { role: "Direction", name: "Mohammad Hossein Eslami" }
-  - { role: "Photography", name: "Ehsan Yousefi · [OTHER PHOTOGRAPHERS]" }
+  - { role: "Photography", name: "Maziar Shafiei" }
   - { role: "Cast & company", name: "[CREDITS]" }
 cover:
   src: "../../assets/works/asgardia/04.jpg"
@@ -51,12 +51,12 @@ video_url: ""
 brochure_pdf: ""
 press: []
 ---
-*Asgardia*, co-written with Reyhane Yazdani, takes its name from the proposed first nation in space. Six strangers from very different backgrounds are chosen by a corporation for a mission to Asgardia. Shut inside a spaceship, they collide over their own desires. Alongside this runs a mythic line drawn from the story of Adam and Eve in the Old Testament, which looks for the roots of human conflict at the beginning of existence and shows it as a cycle.
+*Asgardia*, co-written with Reyhane Yazdani, takes its name from Asgardia, the first country in space. Six characters, strangers to one another from different social backgrounds, are handpicked by a corporation for a mission to Asgardia. Inside the spaceship they face conflicts, challenges and their own desires. A parallel mythical line, drawn from the story of Adam and Eve in the Old Testament, looks for the roots of human conflict at the beginning of existence and shows human life as a cycle.
 
 ## Director's Note
 
-*Asgardia* was my first professional production as a director. There was no company when it started: we built the group from scratch, and training was part of the process. The actors brought material that we, as writers, used to structure the story. From the first workshop to the premiere, the process took fourteen months.
+*Asgardia* was my first professional production as a director. We started with only an idea and built a theatre group from scratch, through training and development. The actors and other members of the company contributed ideas, which we, as playwrights, used to structure the story. The whole process took fourteen months, from the first stages to the final performance.
 
-The structure is episodic, with two lines running in parallel. The spaceship scenes are played realistically; between them, scenes outside time and place use dance and choreography to produce a *Verfremdungseffekt*, a distancing effect.
+The structure is episodic, with two lines running in parallel. The main line, on board the spaceship, is played realistically; between its scenes, segments outside time and place use dance and choreography to create a *Verfremdungseffekt*, a distancing effect.
 
-It was a low-budget production, and managing money was as much part of the job as directing. Most of the eleven actors were performing professionally for the first time, which made it a lesson in leading a large ensemble.
+It was a low-budget production, and managing costs was one of the main challenges. Most of the eleven actors were performing professionally for the first time, which helped me develop my skills in working with a large ensemble.

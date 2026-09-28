@@ -8,12 +8,12 @@ roles: ["Director", "Co-Scene Designer"]
 category: ["theatre", "scenography"]
 author: "Salman Alighardashi"
 duration: "[DURATION]"
-summary: "Four episodes, four witnesses, one life: the story of Sohrab A'raabi."
+summary: "Four episodes, four characters close to Sohrab A'raabi, one life."
 credits:
   - { role: "Text", name: "Salman Alighardashi" }
   - { role: "Direction", name: "Mohammad Hossein Eslami" }
   - { role: "Set design", name: "Mohammad Hossein Eslami & Mohsen Khamechian" }
-  - { role: "Photography", name: "Mohammad Golmohammadi · [OTHER PHOTOGRAPHERS]" }
+  - { role: "Photography", name: "Darush Adhami, Mohammad Golmohammadi, Reza Hosseinzadeh" }
   - { role: "Cast & company", name: "[CREDITS]" }
 cover:
   src: "../../assets/works/in-front-of-city-theater/23.jpg"
@@ -147,14 +147,14 @@ video_url: ""
 brochure_pdf: ""
 press: []
 ---
-*In Front of City Theater* is based on a true story: the life of Sohrab A'raabi, who was killed during the Green Movement protests that followed Iran's 2009 presidential election. The play is built from four episodes, each told by someone close to Sohrab; together their accounts piece together what happened to him. The text, by Salman Alighardashi, draws on classical Persian literature, and above all on the myth of Rostam and Sohrab in Ferdowsi's *Shahnameh*.
+*In Front of City Theater* is based on a true story: the life of Sohrab A'raabi, a victim of the political turmoil around the Green Movement and Iran's 2009 election. The play is divided into four episodes, each centred on a different character closely connected to Sohrab; through their narratives, Sohrab's fate unfolds. The text, by Salman Alighardashi, draws on classical Persian literature, including the epic myth of Rostam and Sohrab from the *Shahnameh*.
 
 ## Director's Note
 
-The production took a year to make, with a company of fifteen, six of them actors. One episode is built around choreography drawn from my training in contemporary dance: two actors play two sides of the same character, Zohreh, Sohrab's lover, and the scene borrows from Pina Bausch's trust exercises.
+The project took a year, with a group of fifteen, six of them actors. One episode is built on choreography inspired by my contemporary dance classes: two actors play two sides of the same character, Zohreh, Sohrab's lover, and the scene draws on Pina Bausch's trust dance.
 
-Live music runs through the performance. Five pieces were composed during rehearsals, mixing alternative rock with Persian folk music. The lyrics come from Mehdi Akhavan-Sales's poetry collection *The Ending of the Shahnameh*. The music gives the story its emotional temperature and connects the episodes to one another.
+The performance uses live music. Five tracks were composed during rehearsals, blending alternative rock with Persian folk music, with lyrics taken from Mehdi Akhavan-Sales's poetry collection *The Ending of the Shahnameh*. The music was there to strengthen the dramatic impact and draw the audience into the story.
 
 ## Set
 
-I co-designed the set with Mohsen Khamechian. The starting point was the pop-up children's book: a metal structure that opens like pages, so that each scene unfolds out of it with its own objects, chapter by chapter of Sohrab's life. Designing and building it was the hardest technical problem of the production, and the one I learned most from.
+I co-designed the set with Mohsen Khamechian. We took our starting point from 3D children's books, as a way of showing the chapters of Sohrab's life unfolding: a metal structure like turning book pages, with each scene bringing out its own objects. Designing and building it was a considerable challenge, and I learned a great deal from it.

@@ -1,5 +1,5 @@
 ---
-title: "Yuri Lotman's Semiosphere in Noah Baumbach's Marriage Story"
+title: "Yuri Lotman's Semiosphere in the Film Marriage Story"
 order: 5
 type: "Course Paper · Semiotics"
 year: 2020

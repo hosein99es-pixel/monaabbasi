@@ -8,7 +8,7 @@ roles: ["Scene Designer"]
 category: ["scenography"]
 author: "Bertolt Brecht"
 duration: "[DURATION]"
-summary: "A wooden floor tuned to sound under the actors’ feet."
+summary: "A wooden floor designed to make sounds under the actors’ feet."
 credits:
   - { role: "Text", name: "Bertolt Brecht" }
   - { role: "Direction", name: "Masoud Jahandideh" }
@@ -33,6 +33,6 @@ I designed the set for Bertolt Brecht's *The Good Person of Szechwan*, directed 
 
 ## Design Note
 
-My focus was the stage floor. I built a wooden floor that made specific sounds when the actors moved on it, so that the relationship between their bodies and the ground became a kind of music. Getting the notes right depended on exactly where the floor's frame was placed, and took a lot of testing.
+My focus was the stage floor. To bring out the connection between the actors' movements and the ground, I designed a wooden floor that produced sounds when the actors moved on it in specific ways. Getting the notes we wanted depended on careful placement of the floor's frame.
 
-Scene changes were fast and happened in front of the audience, so every object had to be light enough for the actors to carry without slowing them down. Joining a production that had been in rehearsal for months also showed me the work from the performers' side.
+Scene changes were fast and happened in front of the audience, so the props had to be light and easy for the actors to carry without slowing them down. Working as set designer on a production that had been in rehearsal for months gave me, as a director, a closer understanding of the cast's perspective.

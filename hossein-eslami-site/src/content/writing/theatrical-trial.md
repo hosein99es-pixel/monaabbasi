@@ -7,6 +7,6 @@ coauthors: "with Kamran Sepehran"
 status: "Manuscript in progress"
 pdf: ""
 ---
-An article developed from the MA thesis, reading two Wooster Group productions, *The Emperor Jones* and *To You, the Birdie!*, as trials of identity on stage.
+An article co-written with Kamran Sepehran on Elizabeth LeCompte's artistic inquiry into identity in *The Emperor Jones* and *To You, the Birdie!*
 
 [ABSTRACT]

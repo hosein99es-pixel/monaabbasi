@@ -8,7 +8,7 @@ roles: ["Director"]
 category: ["theatre", "dramaturgy", "video-mapping"]
 author: "After Eugène Ionesco"
 duration: "[DURATION]"
-summary: "Three performances at once: a cyber script on monitors, the play on stage, and seven teenagers playing as themselves."
+summary: "Three performances at once: a cyber version of the script on monitors, the play on stage, and seven teenagers performing rather than acting."
 credits:
   - { role: "After", name: "Eugène Ionesco" }
   - { role: "Direction", name: "Mohammad Hossein Eslami" }
@@ -50,14 +50,14 @@ video_url: ""
 brochure_pdf: ""
 press: []
 ---
-*Maid to Marry* was my practical MA thesis in directing, supervised by Prof. Esmaeil Shafiee. It starts from Eugène Ionesco's short absurdist play about identity and adds a second subject: education.
+*Maid to Marry* was my practical MA thesis in directing, supervised by Prof. Esmaeil Shafiee. It is based on Eugène Ionesco's short absurdist play about identity; we added a second subject, education, and made our own version of the script.
 
-The dramaturgy, developed with Mehdi Sharifi, uses other texts and a set of technical devices as mediators. Three performances run at the same time: a symbolic "cyber" version of the script on monitors; the play itself on stage; and seven teenagers, performers rather than actors, who play board games and describe their day as it happens.
+The dramaturgy, developed with Mehdi Sharifi, uses other texts and technical devices as mediators. Three performances happen at the same time: a symbolic "cyber" version of the script on monitors; the play itself on stage; and seven teenagers, performers rather than actors, who play board games and narrate their day.
 
 ## Director's Note
 
-The approach came from my theoretical thesis on Elizabeth LeCompte and The Wooster Group. As in her work, the source play is treated as raw material: we staged it while bringing in entirely different material, so that the text is heard through several voices at once.
+The approach grew out of my research on Elizabeth LeCompte, the basis of my theoretical thesis. Following her methods, we staged an existing play while bringing in completely different material, which gave the original text a polyphonic telling.
 
-Everyone in the group proposed material, and anything that served the project went in. I saw my job as reshaping what came out of rehearsals rather than carrying out a plan decided in advance. It changed how I read a text, and it taught me to be sceptical of my own first ideas.
+I worked with the idea of mediation, treating the original text as raw material for the final script. Everyone in the group proposed ideas, we discussed them at length, and whatever fitted the project went in. I saw my role as reshaping the ideas that came out of rehearsals rather than holding on to a plan made in advance. It gave me a new outlook on making work, and taught me to approach first ideas with some scepticism.
 
-Much of the work was about the difference between an actor and a performer. The actors had to move between playing styles, and between dramatic and non-dramatic moments, which meant finding a shared vocabulary with them. The two main characters were each played by two actors, one live on stage and one through the screens, so every scene had to be timed between bodies and technology.
+Much of the work was about the difference between an actor and a performer: the actors played their roles in several styles, and we had to be clear about the line between dramatic and non-dramatic moments. The two main characters were played by four actors, through both the technological mediators and live scenes, which needed careful coordination between the actors and the technology.

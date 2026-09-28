@@ -48,7 +48,7 @@ gallery:
     caption: "Previs: Kurt and Nicole"
   - src: "../../assets/works/mephisto-for-ever/previs-curtain.jpg"
     alt: "3D previsualisation: a woman under a red curtain between rows of microphones"
-    caption: "Previs: Nicole"
+    caption: "Previs: Kurt and Nicole"
   - src: "../../assets/works/mephisto-for-ever/previs-train.jpg"
     alt: "3D previsualisation: a steam train beneath a station canopy"
     caption: "Previs: Kurt and Rebekka"
@@ -78,8 +78,8 @@ The production uses the carnival-like nature of a theatre company, framed as met
 
 ## Design
 
-I am also designing the set. One-metre cubes, a trussed arch and a stepped platform form a second, smaller stage inside the stage: an inner proscenium for a company that performs itself. Puppetry is one of the languages the troupe uses to perform itself; the puppet stage is a row of four frames glazed with clear plexiglass, so the puppeteers stay visible behind their puppets.
+I am also designing the set. It is built from sixteen one-metre cubes, a 4.4-metre arch beam and a stepped platform, 9.4 metres wide and 4.1 metres high overall, in pine, chicken wire and papier-mâché. The puppet stage is a row of four identical frames of timber and clear plexiglass, 4.4 metres long in all.
 
 ## Process
 
-Key sequences are blocked in 3D before they reach the rehearsal room, to test composition, light and the scale of the stage image. In rehearsal we start from the body. Ribbon and movement work, shadow play and inverted bodies are tested as ways of carrying scenes of power through image and distance rather than words.
+I previsualise key scenes in 3D. The photographs below come from rehearsals.
